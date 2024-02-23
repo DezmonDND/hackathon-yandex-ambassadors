@@ -1,0 +1,13 @@
+.searchForm {
+  display: flex;
+  max-width: 1035px;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.searchInput {
+  margin-left: 8px;
+  margin-top: 24px;
+  width: 100%;
+  height: 32px;
+}

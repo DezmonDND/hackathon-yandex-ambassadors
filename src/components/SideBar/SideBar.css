@@ -1,0 +1,13 @@
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 165px;
+  width: 100%;
+  background-color: #dddddd;
+  height: 100vh;
+  gap: 8px;
+}
+
+.sideBar__logo {
+}

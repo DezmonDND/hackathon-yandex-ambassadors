@@ -1,0 +1,7 @@
+.header__button {
+    all: unset;
+    width: 155px;
+    height: 48px;
+    background-image: url(../../images/logo.svg);
+    cursor: pointer;
+}
