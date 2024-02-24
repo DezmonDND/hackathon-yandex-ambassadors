@@ -1,7 +1,20 @@
-.header__button {
-    all: unset;
-    width: 155px;
-    height: 48px;
-    background-image: url(../../images/logo.svg);
-    cursor: pointer;
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 13.5px;
+  margin-bottom: 13.5px;
+}
+
+.user-info__avatar {
+  all: unset;
+  background-image: url(../../images/Avatar.png);
+  width: 36px;
+  height: 36px;
+  margin: 0 8px 0 0;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.user-info__email {
+  margin: 0;
 }

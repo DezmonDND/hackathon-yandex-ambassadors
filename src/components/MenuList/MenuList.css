@@ -1,11 +1,21 @@
-.list {
-  max-width: 155px;
-
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  max-width: 158px;
+  gap: 2px;
+  margin-top: 4px;
+  margin-bottom: 275px;
+  flex: 1 1 auto;
 }
 
-.list__title {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14.52px;
-  text-align: center;
+.menu__link {
+  text-decoration: none;
+  color: #9ca4dd;
+  padding: 12px 0 12px 4px;
+  border-radius: 8px;
+  background-color: #888a9726;
+}
+
+.menu__link:hover {
+  background-color: #3246ca;
 }

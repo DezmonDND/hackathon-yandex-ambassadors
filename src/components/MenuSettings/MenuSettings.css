@@ -1,9 +1,13 @@
-.settings {
-  all: unset;
-  cursor: pointer;
+.menu__settings {
+  display: flex;
+  flex-direction: column;
+  max-width: 158px;
+  gap: 12px;
+  margin-bottom: 34px;
 }
-.settings__icon {
-
-}
-.settings__name {
+.menu__link {
+  text-decoration: none;
+  color: #9ca4dd;
+  padding: 12px 0 12px 4px;
+  border-radius: 8px;
 }

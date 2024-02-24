@@ -1,11 +1,30 @@
-import './MenuSettings.css'
+import "./MenuSettings.css";
+import { NavLink } from "react-router-dom";
 
 function MenuSettings() {
   return (
-    <button className="settings">
-      <image className="settings__icon"></image>
-      <p className="settings__name">Настройки</p>
-    </button>
+    <ul className="menu__settings">
+      <NavLink
+        className="menu__link"
+        to="/history"
+        style={({ isActive }) => ({
+          backgroundColor: isActive ? "#2337B7" : "",
+          color: isActive ? "#FFFFFF" : "",
+        })}
+      >
+        История изменений
+      </NavLink>
+      <NavLink
+        className="menu__link"
+        to="/settings"
+        style={({ isActive }) => ({
+          backgroundColor: isActive ? "#2337B7" : "",
+          color: isActive ? "#FFFFFF" : "",
+        })}
+      >
+        Настройки
+      </NavLink>
+    </ul>
   );
 }
 

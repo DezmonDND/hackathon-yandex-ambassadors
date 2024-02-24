@@ -5,14 +5,12 @@ import Header from "../Header/Header";
 
 function SideBar() {
   return (
-    <nav className="sideBar">
-      <Header></Header>
-      <MenuList></MenuList>
-      <MenuList></MenuList>
-      <MenuList></MenuList>
-      <MenuList></MenuList>
-      <MenuList></MenuList>
-      <MenuSettings></MenuSettings>
+    <nav className="sidebar">
+      <div className="sidebar__container">
+        <Header></Header>
+        <MenuList></MenuList>
+        <MenuSettings></MenuSettings>
+      </div>
     </nav>
   );
 }
