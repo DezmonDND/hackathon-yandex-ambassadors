@@ -1,22 +1,62 @@
 .buttons {
-    display: flex;
-    margin-top: 24px;
-    gap: 10px;
-
+  display: flex;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
 }
 
 .button__settings {
-    all: unset;
-    background-image: url(../../images/btn_icon.svg);
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    object-position: center;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 8px;
-    background-color: #FBFBFB;
-    border: 1px solid #EBEBEB;
-    
+  all: unset;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  object-position: center;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #1d6bf3;
+  color: #1d6bf3;
+}
+
+.button__delete {
+  width: 155px;
+  color: #ff0200;
+  border: 1px solid #ff0200;
+}
+
+.button__clear {
+  width: 132px;
+}
+.button__export {
+  width: 132px;
+}
+.button__minus {
+  background-image: url(../../images/btn_icon_-.svg);
+}
+.button__plus {
+  background-image: url(../../images/btn_icon_+.svg);
+}
+.button__gear {
+  background-image: url(../../images/btn_icon_gear.svg);
+}
+.button__sheet {
+  background-image: url(../../images/btn_icon_sheet.svg);
+}
+.button__year {
+  background-image: url(../../images/btn_icon_year.svg);
+  width: 73px;
+
+  border: none;
+}
+
+.button__arrows {
+  background-image: url(../../images/btn_icon_arrows.png);
+}
+
+.button__pencil {
+  background-image: url(../../images/btn_icon_pencil.svg);
 }

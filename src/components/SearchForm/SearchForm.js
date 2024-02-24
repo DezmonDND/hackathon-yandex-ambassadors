@@ -2,8 +2,9 @@ import "./SearchForm.css";
 
 function SearchForm() {
   return (
-    <form className="searchForm">
-      <input className="searchInput"></input>
+    <form className="search">
+      <button className="search__button" type="submit"></button>
+      <input className="search__input" placeholder="Поиск"></input>
     </form>
   );
 }
