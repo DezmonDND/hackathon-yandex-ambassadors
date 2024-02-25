@@ -7,6 +7,16 @@ export const USERS = [
     userProgramm: "Продакт — менеджер для специалистов с опытом",
     userCountry: "Россия",
     userCity: "Москва",
+    userTelegram: "@tgnickname",
+    userPromocode: "samplepromocode13",
+    userSendMerch: "Доступно: 2/2",
+    userFeedback: "http://www.company.com",
+    userHabr: "http://www.company.com",
+    userCurator: "Анастасия Борисова",
+    userMerch: "Позиция 1, Позиция 2",
+    userHudiSize: "S",
+    userSocksSize: "M",
+    userIndex: "112233",
   },
   {
     userStatus: "уточняется",
@@ -16,6 +26,16 @@ export const USERS = [
     userProgramm: "Продакт — менеджер для специалистов с опытом",
     userCountry: "Россия",
     userCity: "Москва",
+    userTelegram: "@tgnickname",
+    userPromocode: "samplepromocode13",
+    userSendMerch: "Доступно: 2/2",
+    userFeedback: "http://www.company.com",
+    userHabr: "http://www.company.com",
+    userCurator: "Анастасия Борисова",
+    userMerch: "Позиция 1, Позиция 2",
+    userHudiSize: "S",
+    userSocksSize: "M",
+    userIndex: "112233",
   },
   {
     userStatus: "на паузе",
@@ -25,6 +45,16 @@ export const USERS = [
     userProgramm: "Продакт — менеджер для специалистов с опытом",
     userCountry: "Россия",
     userCity: "Москва",
+    userTelegram: "@tgnickname",
+    userPromocode: "samplepromocode13",
+    userSendMerch: "Доступно: 2/2",
+    userFeedback: "http://www.company.com",
+    userHabr: "http://www.company.com",
+    userCurator: "Анастасия Борисова",
+    userMerch: "Позиция 1, Позиция 2",
+    userHudiSize: "S",
+    userSocksSize: "M",
+    userIndex: "112233",
   },
   {
     userStatus: "не амбассадор",
@@ -34,5 +64,74 @@ export const USERS = [
     userProgramm: "Продакт — менеджер для специалистов с опытом",
     userCountry: "Россия",
     userCity: "Москва",
+    userTelegram: "@tgnickname",
+    userPromocode: "samplepromocode13",
+    userSendMerch: "Доступно: 2/2",
+    userFeedback: "http://www.company.com",
+    userHabr: "http://www.company.com",
+    userCurator: "Анастасия Борисова",
+    userMerch: "Позиция 1, Позиция 2",
+    userHudiSize: "S",
+    userSocksSize: "M",
+    userIndex: "112233",
   },
+];
+
+export const PROMOCODES_DATA = [
+  { label: "Статус", data: "userStatus" },
+  { label: "ID", data: "userId" },
+  { label: "Дата", data: "userDate" },
+  { label: "ФИО", data: "userName" },
+  { label: "Telegram", data: "userTelegram" },
+  { label: "Промокод", data: "userPromocode" },
+];
+
+export const ambassadorsData = [
+  { label: "Статус", data: "userStatus" },
+  { label: "ID", data: "userId" },
+  { label: "Дата", data: "userDate" },
+  { label: "ФИО", data: "userName" },
+  { label: "Программа", data: "userProgramm" },
+  { label: "Страна", data: "userCountry" },
+  { label: "Город", data: "userCity" },
+];
+
+export const CONTENT_DATA = [
+  { label: "ID", data: "userId" },
+  { label: "Отправка мерча", data: "userSendMerch" },
+  { label: "Статус", data: "userStatus" },
+  { label: "ФИО", data: "userName" },
+  { label: "Telegram", data: "userTelegram" },
+  { label: "Отзыв", data: "userFeedback" },
+  { label: "Хабр", data: "userHabr" },
+];
+
+export const SEND_MERCH_DATA = [
+  { label: "ID", data: "userId" },
+  { label: "Куратор", data: "userCurator" },
+  { label: "Мерч", data: "userMerch" },
+  { label: "Размер толстовки", data: "userHudiSize" },
+  { label: "Размер носков", data: "userSocksSize" },
+  { label: "ФИО", data: "userName" },
+  { label: "Индекс", data: "userIndex" },
+];
+
+export const budgetData = [
+  { label: "Статус", data: "userStatus" },
+  { label: "ID", data: "userId" },
+  { label: "Дата", data: "userDate" },
+  { label: "ФИО", data: "userName" },
+  { label: "Программа", data: "userProgramm" },
+  { label: "Страна", data: "userCountry" },
+  { label: "Город", data: "userCity" },
+];
+
+export const loyaltiProgrammData = [
+  { label: "Статус", data: "userStatus" },
+  { label: "ID", data: "userId" },
+  { label: "Дата", data: "userDate" },
+  { label: "ФИО", data: "userName" },
+  { label: "Программа", data: "userProgramm" },
+  { label: "Страна", data: "userCountry" },
+  { label: "Город", data: "userCity" },
 ];
