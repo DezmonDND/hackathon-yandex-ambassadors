@@ -11,22 +11,22 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import "../Tabs/Tabs.css";
-import { LOYALTI_PROGRAMM_DATA, USERS } from "../utils/constants";
+import { BUDGET_PRICE, USERS } from "../utils/constants";
 
-export default function Loyalti(props) {
+export default function BudgetPrice(props) {
   const [users, setUsers] = useState(USERS);
   // let USERS = [],
   // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
 
   return (
     <TableContainer component={Paper} className="tableContainer">
+      {" "}
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            {LOYALTI_PROGRAMM_DATA.map((cell) => (
+            {BUDGET_PRICE.map((cell) => (
               <TableCell
-                className="table__header_cell"
-                align="center"
+                className="table__header_cell_id table__header_cell"
                 key={cell.data}
               >
                 <Typography className="table__header_cell">
@@ -42,46 +42,33 @@ export default function Loyalti(props) {
               <TableCell>
                 <Grid container>
                   <Grid item lg={10}>
-                    <Typography>{row.userId}</Typography>
+                    <Typography textAlign={"center"} style={{ width: "40px" }}>
+                      {row.userId}
+                    </Typography>
                   </Grid>
                 </Grid>
               </TableCell>
               <TableCell>
                 <Typography
+                  textAlign={"left"}
                   style={{
                     color: "#1d6bf3",
+                    width: "792px",
                   }}
                 >
-                  {row.userName}
+                  {row.userMerchName}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography
-                  textAlign={"center"}
+                  textAlign={"left"}
                   style={{
                     borderBottom: "none",
+                    width: "340px",
                   }}
                 >
-                  {row.userHudi}
+                  {row.userMerchPrice}
                 </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userCoffee}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userSticker}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userPlus}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userArzamas}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userShopper}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography textAlign={"center"}>{row.userBackpack}</Typography>
               </TableCell>
             </TableRow>
           ))}
