@@ -1,0 +1,38 @@
+export const USERS = [
+  {
+    userStatus: "активный",
+    userId: "1",
+    userDate: "Дата",
+    userName: "Иванов Иван Иванович",
+    userProgramm: "Продакт — менеджер для специалистов с опытом",
+    userCountry: "Россия",
+    userCity: "Москва",
+  },
+  {
+    userStatus: "уточняется",
+    userId: "2",
+    userDate: "Дата",
+    userName: "Иванов Иван Иванович",
+    userProgramm: "Продакт — менеджер для специалистов с опытом",
+    userCountry: "Россия",
+    userCity: "Москва",
+  },
+  {
+    userStatus: "на паузе",
+    userId: "3",
+    userDate: "Дата",
+    userName: "Иванов Иван Иванович",
+    userProgramm: "Продакт — менеджер для специалистов с опытом",
+    userCountry: "Россия",
+    userCity: "Москва",
+  },
+  {
+    userStatus: "не амбассадор",
+    userId: "4",
+    userDate: "Дата",
+    userName: "Иванов Иван Иванович",
+    userProgramm: "Продакт — менеджер для специалистов с опытом",
+    userCountry: "Россия",
+    userCity: "Москва",
+  },
+];

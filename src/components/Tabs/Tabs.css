@@ -1,4 +1,44 @@
 .tabs {
-    margin: auto;
-    text-align: center;
+  display: flex;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.table__header_cell {
+  background-color: #dde0e4;
+  color: #1a1b22;
+  font-weight: "500";
+  font-size: "14px";
+  line-height: "20px";
+}
+.table__user-name {
+  color: #1d6bf3;
+  border-bottom: 1px solid #1d6bf3;
+}
+
+.table__user-programm {
+  outline: 1px solid #8e8e8e;
+  border-radius: 4px;
+}
+
+.table__status {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+  border-radius: 4px;
+  display: inline-block;
+  text-align: center;
+}
+.table__user-programm:hover {
+  cursor: pointer;
+}
+.center {
+  text-align: center;
 }
