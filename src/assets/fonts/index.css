@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "YS Text";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("YandexSansText-Regular.woff2") format("woff2"),
+    url("YandexSansText-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "YS Text";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("YandexSansText-Medium.woff2") format("woff2"),
+    url("YandexSansText-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: "YS Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("YandexSansDisplay-Regular.woff2") format("woff2"),
+    url("YandexSansDisplay-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "YS Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("YandexSansDisplay-Bold.woff2") format("woff2"),
+    url("YandexSansDisplay-Bold.woff") format("woff");
+}
