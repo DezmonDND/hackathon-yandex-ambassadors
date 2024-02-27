@@ -72,5 +72,4 @@
 [data-field="userStatus"]:not([role="columnheader"])
   > div[title="не амбассадор"] {
   background-color: #ea7e7e;
-  align-items: center;
 }
