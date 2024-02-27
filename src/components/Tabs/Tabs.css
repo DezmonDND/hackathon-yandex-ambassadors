@@ -54,3 +54,23 @@
 .table__sort-icon {
   background-image: url(../../images/sort_icon.svg);
 }
+[data-field="userStatus"]:not([role="columnheader"]) > div {
+  padding: 3px 0px;
+  width: 128px;
+  border-radius: 4px;
+  color: #fff;
+}
+[data-field="userStatus"]:not([role="columnheader"]) > div[title="активный"] {
+  background-color: #87cc9e;
+}
+[data-field="userStatus"]:not([role="columnheader"]) > div[title="уточняется"] {
+  background-color: #ffce92;
+}
+[data-field="userStatus"]:not([role="columnheader"]) > div[title="на паузе"] {
+  background-color: #7f67d2;
+}
+[data-field="userStatus"]:not([role="columnheader"])
+  > div[title="не амбассадор"] {
+  background-color: #ea7e7e;
+  align-items: center;
+}
