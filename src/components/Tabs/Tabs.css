@@ -50,3 +50,7 @@
 .center {
   text-align: center;
 }
+
+.table__sort-icon {
+  background-image: url(../../images/sort_icon.svg);
+}

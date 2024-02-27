@@ -2,7 +2,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import SearchBlock from "../SearchBlock/SearchBlock";
 import Tabs from "../Tabs/Tabs";
 import "./AmbassadorsPage.css";
-import BudgetPrice from "../Tables/BudgetPrice";
 
 function AmbassadorsPage() {
   const { pathname } = useLocation();
