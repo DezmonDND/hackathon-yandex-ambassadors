@@ -13,7 +13,14 @@ import { useState } from "react";
 import "../Tabs/Tabs.css";
 import { BUDGET_DATA, USERS } from "../utils/constants";
 
-export default function SendMerch(props) {
+export default function SendMerch({
+  rowData,
+  selected,
+  orderDirection,
+  handleSortRequest,
+  handleCheckboxClick,
+  handleSelectAllClick,
+}) {
   const [users, setUsers] = useState(USERS);
   // let USERS = [],
   // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
