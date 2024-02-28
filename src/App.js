@@ -1,17 +1,17 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { USERS } from "../mocks/users-data";
-import SideBar from "../components/SideBar/SideBar";
-import Login from "../components/Login/Login";
-import Promocodes from "../components/Tables/Promocodes";
-import Ambassadors from "../components/Tables/Ambassadors";
-import Content from "../components/Tables/Content";
-import SendMerch from "../components/Tables/SendMerch";
-import Budget from "../components/Tables/Budget";
-import BudgetPrice from "../components/Tables/BudgetPrice";
-import Loyalti from "../components/Tables/Loyalti";
-import FAQ from "../components/Tables/FAQ";
+import { USERS } from "./mocks/users-data";
+import SideBar from "./components/SideBar/SideBar";
+import Login from "./pages/Login";
+import Promocodes from "./pages/Promocodes";
+import Ambassadors from "./pages/Ambassadors";
+import Content from "./pages/Content";
+import SendMerch from "./pages/SendMerch";
+import Budget from "./pages/Budget";
+import BudgetPrice from "./pages/BudgetPrice";
+import Loyalti from "./pages/Loyalti";
+import FAQ from "./pages/FAQ";
 
 
 const theme = createTheme({
@@ -29,7 +29,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/" element={<Navigate to="promocodes" replace />} />
+          <Route path="/" element={<Navigate to="/promocodes" replace />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/promocodes" element={<Promocodes rowData={rowData} />} />
           <Route path="/ambassadors" element={<Ambassadors rowData={rowData} />} />
@@ -40,6 +40,7 @@ function App() {
           <Route path="/budget/price" element={<BudgetPrice />} />
           <Route path="/loyalty-programm" element={<Loyalti />} /> */}
           <Route path="/faq" element={<FAQ />} />
+          {/* TODO: добавить страницу 404 */}
         </Routes>
       </ThemeProvider>
     </>

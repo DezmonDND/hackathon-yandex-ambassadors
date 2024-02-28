@@ -12,7 +12,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import filterIcon from "@mui/icons-material/UnfoldMore";
-import "../Tabs/Tabs.css";
+
 
 export default function BudgetPrice({
   rowData,

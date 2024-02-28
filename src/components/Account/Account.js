@@ -1,6 +1,6 @@
-import "./Header.css";
+import "./Account.css";
 
-function Header() {
+function Account() {
   return (
     <div className="user-info">
       <button className="user-info__avatar"></button>
@@ -9,4 +9,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Account;

@@ -1,4 +1,4 @@
-import Layout from "../../layouts/default"
+import Layout from "../layouts/default"
 function FAQ() {
   return (
     <Layout>
