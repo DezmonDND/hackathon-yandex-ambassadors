@@ -3,7 +3,7 @@
   flex-direction: column;
   max-width: 158px;
   gap: 12px;
-  margin-bottom: 34px;
+  margin-top: auto;
 }
 .menu__link {
   text-decoration: none;
