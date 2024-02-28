@@ -167,13 +167,6 @@ function Tabs() {
       {pathname.includes("/promocodes") && (
         <Promocodes
           rowData={rowData}
-          selected={selected}
-          orderDirection={orderDirection}
-          handleSortRequest={handleSortRequest}
-          handleCheckboxClick={handleCheckboxClick}
-          handleSelectAllClick={handleSelectAllClick}
-          handleSortRequestByName={handleSortRequestByName}
-          handleSortRequestByDate={handleSortRequestByDate}
         ></Promocodes>
       )}
       {pathname.includes("/ambassadors") && (
