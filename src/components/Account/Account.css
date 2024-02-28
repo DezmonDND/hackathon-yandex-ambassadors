@@ -7,7 +7,7 @@
 
 .user-info__avatar {
   all: unset;
-  background-image: url(../../images/Avatar.png);
+  background-image: url(../../assets/images/Avatar.png);
   width: 36px;
   height: 36px;
   margin: 0 8px 0 0;

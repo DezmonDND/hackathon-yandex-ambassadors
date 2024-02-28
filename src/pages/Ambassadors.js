@@ -81,7 +81,7 @@ export default function Ambassodors({
               minWidth: '100%'
             },
             '& .MuiDataGrid-sortIcon': {
-              backgroundImage: 'url("../../images/sort_icon.svg")',
+              backgroundImage: 'url("../../assets/images/sort_icon.svg")',
             },
           }}
           checkboxSelection

@@ -35,28 +35,28 @@
   width: 132px;
 }
 .button__minus {
-  background-image: url(../../images/btn_icon_-.svg);
+  background-image: url(../../assets/images/btn_icon_-.svg);
 }
 .button__plus {
-  background-image: url(../../images/btn_icon_+.svg);
+  background-image: url(../../assets/images/btn_icon_+.svg);
 }
 .button__gear {
-  background-image: url(../../images/btn_icon_gear.svg);
+  background-image: url(../../assets/images/btn_icon_gear.svg);
 }
 .button__sheet {
-  background-image: url(../../images/btn_icon_sheet.svg);
+  background-image: url(../../assets/images/btn_icon_sheet.svg);
 }
 .button__year {
-  background-image: url(../../images/btn_icon_year.svg);
+  background-image: url(../../assets/images/btn_icon_year.svg);
   width: 73px;
 
   border: none;
 }
 
 .button__arrows {
-  background-image: url(../../images/btn_icon_arrows.png);
+  background-image: url(../../assets/images/btn_icon_arrows.png);
 }
 
 .button__pencil {
-  background-image: url(../../images/btn_icon_pencil.svg);
+  background-image: url(../../assets/images/btn_icon_pencil.svg);
 }
