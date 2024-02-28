@@ -1,4 +1,4 @@
-import "../Tabs/Tabs.css";
+
 import {
   Table,
   TableBody,
@@ -14,23 +14,24 @@ import {
 } from "@mui/material";
 import filterIcon from "@mui/icons-material/UnfoldMore";
 
-export default function Ambassodors({
+export default function Loyalti({
   rowData,
   selected,
   orderDirection,
-  handleSortRequestBySendMerch,
   handleSortRequestByName,
-  handleSortRequestByTelegram,
-  handleSortRequestByFeedback,
-  handleSortRequestByHabr,
+  handleSortRequestByHudi,
+  handleSortRequestByCoffee,
+  handleSortRequestBySticker,
+  handleSortRequestByPlus,
+  handleSortRequestByArzamas,
+  handleSortRequestByShopper,
+  handleSortRequestByBackpack,
   handleCheckboxClick,
   handleSelectAllClick,
 }) {
-  // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
-
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="Таблица Контент">
+      <Table aria-label="Таблица Программа лояльности">
         <TableHead>
           <TableRow>
             <TableCell className="table__header_cell">
@@ -49,24 +50,6 @@ export default function Ambassodors({
             </TableCell>
             <TableCell
               align="center"
-              onClick={handleSortRequestBySendMerch}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Отправка мерча
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell align="center" className="table__header_cell">
-              <Typography className="table__header_cell">Статус</Typography>
-            </TableCell>
-            <TableCell
-              align="center"
               onClick={handleSortRequestByName}
               className="table__header_cell_id table__header_cell"
             >
@@ -82,7 +65,7 @@ export default function Ambassodors({
             </TableCell>
             <TableCell
               align="center"
-              onClick={handleSortRequestByTelegram}
+              onClick={handleSortRequestByHudi}
               className="table__header_cell_id table__header_cell"
             >
               <Typography className="table__header_cell">
@@ -91,13 +74,13 @@ export default function Ambassodors({
                   direction={orderDirection}
                   IconComponent={filterIcon}
                 >
-                  Telegram
+                  Толстовка
                 </TableSortLabel>
               </Typography>
             </TableCell>
             <TableCell
               align="center"
-              onClick={handleSortRequestByFeedback}
+              onClick={handleSortRequestByCoffee}
               className="table__header_cell_id table__header_cell"
             >
               <Typography className="table__header_cell">
@@ -106,13 +89,13 @@ export default function Ambassodors({
                   direction={orderDirection}
                   IconComponent={filterIcon}
                 >
-                  Отзыв
+                  Кофе
                 </TableSortLabel>
               </Typography>
             </TableCell>
             <TableCell
               align="center"
-              onClick={handleSortRequestByHabr}
+              onClick={handleSortRequestBySticker}
               className="table__header_cell_id table__header_cell"
             >
               <Typography className="table__header_cell">
@@ -121,7 +104,67 @@ export default function Ambassodors({
                   direction={orderDirection}
                   IconComponent={filterIcon}
                 >
-                  Хабр
+                  Стикеры
+                </TableSortLabel>
+              </Typography>
+            </TableCell>
+            <TableCell
+              align="center"
+              onClick={handleSortRequestByPlus}
+              className="table__header_cell_id table__header_cell"
+            >
+              <Typography className="table__header_cell">
+                <TableSortLabel
+                  active={true}
+                  direction={orderDirection}
+                  IconComponent={filterIcon}
+                >
+                  Плюс
+                </TableSortLabel>
+              </Typography>
+            </TableCell>
+            <TableCell
+              align="center"
+              onClick={handleSortRequestByArzamas}
+              className="table__header_cell_id table__header_cell"
+            >
+              <Typography className="table__header_cell">
+                <TableSortLabel
+                  active={true}
+                  direction={orderDirection}
+                  IconComponent={filterIcon}
+                >
+                  Арзамас
+                </TableSortLabel>
+              </Typography>
+            </TableCell>
+            <TableCell
+              align="center"
+              onClick={handleSortRequestByShopper}
+              className="table__header_cell_id table__header_cell"
+            >
+              <Typography className="table__header_cell">
+                <TableSortLabel
+                  active={true}
+                  direction={orderDirection}
+                  IconComponent={filterIcon}
+                >
+                  Шоппер
+                </TableSortLabel>
+              </Typography>
+            </TableCell>
+            <TableCell
+              align="center"
+              onClick={handleSortRequestByBackpack}
+              className="table__header_cell_id table__header_cell"
+            >
+              <Typography className="table__header_cell">
+                <TableSortLabel
+                  active={true}
+                  direction={orderDirection}
+                  IconComponent={filterIcon}
+                >
+                  Рюкзак
                 </TableSortLabel>
               </Typography>
             </TableCell>
@@ -141,52 +184,14 @@ export default function Ambassodors({
                 <TableCell>
                   <Grid container>
                     <Grid item lg={10}>
-                      <Typography
-                        textAlign={"center"}
-                      >
-                        {row.userId}
-                      </Typography>
+                      <Typography>{row.userId}</Typography>
                     </Grid>
                   </Grid>
                 </TableCell>
                 <TableCell>
                   <Typography
-                    textAlign={"center"}
                     style={{
                       color: "#1d6bf3",
-                      width: "162px",
-                    }}
-                  >
-                    {row.userSendMerch}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item lg={9}>
-                      <Typography
-                        className="table__status"
-                        style={{
-                          padding: "3px 0",
-                          width: "128px",
-                          backgroundColor:
-                            (row.userStatus === "активный" && "#87CC9E") ||
-                            (row.userStatus === "уточняется" && "#FFCE92") ||
-                            (row.userStatus === "на паузе" && "#7F67D2") ||
-                            (row.userStatus === "не амбассадор" && "#EA7E7E"),
-                        }}
-                      >
-                        {row.userStatus}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    className="table__user-name"
-                    style={{
-                      width: "182px",
-                      borderBottom: "none",
                     }}
                   >
                     {row.userName}
@@ -196,32 +201,36 @@ export default function Ambassodors({
                   <Typography
                     textAlign={"center"}
                     style={{
-                      width: "182px",
+                      borderBottom: "none",
                     }}
                   >
-                    {row.userTelegram}
+                    {row.userHudi}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "182px",
-                    }}
-                  >
-                    {row.userFeedback}
+                  <Typography textAlign={"center"}>{row.userCoffee}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography textAlign={"center"}>
+                    {row.userSticker}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "182px",
-                    }}
-                  >
-                    {row.userHabr}
+                  <Typography textAlign={"center"}>{row.userPlus}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography textAlign={"center"}>
+                    {row.userArzamas}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography textAlign={"center"}>
+                    {row.userShopper}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography textAlign={"center"}>
+                    {row.userBackpack}
                   </Typography>
                 </TableCell>
               </TableRow>

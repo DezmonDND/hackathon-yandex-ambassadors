@@ -11,8 +11,8 @@ import {
   Grid,
 } from "@mui/material";
 import { useState } from "react";
-import "../Tabs/Tabs.css";
-import { BUDGET_DATA, USERS } from "../../mocks/users-data";
+
+import { BUDGET_DATA, USERS } from "../mocks/users-data";
 
 export default function SendMerch({
   rowData,

@@ -1,4 +1,4 @@
-import "../Tabs/Tabs.css";
+
 import {
   Table,
   TableBody,

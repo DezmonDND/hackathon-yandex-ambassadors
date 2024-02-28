@@ -1,8 +1,8 @@
-import "../Tabs/Tabs.css";
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import Layout from "../../layouts/default"
+import Layout from "../layouts/default"
 
 const columns = [
   {

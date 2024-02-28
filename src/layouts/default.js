@@ -1,10 +1,14 @@
+import SearchBlock from "../components/SearchBlock/SearchBlock"
 import SideBar from "../components/SideBar/SideBar";
 
 function Layout({ children }) {
   return (
     <main className="main">
       <SideBar></SideBar>
-      {children}
+      <section>
+        <SearchBlock />
+        {children}
+      </section>
     </main>
   );
 }
