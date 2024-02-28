@@ -1,3 +1,4 @@
+// TODO:сюда вставить BudgetTabs
 import {
   Table,
   TableBody,
@@ -11,7 +12,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import "../Tabs/Tabs.css";
-import { BUDGET_DATA, USERS } from "../utils/constants";
+import { BUDGET_DATA, USERS } from "../../mocks/users-data";
 
 export default function SendMerch({
   rowData,

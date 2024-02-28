@@ -59,6 +59,7 @@
   width: 128px;
   border-radius: 4px;
   color: #fff;
+  text-align: center;
 }
 [data-field="userStatus"]:not([role="columnheader"]) > div[title="активный"] {
   background-color: #87cc9e;
