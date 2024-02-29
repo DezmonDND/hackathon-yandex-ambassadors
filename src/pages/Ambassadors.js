@@ -1,87 +1,96 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Layout from "../layouts/default";
+import {
+  DataGrid,
+  GridColumnMenu,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
+import {
+  ClearButton,
+  DeleteButton,
+  MinusButton,
+  PencilButton,
+  PlusButton,
+  SettingsButton,
+  SortButton,
+} from "../components/Buttons/Buttons";
+import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
 
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import Layout from "../layouts/default"
+function MenuButtons(props) {
+  return (
+    <>
+      <SortButton></SortButton>
+      <SettingsButton></SettingsButton>
+      <PencilButton></PencilButton>
+      <PlusButton></PlusButton>
+      <MinusButton></MinusButton>
+      <ClearButton> </ClearButton>
+      <DeleteButton></DeleteButton>
+    </>
+  );
+}
 
-const columns = [
-  {
-    field: 'userStatus',
-    headerName: 'Статус',
-    width: 140,
-    editable: true,
-  },
-  { field: 'id', headerName: 'ID', width: 90, type: 'number', sortable: false },
-  {
-    field: 'userDate',
-    headerName: ' Дата',
-    width: 120,
-    editable: true,
-  },
-  {
-    field: 'userName',
-    headerName: 'ФИО',
-    width: 220,
-    editable: true,
-  },
-  {
-    field: 'userProgramm',
-    headerName: 'Программа',
-    editable: true,
-    width: 400
-  },
-  {
-    field: 'userCountry',
-    headerName: 'Страна',
-    editable: true,
-    width: 120
-  },
-  {
-    field: 'userCity',
-    headerName: 'Город',
-    editable: true,
-    width: 120
-  },
-  {
-    field: 'userHabr',
-    headerName: 'Хабр',
-    sortable: false,
-    width: 220
-  },
-  {
-    field: 'userTelegram',
-    headerName: 'Telegram',
-    sortable: false,
-    width: 200
-  },
-  {
-    field: 'userPromocode',
-    headerName: 'Промокод',
-    sortable: false,
-    width: 220
-  },
-];
+function CustomColumnMenu(props) {
+  return (
+    <GridColumnMenu
+      {...props}
+      slots={{
+        columnMenuColumnsItem: null,
+      }}
+    />
+  );
+}
 
-export default function Ambassodors({
-  rowData
-}) {
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarQuickFilter
+        InputProps={{ disableUnderline: true }}
+        placeholder="Поиск"
+        sx={{
+          ".MuiInputBase-root": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "8px",
+            paddingLeft: "8px",
+            paddingBottom: 0,
+          },
+          maxWidth: "687px",
+          width: "100%",
+        }}
+      ></GridToolbarQuickFilter>
+      <MenuButtons></MenuButtons>
+    </GridToolbarContainer>
+  );
+}
+export default function Promocodes({ rowData }) {
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map(row => ({
+  const rows = rowData.map((row) => ({
     ...row,
-    id: row.userId
+    id: row.userId,
   }));
+
   return (
     <Layout>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={rows}
-          columns={columns}
-          sx={{
-            '.MuiDataGrid-columnHeaders': {
-              backgroundColor: '#F9FAFB',
-              minWidth: '100%'
+          hideFooter={true}
+          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
             },
-            '& .MuiDataGrid-sortIcon': {
-              backgroundImage: 'url("../../assets/images/sort_icon.svg")',
+          }}
+          localeText={{
+            toolbarExport: "Экспортировать",
+          }}
+          rows={rows}
+          columns={AMBASSADORS_COLUMNS}
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F9FAFB",
+              minWidth: "100%",
             },
           }}
           checkboxSelection

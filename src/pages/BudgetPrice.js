@@ -1,124 +1,104 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Layout from "../layouts/default";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-  Grid,
-  Checkbox,
-  TableSortLabel,
-} from "@mui/material";
-import filterIcon from "@mui/icons-material/UnfoldMore";
+  DataGrid,
+  GridColumnMenu,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
+import { ClearButton, UploadButton } from "../components/Buttons/Buttons";
+import { BUDGET_PRICE_COLUMN } from "../mocks/users-data";
 
+function MenuButtons(props) {
+  return (
+    <>
+      <UploadButton></UploadButton>
+      <ClearButton> </ClearButton>
+    </>
+  );
+}
 
-export default function BudgetPrice({
-  rowData,
-  selected,
-  orderDirection,
-  handleSortRequest,
-  handleCheckboxClick,
-  handleSelectAllClick,
-}) {
-  // let USERS = [],
-  // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
+function CustomColumnMenu(props) {
+  return (
+    <GridColumnMenu
+      {...props}
+      slots={{
+        columnMenuColumnsItem: null,
+      }}
+    />
+  );
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarQuickFilter
+        InputProps={{ disableUnderline: true }}
+        placeholder="Поиск"
+        sx={{
+          ".MuiInputBase-root": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "8px",
+            paddingLeft: "8px",
+            paddingBottom: 0,
+          },
+          maxWidth: "880px",
+          width: "100%",
+        }}
+      ></GridToolbarQuickFilter>
+      <MenuButtons></MenuButtons>
+      <GridToolbarExport
+        startIcon={false}
+        sx={{
+          color: "#1d6bf3",
+          border: "1px solid #1d6bf3",
+          width: "132px",
+          height: "34px",
+          fontWeight: "400",
+          padding: "0",
+          fontSize: "14px",
+          textTransform: "none",
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
+export default function Promocodes({ rowData }) {
+  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
+  const rows = rowData.map((row) => ({
+    ...row,
+    id: row.userId,
+  }));
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className="table__header_cell" padding="ckeckbox">
-              <Typography>
-                <Checkbox
-                  indeterminate={
-                    selected.length > 0 && selected.length < rowData.length
-                  }
-                  checked={selected.length === rowData.length}
-                  onChange={handleSelectAllClick}
-                ></Checkbox>
-              </Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">ID</Typography>
-            </TableCell>
-            <TableCell
-              onClick={handleSortRequest}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Мерч
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell className="table__header_cell_id table__header_cell">
-              <Typography className="table__header_cell">
-                <TableSortLabel IconComponent={filterIcon}>
-                  Стоимость
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rowData.map((row, i) => {
-            const isItemSelected = selected.indexOf(row.userId) !== -1;
-            return (
-              <TableRow key={row.id}>
-                <TableCell align="center" padding="checkbox">
-                  <Checkbox
-                    checked={isItemSelected}
-                    onClick={() => handleCheckboxClick(row)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item lg={10}>
-                      <Typography
-                        textAlign={"center"}
-                        style={{ width: "40px" }}
-                      >
-                        {row.userId}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"left"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "792px",
-                    }}
-                  >
-                    {row.userMerchName}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"left"}
-                    style={{
-                      borderBottom: "none",
-                      width: "340px",
-                    }}
-                  >
-                    {row.userMerchPrice}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Layout>
+      <Box sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          hideFooter={true}
+          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+          localeText={{
+            toolbarExport: "Экспортировать",
+          }}
+          rows={rows}
+          columns={BUDGET_PRICE_COLUMN}
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F9FAFB",
+              minWidth: "100%",
+            },
+          }}
+          checkboxSelection
+          disableRowSelectionOnClick
+          disableColumnMenu
+        />
+      </Box>
+    </Layout>
   );
 }

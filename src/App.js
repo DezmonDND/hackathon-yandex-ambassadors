@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { USERS } from "./mocks/users-data";
 import SideBar from "./components/SideBar/SideBar";
 import Login from "./pages/Login/Login";
@@ -12,15 +12,11 @@ import Budget from "./pages/Budget";
 import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ";
-
+import BudgetTabs from "./components/BudgetTabs/BudgetTabs";
 
 const theme = createTheme({
   typography: {
-    fontFamily: [
-      'YS Text',
-      'Arial',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ["YS Text", "Arial", "sans-serif"].join(","),
   },
 });
 function App() {
@@ -31,14 +27,26 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/promocodes" replace />} />
           <Route path="/signin" element={<Login />} />
-          <Route path="/promocodes" element={<Promocodes rowData={rowData} />} />
-          <Route path="/ambassadors" element={<Ambassadors rowData={rowData} />} />
-          {/* TODO: доделать ротеры как выше */}
-          {/* <Route path="/content" element={<Content />} />
-          <Route path="/send-merch" element={<SendMerch />} />
-          <Route path="/budget/info" element={<Budget />} />
-          <Route path="/budget/price" element={<BudgetPrice />} />
-          <Route path="/loyalty-programm" element={<Loyalti />} /> */}
+          <Route
+            path="/promocodes"
+            element={<Promocodes rowData={rowData} />}
+          />
+          <Route
+            path="/ambassadors"
+            element={<Ambassadors rowData={rowData} />}
+          />
+          <Route path="/content" element={<Content rowData={rowData} />} />
+          <Route path="/send-merch" element={<SendMerch rowData={rowData} />} />
+          <Route path="/budget" element={<Budget rowData={rowData} />} />
+          {/* <Route path="/budget/info" element={<Budget rowData={rowData} />} /> */}
+          <Route
+            path="/budget-price"
+            element={<BudgetPrice rowData={rowData} />}
+          />
+          <Route
+            path="/loyalty-programm"
+            element={<Loyalti rowData={rowData} />}
+          />
           <Route path="/faq" element={<FAQ />} />
           {/* TODO: добавить страницу 404 */}
         </Routes>

@@ -1,234 +1,106 @@
-
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Layout from "../layouts/default";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-  Grid,
-  Checkbox,
-  TableSortLabel,
-} from "@mui/material";
-import filterIcon from "@mui/icons-material/UnfoldMore";
+  DataGrid,
+  GridColumnMenu,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
+import {
+  ClearButton,
+  UploadButton,
+} from "../components/Buttons/Buttons";
+import { CONTENT_COLUMNS } from "../mocks/users-data";
 
-export default function Ambassodors({
-  rowData,
-  selected,
-  orderDirection,
-  handleSortRequestBySendMerch,
-  handleSortRequestByName,
-  handleSortRequestByTelegram,
-  handleSortRequestByFeedback,
-  handleSortRequestByHabr,
-  handleCheckboxClick,
-  handleSelectAllClick,
-}) {
-  // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
+function MenuButtons(props) {
+  return (
+    <>
+      <UploadButton></UploadButton>
+      <ClearButton> </ClearButton>
+    </>
+  );
+}
+
+function CustomColumnMenu(props) {
+  return (
+    <GridColumnMenu
+      {...props}
+      slots={{
+        columnMenuColumnsItem: null,
+      }}
+    />
+  );
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarQuickFilter
+        InputProps={{ disableUnderline: true }}
+        placeholder="Поиск"
+        sx={{
+          ".MuiInputBase-root": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "8px",
+            paddingLeft: "8px",
+            paddingBottom: 0,
+          },
+          maxWidth: "896px",
+          width: "100%",
+        }}
+      ></GridToolbarQuickFilter>
+      <MenuButtons></MenuButtons>
+      <GridToolbarExport
+        startIcon={false}
+        sx={{
+          color: "#1d6bf3",
+          border: "1px solid #1d6bf3",
+          width: "132px",
+          height: "34px",
+          fontWeight: "400",
+          padding: "0",
+          fontSize: "14px",
+          textTransform: "none",
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
+export default function Promocodes({ rowData }) {
+  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
+  const rows = rowData.map((row) => ({
+    ...row,
+    id: row.userId,
+  }));
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="Таблица Контент">
-        <TableHead>
-          <TableRow>
-            <TableCell className="table__header_cell">
-              <Typography>
-                <Checkbox
-                  indeterminate={
-                    selected.length > 0 && selected.length < rowData.length
-                  }
-                  checked={selected.length === rowData.length}
-                  onChange={handleSelectAllClick}
-                ></Checkbox>
-              </Typography>
-            </TableCell>
-            <TableCell align="center" className="table__header_cell">
-              <Typography className="table__header_cell">ID</Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              onClick={handleSortRequestBySendMerch}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Отправка мерча
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell align="center" className="table__header_cell">
-              <Typography className="table__header_cell">Статус</Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              onClick={handleSortRequestByName}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  ФИО
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              onClick={handleSortRequestByTelegram}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Telegram
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              onClick={handleSortRequestByFeedback}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Отзыв
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-            <TableCell
-              align="center"
-              onClick={handleSortRequestByHabr}
-              className="table__header_cell_id table__header_cell"
-            >
-              <Typography className="table__header_cell">
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  IconComponent={filterIcon}
-                >
-                  Хабр
-                </TableSortLabel>
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rowData.map((row, i) => {
-            const isItemSelected = selected.indexOf(row.userId) !== -1;
-            return (
-              <TableRow key={row.userId}>
-                <TableCell align="center" padding="checkbox">
-                  <Checkbox
-                    checked={isItemSelected}
-                    onClick={() => handleCheckboxClick(row)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item lg={10}>
-                      <Typography
-                        textAlign={"center"}
-                      >
-                        {row.userId}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "162px",
-                    }}
-                  >
-                    {row.userSendMerch}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Grid container>
-                    <Grid item lg={9}>
-                      <Typography
-                        className="table__status"
-                        style={{
-                          padding: "3px 0",
-                          width: "128px",
-                          backgroundColor:
-                            (row.userStatus === "активный" && "#87CC9E") ||
-                            (row.userStatus === "уточняется" && "#FFCE92") ||
-                            (row.userStatus === "на паузе" && "#7F67D2") ||
-                            (row.userStatus === "не амбассадор" && "#EA7E7E"),
-                        }}
-                      >
-                        {row.userStatus}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    className="table__user-name"
-                    style={{
-                      width: "182px",
-                      borderBottom: "none",
-                    }}
-                  >
-                    {row.userName}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      width: "182px",
-                    }}
-                  >
-                    {row.userTelegram}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "182px",
-                    }}
-                  >
-                    {row.userFeedback}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    textAlign={"center"}
-                    style={{
-                      color: "#1d6bf3",
-                      width: "182px",
-                    }}
-                  >
-                    {row.userHabr}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Layout>
+      <Box sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          hideFooter={true}
+          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+          localeText={{
+            toolbarExport: "Экспортировать",
+          }}
+          rows={rows}
+          columns={CONTENT_COLUMNS}
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F9FAFB",
+              minWidth: "100%",
+            },
+          }}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
+    </Layout>
   );
 }
