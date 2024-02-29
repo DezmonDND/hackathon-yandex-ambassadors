@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/starter-project/static/css/main.4e4c3d3c.css",
+    "main.js": "/starter-project/static/js/main.4c04a1d1.js",
+    "static/js/488.b2d5503f.chunk.js": "/starter-project/static/js/488.b2d5503f.chunk.js",
+    "static/media/YandexSansText-Medium.woff": "/starter-project/static/media/YandexSansText-Medium.6b83f25f39c3f10cc22e.woff",
+    "static/media/YandexSansText-Regular.woff": "/starter-project/static/media/YandexSansText-Regular.1c422f2ef1e510532200.woff",
+    "static/media/YandexSansDisplay-Bold.woff": "/starter-project/static/media/YandexSansDisplay-Bold.138d9a1c55f27a3b5486.woff",
+    "static/media/YandexSansDisplay-Regular.woff": "/starter-project/static/media/YandexSansDisplay-Regular.24a20857e5c6d4c4cfa0.woff",
+    "static/media/YandexSansText-Medium.woff2": "/starter-project/static/media/YandexSansText-Medium.43fa0def7951e857f96c.woff2",
+    "static/media/YandexSansText-Regular.woff2": "/starter-project/static/media/YandexSansText-Regular.fd627cc781ea46efb18f.woff2",
+    "static/media/YandexSansDisplay-Bold.woff2": "/starter-project/static/media/YandexSansDisplay-Bold.f502192c0c4f8b5ba5cf.woff2",
+    "static/media/YandexSansDisplay-Regular.woff2": "/starter-project/static/media/YandexSansDisplay-Regular.29559e64b30c169b8b20.woff2",
+    "static/media/btn_eye-slashed.svg": "/starter-project/static/media/btn_eye-slashed.d0195987bcc1a8a11cdc.svg",
+    "static/media/btn_eye-slashed_hovered.svg": "/starter-project/static/media/btn_eye-slashed_hovered.8542cd469da08b06f56e.svg",
+    "static/media/btn_eye-active.svg": "/starter-project/static/media/btn_eye-active.37c18a306732606cccc0.svg",
+    "static/media/btn_eye-active_hovered.svg": "/starter-project/static/media/btn_eye-active_hovered.a5ad6aacf03225fbbb7f.svg",
+    "index.html": "/starter-project/index.html",
+    "static/media/Vector_circle.svg": "/starter-project/static/media/Vector_circle.bebccc72610a4426a987.svg",
+    "static/media/Vector_rectangle.svg": "/starter-project/static/media/Vector_rectangle.0f2ebe8ba02634ab713b.svg",
+    "static/media/Vector_triangle.svg": "/starter-project/static/media/Vector_triangle.6be43d5247bdb22c5a5e.svg",
+    "main.4e4c3d3c.css.map": "/starter-project/static/css/main.4e4c3d3c.css.map",
+    "main.4c04a1d1.js.map": "/starter-project/static/js/main.4c04a1d1.js.map",
+    "488.b2d5503f.chunk.js.map": "/starter-project/static/js/488.b2d5503f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e4c3d3c.css",
+    "static/js/main.4c04a1d1.js"
+  ]
+}
