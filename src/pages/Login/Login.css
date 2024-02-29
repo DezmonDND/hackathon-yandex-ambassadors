@@ -1,0 +1,187 @@
+.login__wrapper {
+  display: flex;
+  margin: auto;
+  /* max-width: 1440px; // убрала, чтобы не было белых полей
+  width: 100%; */
+  height: 100vh;
+  background-color: #1A1B22;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.login__form {
+  position: relative;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 386px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #FFF;
+  gap: 16px;
+  z-index: 10;
+}
+
+.login__title {
+  margin: 10px 0 0;
+  font-family: "YS Display";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  color: #1A1B22;
+  font-feature-settings: 'clig' off, 'liga' off;
+}
+
+.login__subtitle {
+  font-family: "YS Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #797981;
+}
+
+.login__inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.login__input {
+  padding: 17px 12px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #DDE0E4;
+  background: #FFF;
+  font-family: "YS Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #1A1B22;
+}
+
+.login__inputInvalid {
+  border: 1px solid #FF0200;
+  background: #FFDDE5;
+}
+
+.login__error {
+  position: absolute;
+  top: 58px;
+  left: 0;
+  font-family: "YS Text";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  color: #FF0200;
+}
+
+.login__eyeButton {
+  position: absolute;
+  right: 12px;
+  top: 16px;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  background-image: url(../../assets/images/btn_eye-slashed.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+}
+
+.login__eyeButton:hover {
+  background-image: url(../../assets/images/btn_eye-slashed_hovered.svg);
+}
+
+.login__eyeButtonActive {
+  background-image: url(../../assets/images/btn_eye-active.svg);
+}
+
+.login__eyeButtonActive:hover {
+  background-image: url(../../assets/images/btn_eye-active_hovered.svg);
+}
+
+.login__link {
+  font-family: "YS Text";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #1D6BF3;
+  width: 100%;
+  text-decoration: none;
+  text-align: left;
+}
+
+.login__submitButton {
+  padding: 12px 4px;
+  margin: 0 0 10px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  background-color: #5A9BFF;
+  font-family: "YS Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.login__submitButton:hover {
+  background-color: #1D6BF3;
+}
+
+
+.login__submitButtonDisable {
+  background-color: #B5B5B7;
+  cursor: default;
+}
+
+.login__submitButtonDisable:hover {
+  background-color: #B5B5B7;
+}
+
+.login__image_circle {
+  position: absolute;
+  top: -332px;
+  right: -527px;
+  width: 527px;
+  height: 406px;
+  background-image: url(../../assets/images/Vector_circle.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.login__image_rectangle {
+  position: absolute;
+  top: -20px;
+  right: -527px;
+  width: 527px;
+  height: 768px;
+  background-image: url(../../assets/images/Vector_rectangle.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 2;
+}
+
+.login__image_triangle {
+  position: absolute;
+  top: -264px;
+  left: -527px;
+  width: 348.5px;
+  height: 623.05px;
+  background-image: url(../../assets/images/Vector_triangle.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
