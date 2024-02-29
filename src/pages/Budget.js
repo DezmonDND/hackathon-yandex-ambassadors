@@ -1,207 +1,109 @@
-// TODO:сюда вставить BudgetTabs
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Layout from "../layouts/default";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
-  Grid,
-} from "@mui/material";
-import { useState } from "react";
+  DataGrid,
+  GridColumnMenu,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
+import {
+  ClearButton,
+  DateButton,
+  UploadButton,
+} from "../components/Buttons/Buttons";
+import { BUDGET_COLUMN } from "../mocks/users-data";
 
-import { BUDGET_DATA, USERS } from "../mocks/users-data";
+function MenuButtons(props) {
+  return (
+    <>
+      <DateButton></DateButton>
+      <UploadButton></UploadButton>
+      <ClearButton> </ClearButton>
+    </>
+  );
+}
 
-export default function SendMerch({
-  rowData,
-  selected,
-  orderDirection,
-  handleSortRequest,
-  handleCheckboxClick,
-  handleSelectAllClick,
-}) {
-  const [users, setUsers] = useState(USERS);
-  // let USERS = [],
-  // STATUSES = ["активный", "уточняется", "на паузе", "не амбассадор"];
+function CustomColumnMenu(props) {
+  return (
+    <GridColumnMenu
+      {...props}
+      slots={{
+        columnMenuColumnsItem: null,
+      }}
+    />
+  );
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarQuickFilter
+        InputProps={{ disableUnderline: true }}
+        placeholder="Поиск"
+        sx={{
+          ".MuiInputBase-root": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "8px",
+            paddingLeft: "8px",
+            paddingBottom: 0,
+          },
+          maxWidth: "803px",
+          width: "100%",
+        }}
+      ></GridToolbarQuickFilter>
+      <MenuButtons></MenuButtons>
+      <GridToolbarExport
+        startIcon={false}
+        sx={{
+          color: "#1d6bf3",
+          border: "1px solid #1d6bf3",
+          width: "132px",
+          height: "34px",
+          fontWeight: "400",
+          padding: "0",
+          fontSize: "14px",
+          textTransform: "none",
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
+export default function Promocodes({ rowData }) {
+  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
+  const rows = rowData.map((row) => ({
+    ...row,
+    id: row.userId,
+  }));
 
   return (
-    <TableContainer component={Paper} className="tableContainer">
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {BUDGET_DATA.map((cell) => (
-              <TableCell
-                className="table__header_cell"
-                align="center"
-                key={cell.data}
-              >
-                <Typography className="table__header_cell">
-                  {cell.label}
-                </Typography>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((row, i) => (
-            <TableRow key={row.id}>
-              <TableCell>
-                <Grid container>
-                  <Grid item lg={10}>
-                    <Typography textAlign={"center"} style={{ width: "40px" }}>
-                      {row.userId}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    color: "#1d6bf3",
-                    width: "max-content",
-                  }}
-                >
-                  {row.userName}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    borderBottom: "none",
-                    width: "max-content",
-                  }}
-                >
-                  {row.userTotal}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userJanuare}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userFebruare}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userMart}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userApril}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userMay}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userJune}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userJuly}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userAugust}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userSeptember}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userOctober}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userNovember}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  textAlign={"center"}
-                  style={{
-                    width: "max-content",
-                  }}
-                >
-                  {row.userDecember}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Layout>
+      <Box sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          hideFooter={true}
+          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+          localeText={{
+            toolbarExport: "Экспортировать",
+          }}
+          rows={rows}
+          columns={BUDGET_COLUMN}
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F9FAFB",
+              minWidth: "100%",
+            },
+          }}
+          checkboxSelection
+          disableRowSelectionOnClick
+          disableColumnMenu
+        />
+      </Box>
+    </Layout>
   );
 }

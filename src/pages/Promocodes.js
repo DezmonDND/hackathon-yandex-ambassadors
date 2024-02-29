@@ -1,71 +1,104 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Layout from "../layouts/default";
+import {
+  DataGrid,
+  GridColumnMenu,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
+import { ClearButton, UploadButton } from "../components/Buttons/Buttons";
+import { PROMOCODES_COLUMNS } from "../mocks/users-data";
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import Layout from "../layouts/default"
+function MenuButtons(props) {
+  return (
+    <>
+      <UploadButton></UploadButton>
+      <ClearButton> </ClearButton>
+    </>
+  );
+}
 
-const columns = [
-  {
-    field: 'userStatus',
-    headerName: 'Статус',
-    width: 140,
-    editable: true,
-  },
-  { field: 'id', headerName: 'ID', width: 90, type: 'number', sortable: false },
-  {
-    field: 'userDate',
-    headerName: ' Дата',
-    width: 120,
-    editable: true,
-  },
-  {
-    field: 'userName',
-    headerName: 'ФИО',
-    width: 220,
-    editable: true,
-  },
-  {
-    field: 'userTelegram',
-    headerName: 'Telegram',
-    sortable: false,
-    width: 200
-  },
-  {
-    field: 'userPromocode',
-    headerName: 'Промокод',
-    sortable: false,
-    width: 220
-  },
-];
-export default function Promocodes({
-  rowData
-}) {
+function CustomColumnMenu(props) {
+  return (
+    <GridColumnMenu
+      {...props}
+      slots={{
+        columnMenuColumnsItem: null,
+      }}
+    />
+  );
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarQuickFilter
+        InputProps={{ disableUnderline: true }}
+        placeholder="Поиск"
+        sx={{
+          ".MuiInputBase-root": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "8px",
+            paddingLeft: "8px",
+            paddingBottom: 0,
+          },
+          maxWidth: "886px",
+          width: "100%",
+        }}
+      ></GridToolbarQuickFilter>
+      <MenuButtons></MenuButtons>
+      <GridToolbarExport
+        startIcon={false}
+        sx={{
+          color: "#1d6bf3",
+          border: "1px solid #1d6bf3",
+          width: "132px",
+          height: "34px",
+          fontWeight: "400",
+          padding: "0",
+          fontSize: "14px",
+          textTransform: "none",
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
+export default function Promocodes({ rowData }) {
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map(row => ({
+  const rows = rowData.map((row) => ({
     ...row,
-    id: row.userId
+    id: row.userId,
   }));
 
   return (
     <Layout>
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={rows}
-          columns={columns}
-          sx={{
-            '.MuiDataGrid-columnHeaders': {
-              backgroundColor: '#F9FAFB',
-              minWidth: '100%'
+          hideFooter={true}
+          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
             },
-            '& .MuiDataGrid-sortIcon': {
-              backgroundImage: 'url("../../assets/images/sort_icon.svg")',
+          }}
+          localeText={{
+            toolbarExport: "Экспортировать",
+          }}
+          rows={rows}
+          columns={PROMOCODES_COLUMNS}
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F9FAFB",
+              minWidth: "100%",
             },
           }}
           checkboxSelection
           disableRowSelectionOnClick
+          disableColumnMenu
         />
       </Box>
     </Layout>
   );
 }
-

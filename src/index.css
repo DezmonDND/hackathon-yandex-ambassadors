@@ -47,7 +47,13 @@ select {
 
 .main {
   display: flex;
-  max-width: 1280px;
+  max-width: 1440px;
+  width: 100%;
+  margin: auto;
+}
+
+.content {
+  max-width: 1246px;
   width: 100%;
 }
 .center {

@@ -1,13 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
-import SearchBlock from "../SearchBlock/SearchBlock";
-import Tabs from "../Tabs/Tabs";
 import "./BudgetTabs.css";
 
-function BudgetTabs() {
+function BudgetTabs({ rowData }) {
   const { pathname } = useLocation();
 
   return (
-    <section className="page">
+    <>
       {pathname.includes("/budget") && (
         <ul className="page__buget">
           <NavLink
@@ -32,8 +30,7 @@ function BudgetTabs() {
           </NavLink>
         </ul>
       )}
-      <SearchBlock></SearchBlock>
-    </section>
+    </>
   );
 }
 export default BudgetTabs;

@@ -56,6 +56,16 @@ function MenuList() {
       </NavLink>
       <NavLink
         className="menu__link"
+        to="/budget-price"
+        style={({ isActive }) => ({
+          backgroundColor: isActive ? "#2337B7" : "",
+          color: isActive ? "#FFFFFF" : "",
+        })}
+      >
+        Стоимость товара
+      </NavLink>
+      <NavLink
+        className="menu__link"
         to="/loyalty-programm"
         style={({ isActive }) => ({
           backgroundColor: isActive ? "#2337B7" : "",
