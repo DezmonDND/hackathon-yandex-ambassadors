@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { USERS } from "./mocks/users-data";
 import SideBar from "./components/SideBar/SideBar";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import Promocodes from "./pages/Promocodes";
 import Ambassadors from "./pages/Ambassadors";
 import Content from "./pages/Content";
