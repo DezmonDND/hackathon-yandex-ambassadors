@@ -69,7 +69,7 @@ function Login() {
         <div className="login__inputWrapper">
           <input
             {...register('password', {
-              required: 'Это поле обязазательно для заполнения',
+              required: 'Это поле обязательно для заполнения',
               minLength: {
                 value: 8,
                 message: 'Текст должен быть не короче 8 символов',

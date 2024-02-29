@@ -1,3 +1,10 @@
+import { Button, IconButton, Select, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
+
+function buttonClick() {
+  alert("Привет!");
+}
+
 export const USERS = [
   {
     userStatus: "активный",
@@ -199,6 +206,20 @@ export const PROMOCODES_COLUMNS = [
     editable: true,
     headerAlign: "center",
     align: "center",
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     field: "userTelegram",
@@ -251,6 +272,20 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     width: 220,
     editable: true,
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     field: "userProgramm",
@@ -259,6 +294,9 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     editable: true,
     width: 400,
+    renderCell: () => {
+      <Select></Select>;
+    },
   },
   {
     field: "userCountry",
@@ -275,30 +313,6 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     editable: true,
     width: 120,
-  },
-  {
-    field: "userHabr",
-    headerName: "Хабр",
-    headerAlign: "center",
-    align: "center",
-    sortable: false,
-    width: 220,
-  },
-  {
-    field: "userTelegram",
-    headerName: "Telegram",
-    headerAlign: "center",
-    align: "center",
-    sortable: false,
-    width: 200,
-  },
-  {
-    field: "userPromocode",
-    headerName: "Промокод",
-    headerAlign: "center",
-    align: "center",
-    sortable: false,
-    width: 220,
   },
 ];
 
@@ -332,6 +346,20 @@ export const CONTENT_COLUMNS = [
     field: "userName",
     width: 220,
     editable: true,
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     headerName: "Telegram",
@@ -346,6 +374,17 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userFeedback",
     width: 214,
+    renderCell: (cellValues) => {
+      return (
+        <Link
+          style={{ textDecoration: "none", color: "#1D6BF3" }}
+          to={cellValues.row.userFeedback}
+          target="blank"
+        >
+          {cellValues.row.userFeedback}
+        </Link>
+      );
+    },
   },
   {
     headerName: "Хабр",
@@ -353,6 +392,17 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userHabr",
     width: 214,
+    renderCell: (cellValues) => {
+      return (
+        <Link
+          style={{ textDecoration: "none", color: "#1D6BF3" }}
+          to={cellValues.row.userHabr}
+          target="blank"
+        >
+          {cellValues.row.userHabr}
+        </Link>
+      );
+    },
   },
 ];
 
@@ -371,6 +421,20 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     headerName: "Мерч",
@@ -399,6 +463,20 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     headerName: "Индекс",
@@ -424,6 +502,20 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userName",
     width: 200,
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     headerName: "Итог",
@@ -519,7 +611,13 @@ export const BUDGET_COLUMN = [
 ];
 
 export const BUDGET_PRICE_COLUMN = [
-  { headerName: "ID", headerAlign: "center", align: "center", field: "userId", width: 40,},
+  {
+    headerName: "ID",
+    headerAlign: "center",
+    align: "center",
+    field: "userId",
+    width: 40,
+  },
   {
     headerName: "Мерч",
     headerAlign: "center",
@@ -551,6 +649,20 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userName",
     width: 200,
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          style={{
+            color: "#1D6BF3",
+            textTransform: "none",
+            fontWeight: "400",
+          }}
+          onClick={buttonClick}
+        >
+          {cellValues.row.userName}
+        </Button>
+      );
+    },
   },
   {
     headerName: "Толстовка",

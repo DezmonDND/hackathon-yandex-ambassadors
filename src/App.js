@@ -2,7 +2,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { USERS } from "./mocks/users-data";
-import SideBar from "./components/SideBar/SideBar";
 import Login from "./pages/Login/Login";
 import Promocodes from "./pages/Promocodes";
 import Ambassadors from "./pages/Ambassadors";
@@ -12,7 +11,7 @@ import Budget from "./pages/Budget";
 import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ";
-import BudgetTabs from "./components/BudgetTabs/BudgetTabs";
+
 
 const theme = createTheme({
   typography: {
@@ -48,6 +47,7 @@ function App() {
             element={<Loyalti rowData={rowData} />}
           />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/login" element={<Login />} />
           {/* TODO: добавить страницу 404 */}
         </Routes>
       </ThemeProvider>
