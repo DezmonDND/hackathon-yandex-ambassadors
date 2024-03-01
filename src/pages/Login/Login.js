@@ -1,12 +1,13 @@
 import "./Login.css";
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { REGEXP_EMAIL } from "../../components/utils/constants";
 import  fetchUserLogin from "../../components/utils/fetchUserLogin";
 
 function Login() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
 
   const {

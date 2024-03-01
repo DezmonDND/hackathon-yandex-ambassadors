@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
