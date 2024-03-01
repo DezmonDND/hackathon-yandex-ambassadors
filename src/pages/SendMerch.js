@@ -1,52 +1,77 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import {
   DataGrid,
   GridColumnMenu,
+  GridRowModes,
   GridToolbarContainer,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import {
+  CheckboxSelectionButton,
   ClearButton,
   DeleteButton,
   MinusButton,
   PlusButton,
 } from "../components/Buttons/Buttons";
 import { SEND_MERCH_COLUMNS } from "../mocks/users-data";
-import { IconButton, SvgIcon } from "@mui/material";
 import { useState } from "react";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { randomId } from "@mui/x-data-grid-generator";
 
 export default function Promocodes({ rowData }) {
+  const [rows, setRows] = useState(rowData);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
+  const [selectionModel, setSelectionModel] = useState([]);
+  const [rowModesModel, setRowModesModel] = useState({});
 
-  function CheckboxSelectionButton() {
-    return (
-      <IconButton
-        onClick={() => setCheckboxSelection(!checkboxSelection)}
-        sx={{
-          border: "1px solid #1d6bf3",
-          borderRadius: "4px",
-          width: "34px",
-          height: "34px",
-        }}
-      >
-        <SvgIcon
-          sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
-          component={UploadFileIcon}
-        ></SvgIcon>
-      </IconButton>
-    );
+  const handleAddNewRow = () => {
+    const id = randomId();
+    console.log(id);
+    setRows((oldRows) => [
+      ...oldRows,
+      {
+        id,
+        userCurator: "",
+        userMerch: "",
+        userHudiSize: "",
+        userSocksSize: "",
+        userName: "",
+        userIndex: "",
+        isNew: true,
+      },
+    ]);
+
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+    }));
+
+    // Сохранение строки
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  function showCheckboxes() {
+    setCheckboxSelection(!checkboxSelection);
   }
-  function MenuButtons(props) {
+
+  function resetRows() {
+    setSelectionModel([]);
+  }
+
+  function deleteRows() {
+    setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+  }
+
+  function MenuButtons() {
     return (
       <>
-        <CheckboxSelectionButton></CheckboxSelectionButton>
-        <PlusButton></PlusButton>
+        <CheckboxSelectionButton
+          onClick={showCheckboxes}
+        ></CheckboxSelectionButton>
+        <PlusButton onClick={handleAddNewRow}></PlusButton>
         <MinusButton></MinusButton>
-        <DeleteButton></DeleteButton>
-        <ClearButton> </ClearButton>
+        <DeleteButton onClick={deleteRows}></DeleteButton>
+        <ClearButton onClick={resetRows}></ClearButton>
       </>
     );
   }
@@ -84,15 +109,9 @@ export default function Promocodes({ rowData }) {
     );
   }
 
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
-
   return (
     <Layout>
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           hideFooter={true}
           slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
@@ -112,7 +131,12 @@ export default function Promocodes({ rowData }) {
               minWidth: "100%",
             },
           }}
+          rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
+          rowSelectionModel={selectionModel}
+          onRowSelectionModelChange={(newSelectionModel) => {
+            setSelectionModel(newSelectionModel);
+          }}
           disableRowSelectionOnClick
           disableColumnMenu
         />

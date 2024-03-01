@@ -29,9 +29,10 @@ export function ClearButton(props) {
   );
 }
 
-export function DeleteButton(props) {
+export function DeleteButton({ onClick }) {
   return (
     <Button
+      onClick={onClick}
       color="primary"
       sx={{
         color: "#ff0200",
@@ -41,7 +42,6 @@ export function DeleteButton(props) {
         fontWeight: "400",
         textTransform: "none",
       }}
-      onClick={props.onClick}
     >
       Удалить выбранные
     </Button>
@@ -124,7 +124,7 @@ export function SettingsButton(props) {
   );
 }
 
-export function PencilButton(props) {
+export function PencilButton() {
   return (
     <IconButton
       sx={{
@@ -142,9 +142,10 @@ export function PencilButton(props) {
   );
 }
 
-export function PlusButton(props) {
+export function PlusButton({ onClick }) {
   return (
     <IconButton
+      onClick={onClick}
       sx={{
         border: "1px solid #1d6bf3",
         borderRadius: "4px",
@@ -160,9 +161,10 @@ export function PlusButton(props) {
   );
 }
 
-export function MinusButton(props) {
+export function MinusButton({ onClick }) {
   return (
     <IconButton
+      onClick={onClick}
       sx={{
         border: "1px solid #1d6bf3",
         borderRadius: "4px",
@@ -191,6 +193,25 @@ export function SortIcon() {
       <SvgIcon
         sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
         component={SwapVertOutlinedIcon}
+      ></SvgIcon>
+    </IconButton>
+  );
+}
+
+export function CheckboxSelectionButton({onClick}) {
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        border: "1px solid #1d6bf3",
+        borderRadius: "4px",
+        width: "34px",
+        height: "34px",
+      }}
+    >
+      <SvgIcon
+        sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
+        component={UploadFileIcon}
       ></SvgIcon>
     </IconButton>
   );

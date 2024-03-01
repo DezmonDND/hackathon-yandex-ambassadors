@@ -1,5 +1,8 @@
 import { Button, Select } from "@mui/material";
+import { useGridApiContext } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import "../index.css";
+import { randomId } from "@mui/x-data-grid-generator";
 
 function buttonClick() {
   alert("Привет!");
@@ -7,6 +10,7 @@ function buttonClick() {
 
 export const USERS = [
   {
+    id: randomId(),
     userStatus: "активный",
     userId: "1",
     userDate: "Дата 2",
@@ -48,6 +52,7 @@ export const USERS = [
     userBackpack: "10",
   },
   {
+    id: randomId(),
     userStatus: "уточняется",
     userId: "2",
     userDate: "Дата 48",
@@ -57,7 +62,7 @@ export const USERS = [
     userCity: "Москва 1",
     userTelegram: "@tgnickname 1",
     userPromocode: "samplepromocode13 1",
-    userSendMerch: "Доступно: 2/2 1",
+    userSendMerch: "Недоступно",
     userFeedback: "http://www.company.com 1",
     userHabr: "http://www.company.com 1",
     userCurator: "Анастасия Борисова 1",
@@ -89,6 +94,7 @@ export const USERS = [
     userBackpack: "101",
   },
   {
+    id: randomId(),
     userStatus: "на паузе",
     userId: "3",
     userDate: "Дата",
@@ -98,7 +104,7 @@ export const USERS = [
     userCity: "Москва",
     userTelegram: "@tgnickname",
     userPromocode: "samplepromocode13",
-    userSendMerch: "Доступно: 2/2",
+    userSendMerch: "Доступно: 1/2",
     userFeedback: "http://www.company.com",
     userHabr: "http://www.company.com",
     userCurator: "Анастасия Борисова",
@@ -130,6 +136,7 @@ export const USERS = [
     userBackpack: "10",
   },
   {
+    id: randomId(),
     userStatus: "не амбассадор",
     userId: "4",
     userDate: "Дата 1",
@@ -139,7 +146,7 @@ export const USERS = [
     userCity: "Москва",
     userTelegram: "@tgnickname",
     userPromocode: "samplepromocode13",
-    userSendMerch: "Доступно: 2/2",
+    userSendMerch: "Доступно: 0/2",
     userFeedback: "http://www.company.com",
     userHabr: "http://www.company.com",
     userCurator: "Анастасия Борисова",
@@ -172,6 +179,64 @@ export const USERS = [
   },
 ];
 
+function SelectEditInputCell(props) {
+  const { id, value, field } = props;
+  const apiRef = useGridApiContext();
+
+  const handleChange = async (event) => {
+    await apiRef.current.setEditCellValue({
+      id,
+      field,
+      value: event.target.value,
+    });
+    apiRef.current.stopCellEditMode({ id, field });
+  };
+
+  return (
+    <Select
+      style={{
+        color: "#1A1B22",
+        backgroundColor: "#E8F2FF",
+      }}
+      value={value}
+      onChange={handleChange}
+      size="small"
+      sx={{ height: 1 }}
+      native
+      autoFocus
+    >
+      <option className="btn_foc" style={{}}>
+        активный
+      </option>
+      <option
+        style={{
+          color: "black",
+        }}
+      >
+        уточняется
+      </option>
+      <option
+        style={{
+          color: "black",
+        }}
+      >
+        на паузе
+      </option>
+      <option
+        style={{
+          color: "black",
+        }}
+      >
+        не амбассадор
+      </option>
+    </Select>
+  );
+}
+
+const renderSelectEditInputCell = (params) => {
+  return <SelectEditInputCell {...params} />;
+};
+
 export const PROMOCODES_COLUMNS = [
   {
     field: "userStatus",
@@ -181,6 +246,8 @@ export const PROMOCODES_COLUMNS = [
     sortable: false,
     headerAlign: "center",
     align: "center",
+    type: "singleSelect",
+    renderEditCell: renderSelectEditInputCell,
   },
   {
     field: "id",
@@ -330,6 +397,15 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userSendMerch",
     width: 162,
+    editable: true,
+    type: "singleSelect",
+    valueOptions: [
+      "Доступно",
+      "Доступно: 0/2",
+      "Доступно: 1/2",
+      "Доступно: 2/2",
+      "Недоступно",
+    ],
   },
   {
     headerName: "Статус",
@@ -338,6 +414,7 @@ export const CONTENT_COLUMNS = [
     field: "userStatus",
     width: 140,
     editable: true,
+    renderEditCell: renderSelectEditInputCell,
   },
   {
     headerName: "ФИО",
@@ -409,10 +486,11 @@ export const CONTENT_COLUMNS = [
 export const SEND_MERCH_COLUMNS = [
   {
     headerName: "ID",
-    field: "userId",
-    width: 40,
+    field: "id",
+    width: 60,
     headerAlign: "center",
     align: "center",
+    type: "number",
     sortable: false,
   },
   {
@@ -617,6 +695,7 @@ export const BUDGET_PRICE_COLUMN = [
     align: "center",
     field: "userId",
     width: 40,
+    sortable: false,
   },
   {
     headerName: "Мерч",

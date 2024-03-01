@@ -6,40 +6,34 @@ import {
   GridToolbarContainer,
   GridToolbarQuickFilter,
   GridToolbarExport,
+  gridClasses,
 } from "@mui/x-data-grid";
-import { ClearButton } from "../components/Buttons/Buttons";
+import {
+  ClearButton,
+  CheckboxSelectionButton,
+} from "../components/Buttons/Buttons";
 import { PROMOCODES_COLUMNS } from "../mocks/users-data";
 import { useState } from "react";
-import { IconButton, SvgIcon } from "@mui/material";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
+  const [selectionModel, setSelectionModel] = useState([]);
 
-  function CheckboxSelectionButton() {
-    return (
-      <IconButton
-        onClick={() => setCheckboxSelection(!checkboxSelection)}
-        sx={{
-          border: "1px solid #1d6bf3",
-          borderRadius: "4px",
-          width: "34px",
-          height: "34px",
-        }}
-      >
-        <SvgIcon
-          sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
-          component={UploadFileIcon}
-        ></SvgIcon>
-      </IconButton>
-    );
+  function showCheckboxes() {
+    setCheckboxSelection(!checkboxSelection);
   }
 
-  function MenuButtons(props) {
+  function resetRows() {
+    setSelectionModel([]);
+  }
+
+  function MenuButtons() {
     return (
       <>
-        <CheckboxSelectionButton></CheckboxSelectionButton>
-        <ClearButton> </ClearButton>
+        <CheckboxSelectionButton
+          onClick={showCheckboxes}
+        ></CheckboxSelectionButton>
+        <ClearButton onClick={resetRows}></ClearButton>
       </>
     );
   }
@@ -98,7 +92,7 @@ export default function Promocodes({ rowData }) {
 
   return (
     <Layout>
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           hideFooter={true}
           slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
@@ -117,8 +111,20 @@ export default function Promocodes({ rowData }) {
               backgroundColor: "#F9FAFB",
               minWidth: "100%",
             },
+            [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+              {
+                outline: "none",
+              },
+            [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+              {
+                outline: "none",
+              },
           }}
           checkboxSelection={checkboxSelection}
+          rowSelectionModel={selectionModel}
+          onRowSelectionModelChange={(newSelectionModel) => {
+            setSelectionModel(newSelectionModel);
+          }}
           disableRowSelectionOnClick
           disableColumnMenu
         />

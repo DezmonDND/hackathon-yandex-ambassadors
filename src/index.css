@@ -50,6 +50,7 @@ select {
   max-width: 1440px;
   width: 100%;
   margin: auto;
+  height: 100vh;
 }
 
 .content {
@@ -79,4 +80,25 @@ select {
 [data-field="userStatus"]:not([role="columnheader"])
   > div[title="не амбассадор"] {
   background-color: #ea7e7e;
+}
+
+[data-field="userSendMerch"]:not([role="columnheader"])
+  > div[title="Недоступно"] {
+  color: #1a1b22;
+}
+[data-field="userSendMerch"]:not([role="columnheader"])
+  > div[title="Доступно: 0/2"] {
+  color: #1d6bf3;
+}
+[data-field="userSendMerch"]:not([role="columnheader"])
+  > div[title="Доступно: 1/2"] {
+  color: #1d6bf3;
+}
+[data-field="userSendMerch"]:not([role="columnheader"])
+  > div[title="Доступно: 2/2"] {
+  color: #1d6bf3;
+}
+[data-field="userSendMerch"]:not([role="columnheader"])
+  > div[title="Доступно"] {
+  color: #1d6bf3;
 }
