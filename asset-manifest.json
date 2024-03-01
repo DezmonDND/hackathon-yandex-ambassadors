@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/css/main.d2eb07bb.css",
-    "main.js": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/main.45bf3c8e.js",
+    "main.js": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/main.9c0b1acb.js",
     "static/js/488.b2d5503f.chunk.js": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/488.b2d5503f.chunk.js",
     "static/media/YandexSansText-Medium.woff": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/media/YandexSansText-Medium.6b83f25f39c3f10cc22e.woff",
     "static/media/YandexSansText-Regular.woff": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/media/YandexSansText-Regular.1c422f2ef1e510532200.woff",
@@ -20,11 +20,11 @@
     "static/media/Vector_rectangle.svg": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/media/Vector_rectangle.0f2ebe8ba02634ab713b.svg",
     "static/media/Vector_triangle.svg": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/media/Vector_triangle.6be43d5247bdb22c5a5e.svg",
     "main.d2eb07bb.css.map": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/css/main.d2eb07bb.css.map",
-    "main.45bf3c8e.js.map": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/main.45bf3c8e.js.map",
+    "main.9c0b1acb.js.map": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/main.9c0b1acb.js.map",
     "488.b2d5503f.chunk.js.map": "/DezmonDND/hackathon-yandex-ambassadors-frontend/static/js/488.b2d5503f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d2eb07bb.css",
-    "static/js/main.45bf3c8e.js"
+    "static/js/main.9c0b1acb.js"
   ]
 }
