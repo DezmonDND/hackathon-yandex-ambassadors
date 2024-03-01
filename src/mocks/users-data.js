@@ -361,9 +361,13 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     editable: true,
     width: 400,
-    renderCell: () => {
-      <Select></Select>;
-    },
+    type: "singleSelect",
+    valueOptions: [
+      "Дизайнер интерфейсов",
+      "Продакт — менеджер для специалистов с опытом",
+      "Бизнес-аналитик",
+      "Системный аналитик",
+    ],
   },
   {
     field: "userCountry",
