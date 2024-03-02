@@ -102,3 +102,7 @@ select {
   > div[title="Доступно"] {
   color: #1d6bf3;
 }
+
+.MuiList-root {
+  width: 150px;
+}

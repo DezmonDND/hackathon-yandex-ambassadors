@@ -8,7 +8,9 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
+import CheckIcon from '@mui/icons-material/Check';
 import * as React from "react";
+import CheckBoxOutlineIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 export function ClearButton(props) {
   return (
@@ -106,9 +108,10 @@ export function SortButton(props) {
   );
 }
 
-export function SettingsButton(props) {
+export function SettingsButton({ onClick }) {
   return (
     <IconButton
+      onClick={onClick}
       sx={{
         border: "1px solid #1d6bf3",
         borderRadius: "4px",
@@ -198,7 +201,7 @@ export function SortIcon() {
   );
 }
 
-export function CheckboxSelectionButton({onClick}) {
+export function CheckboxSelectionButton({ onClick }) {
   return (
     <IconButton
       onClick={onClick}
@@ -214,5 +217,23 @@ export function CheckboxSelectionButton({onClick}) {
         component={UploadFileIcon}
       ></SvgIcon>
     </IconButton>
+  );
+}
+
+export function CheckBoxIcon() {
+  return (
+    <SvgIcon
+      sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
+      component={CheckIcon}
+    ></SvgIcon>
+  );
+}
+
+export function CheckBoxOutlineBlankIcon() {
+  return (
+    <SvgIcon
+      sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
+      component={CheckBoxOutlineIcon}
+    ></SvgIcon>
   );
 }
