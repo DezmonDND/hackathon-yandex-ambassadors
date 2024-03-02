@@ -11,6 +11,7 @@ import Budget from "./pages/Budget";
 import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 
 const theme = createTheme({
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/promocodes" replace />} />
           <Route path="/signin" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/promocodes"
             element={<Promocodes rowData={rowData} />}
