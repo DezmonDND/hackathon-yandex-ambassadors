@@ -1,8 +1,18 @@
-import { Button, Select } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { useGridApiContext } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "../index.css";
 import { randomId } from "@mui/x-data-grid-generator";
+import { useState } from "react";
+import { RestoreFromTrashRounded } from "@mui/icons-material";
 
 function buttonClick() {
   alert("Привет!");
@@ -193,43 +203,27 @@ function SelectEditInputCell(props) {
   };
 
   return (
-    <Select
-      style={{
-        color: "#1A1B22",
-        backgroundColor: "#E8F2FF",
-      }}
-      value={value}
-      onChange={handleChange}
-      size="small"
-      sx={{ height: 1 }}
-      native
-      autoFocus
-    >
-      <option className="btn_foc" style={{}}>
-        активный
-      </option>
-      <option
-        style={{
-          color: "black",
-        }}
-      >
-        уточняется
-      </option>
-      <option
-        style={{
-          color: "black",
-        }}
-      >
-        на паузе
-      </option>
-      <option
-        style={{
-          color: "black",
-        }}
-      >
-        не амбассадор
-      </option>
-    </Select>
+    <div>
+      <FormControl sx={{  width: 130, margin: 0 }}>
+        <Select
+          sx={{
+            ".MuiOutlinedInput-input": {
+              padding: "6px 6px 6px 6px",
+            },
+            backgroundColor: '#E8F2FF'
+          }}
+          value={value}
+          autoFocus
+          onChange={handleChange}
+          autoWidth
+        >
+          <MenuItem value={"активный"}>активный</MenuItem>
+          <MenuItem value={"уточняется"}>уточняется</MenuItem>
+          <MenuItem value={"на паузе"}>на паузе</MenuItem>
+          <MenuItem value={"не амбассадор"}>не амбассадор</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
   );
 }
 
@@ -237,11 +231,96 @@ const renderSelectEditInputCell = (params) => {
   return <SelectEditInputCell {...params} />;
 };
 
+function SelectEditInputCellProfession(props) {
+  const { id, value, field } = props;
+  const apiRef = useGridApiContext();
+
+  const handleChange = async (event) => {
+    await apiRef.current.setEditCellValue({
+      id,
+      field,
+      value: event.target.value,
+    });
+    apiRef.current.stopCellEditMode({ id, field });
+  };
+
+  return (
+    <div>
+      <FormControl sx={{  width: 380, margin: 0 }}>
+        <Select
+          sx={{
+            ".MuiOutlinedInput-input": {
+              padding: "6px 6px 6px 6px",
+            },
+            backgroundColor: '#E8F2FF'
+          }}
+          value={value}
+          autoFocus
+          onChange={handleChange}
+          autoWidth
+        >
+          <MenuItem value={"Дизайнер интерфейсов"}>Дизайнер интерфейсов</MenuItem>
+          <MenuItem value={"Продакт — менеджер для специалистов с опытом"}>Продакт — менеджер для специалистов с опытом</MenuItem>
+          <MenuItem value={"Бизнес-аналитик"}>Бизнес-аналитик</MenuItem>
+          <MenuItem value={"Системный аналитик"}>Системный аналитик</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
+const renderSelectEditInputCellProfession = (params) => {
+  return <SelectEditInputCellProfession {...params} />;
+};
+
+function SelectEditInputCellMerch(props) {
+  const { id, value, field } = props;
+  const apiRef = useGridApiContext();
+
+  const handleChange = async (event) => {
+    await apiRef.current.setEditCellValue({
+      id,
+      field,
+      value: event.target.value,
+    });
+    apiRef.current.stopCellEditMode({ id, field });
+  };
+
+  return (
+    <div>
+      <FormControl sx={{  width: 150, margin: 0 }}>
+        <Select
+          sx={{
+            ".MuiOutlinedInput-input": {
+              padding: "6px 6px 6px 6px",
+            },
+            backgroundColor: '#E8F2FF'
+          }}
+          value={value}
+          autoFocus
+          onChange={handleChange}
+          autoWidth
+        >
+          <MenuItem value={"Доступно"}>Доступно</MenuItem>
+          <MenuItem value={"Доступно: 0/2"}>Доступно: 0/2</MenuItem>
+          <MenuItem value={"Доступно: 1/2"}>Доступно: 1/2</MenuItem>
+          <MenuItem value={"Доступно: 2/2"}>Доступно: 2/2</MenuItem>
+          <MenuItem value={"Недоступно"}>Недоступно</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
+const renderSelectEditInputCellMerch = (params) => {
+  return <SelectEditInputCellMerch {...params} />;
+};
+
 export const PROMOCODES_COLUMNS = [
   {
     field: "userStatus",
     headerName: "Статус",
-    width: 140,
+    width: 150,
     editable: true,
     sortable: false,
     headerAlign: "center",
@@ -312,8 +391,12 @@ export const AMBASSADORS_COLUMNS = [
     headerName: "Статус",
     headerAlign: "center",
     align: "center",
-    width: 140,
+    width: 150,
     editable: true,
+    sortable: false,
+    disableColumnMenu: true,
+    type: "singleSelect",
+    renderEditCell: renderSelectEditInputCell,
   },
   {
     field: "id",
@@ -323,6 +406,7 @@ export const AMBASSADORS_COLUMNS = [
     width: 90,
     type: "number",
     sortable: false,
+    disableColumnMenu: true,
   },
   {
     field: "userDate",
@@ -331,6 +415,7 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     width: 120,
     editable: true,
+    disableColumnMenu: true,
   },
   {
     field: "userName",
@@ -339,6 +424,7 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     width: 220,
     editable: true,
+    disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -362,12 +448,14 @@ export const AMBASSADORS_COLUMNS = [
     editable: true,
     width: 400,
     type: "singleSelect",
-    valueOptions: [
-      "Дизайнер интерфейсов",
-      "Продакт — менеджер для специалистов с опытом",
-      "Бизнес-аналитик",
-      "Системный аналитик",
-    ],
+    sortable: false,
+    // valueOptions: [
+    //   "Дизайнер интерфейсов",
+    //   "Продакт — менеджер для специалистов с опытом",
+    //   "Бизнес-аналитик",
+    //   "Системный аналитик",
+    // ],
+    renderEditCell: renderSelectEditInputCellProfession,
   },
   {
     field: "userCountry",
@@ -376,6 +464,7 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     editable: true,
     width: 120,
+    sortable: false,
   },
   {
     field: "userCity",
@@ -384,6 +473,7 @@ export const AMBASSADORS_COLUMNS = [
     align: "center",
     editable: true,
     width: 120,
+    sortable: false,
   },
 ];
 
@@ -393,6 +483,8 @@ export const CONTENT_COLUMNS = [
     headerAlign: "center",
     align: "center",
     field: "userId",
+    sortable: false,
+    disableColumnMenu: true,
     width: 90,
   },
   {
@@ -402,14 +494,16 @@ export const CONTENT_COLUMNS = [
     field: "userSendMerch",
     width: 162,
     editable: true,
+    disableColumnMenu: true,
     type: "singleSelect",
-    valueOptions: [
-      "Доступно",
-      "Доступно: 0/2",
-      "Доступно: 1/2",
-      "Доступно: 2/2",
-      "Недоступно",
-    ],
+    // valueOptions: [
+    //   "Доступно",
+    //   "Доступно: 0/2",
+    //   "Доступно: 1/2",
+    //   "Доступно: 2/2",
+    //   "Недоступно",
+    // ],
+    renderEditCell: renderSelectEditInputCellMerch,
   },
   {
     headerName: "Статус",
@@ -418,6 +512,7 @@ export const CONTENT_COLUMNS = [
     field: "userStatus",
     width: 140,
     editable: true,
+    disableColumnMenu: true,
     renderEditCell: renderSelectEditInputCell,
   },
   {
@@ -427,6 +522,7 @@ export const CONTENT_COLUMNS = [
     field: "userName",
     width: 220,
     editable: true,
+    disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -448,6 +544,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userTelegram",
     width: 164,
+    disableColumnMenu: true,
   },
   {
     headerName: "Отзыв",
@@ -455,6 +552,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userFeedback",
     width: 214,
+    disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
         <Link
@@ -473,6 +571,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userHabr",
     width: 214,
+    disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
         <Link
@@ -697,7 +796,7 @@ export const BUDGET_PRICE_COLUMN = [
     headerName: "ID",
     headerAlign: "center",
     align: "center",
-    field: "userId",
+    field: "id",
     width: 40,
     sortable: false,
   },
@@ -707,6 +806,8 @@ export const BUDGET_PRICE_COLUMN = [
     align: "center",
     field: "userMerchName",
     width: 792,
+    sortable: false,
+    editable: true,
   },
   {
     headerName: "Стоимость",
@@ -714,6 +815,8 @@ export const BUDGET_PRICE_COLUMN = [
     align: "center",
     field: "userMerchPrice",
     width: 300,
+    sortable: false,
+    editable: true,
   },
 ];
 

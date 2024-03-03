@@ -8,7 +8,7 @@ function MenuList() {
         className="menu__link"
         to="/promocodes"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -18,7 +18,7 @@ function MenuList() {
         className="menu__link"
         to="/ambassadors"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -28,7 +28,7 @@ function MenuList() {
         className="menu__link"
         to="/content"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -38,7 +38,7 @@ function MenuList() {
         className="menu__link"
         to="/send-merch"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -48,7 +48,7 @@ function MenuList() {
         className="menu__link"
         to="/budget"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -58,7 +58,7 @@ function MenuList() {
         className="menu__link"
         to="/budget-price"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -68,7 +68,7 @@ function MenuList() {
         className="menu__link"
         to="/loyalty-programm"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -78,7 +78,7 @@ function MenuList() {
         className="menu__link"
         to="/faq"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >

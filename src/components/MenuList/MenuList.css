@@ -8,12 +8,13 @@
 
 .menu__link {
   text-decoration: none;
-  color: #9ca4dd;
+  color: #b5b5b7;
   padding: 12px 0 12px 4px;
   border-radius: 8px;
-  background-color: #888a9726;
+  /* background-color: #888a9726; */
 }
 
 .menu__link:hover {
-  background-color: #3246ca;
+  /* background-color: #3246ca; */
+  color: #ffffff;
 }

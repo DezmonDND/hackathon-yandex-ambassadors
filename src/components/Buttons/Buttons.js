@@ -1,16 +1,20 @@
 import SvgIcon from "@mui/material/SvgIcon";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Button from "@mui/material/Button";
-import { IconButton } from "@mui/material";
+import { IconButton, ListItemIcon, MenuItem } from "@mui/material";
 import SwapVertOutlinedIcon from "@mui/icons-material/SwapVertOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
-import CheckIcon from '@mui/icons-material/Check';
-import * as React from "react";
-import CheckBoxOutlineIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckIcon from "@mui/icons-material/Check";
+import CheckBoxOutlineIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import { useCallback } from "react";
+import { useGridApiContext } from "@mui/x-data-grid";
+import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
+import CloseIcon from "@mui/icons-material/Close";
 
 export function ClearButton(props) {
   return (
@@ -19,9 +23,12 @@ export function ClearButton(props) {
       sx={{
         color: "#1d6bf3",
         border: "1px solid #1d6bf3",
-        width: "132px",
+        minWidth: "132px",
         height: "34px",
         fontWeight: "400",
+        fontSize: "14px",
+        lineHeight: "20px",
+        textWrap: "nowrap",
         textTransform: "none",
       }}
       onClick={props.onClick}
@@ -43,6 +50,10 @@ export function DeleteButton({ onClick }) {
         height: "34px",
         fontWeight: "400",
         textTransform: "none",
+        minWidth: "155px",
+        fontSize: "14px",
+        lineHeight: "20px",
+        textWrap: "nowrap",
       }}
     >
       Удалить выбранные
@@ -127,6 +138,25 @@ export function SettingsButton({ onClick }) {
   );
 }
 
+export function SettingsButtonActive({ onClick }) {
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        border: "1px solid #1d6bf3",
+        borderRadius: "4px",
+        width: "34px",
+        height: "34px",
+      }}
+    >
+      <SvgIcon
+        sx={{ width: "19px", height: "19px" }}
+        component={SettingsApplicationsRoundedIcon}
+      ></SvgIcon>
+    </IconButton>
+  );
+}
+
 export function PencilButton() {
   return (
     <IconButton
@@ -201,6 +231,30 @@ export function SortIcon() {
   );
 }
 
+export function CloseIconButton({ onClick }) {
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        border: "1px solid #1d6bf3",
+        borderRadius: "4px",
+        width: "34px",
+        height: "34px",
+        backgroundColor: "#1D6BF3",
+      }}
+    >
+      <SvgIcon
+        sx={{
+          color: "#ffffff",
+          width: "19px",
+          height: "19px",
+        }}
+        component={CloseIcon}
+      ></SvgIcon>
+    </IconButton>
+  );
+}
+
 export function CheckboxSelectionButton({ onClick }) {
   return (
     <IconButton
@@ -214,6 +268,28 @@ export function CheckboxSelectionButton({ onClick }) {
     >
       <SvgIcon
         sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
+        component={UploadFileIcon}
+      ></SvgIcon>
+    </IconButton>
+  );
+}
+
+export function CheckboxSelectionButtonActive({ onClick }) {
+  return (
+    <IconButton
+      onClick={onClick}
+      style={{
+        backgroundColor: "#1D6BF3",
+      }}
+      sx={{
+        border: "1px solid #1d6bf3",
+        borderRadius: "4px",
+        width: "34px",
+        height: "34px",
+      }}
+    >
+      <SvgIcon
+        sx={{ color: "#FFFFFF", width: "19px", height: "19px" }}
         component={UploadFileIcon}
       ></SvgIcon>
     </IconButton>
@@ -235,5 +311,25 @@ export function CheckBoxOutlineBlankIcon() {
       sx={{ color: "#1d6bf3", width: "19px", height: "19px" }}
       component={CheckBoxOutlineIcon}
     ></SvgIcon>
+  );
+}
+
+export function FilterButton(props) {
+  const { onClick, colDef } = props;
+  const apiRef = useGridApiContext();
+  const handleClick = useCallback(
+    (event) => {
+      apiRef.current.showFilterPanel(colDef.field);
+      onClick(event);
+    },
+    [apiRef, colDef.field, onClick]
+  );
+
+  return (
+    <MenuItem onClick={handleClick}>
+      <ListItemIcon>
+        <FilterAltOutlinedIcon fontSize="small" />
+      </ListItemIcon>
+    </MenuItem>
   );
 }

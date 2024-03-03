@@ -13,10 +13,17 @@ import {
   DeleteButton,
   MinusButton,
   PlusButton,
+  CloseIconButton,
 } from "../components/Buttons/Buttons";
 import { SEND_MERCH_COLUMNS } from "../mocks/users-data";
 import { useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import { Checkbox } from "@mui/material";
 
 export default function Promocodes({ rowData }) {
   const [rows, setRows] = useState(rowData);
@@ -65,13 +72,21 @@ export default function Promocodes({ rowData }) {
   function MenuButtons() {
     return (
       <>
-        <CheckboxSelectionButton
-          onClick={showCheckboxes}
-        ></CheckboxSelectionButton>
-        <PlusButton onClick={handleAddNewRow}></PlusButton>
-        <MinusButton></MinusButton>
-        <DeleteButton onClick={deleteRows}></DeleteButton>
-        <ClearButton onClick={resetRows}></ClearButton>
+        {!checkboxSelection ? (
+          <CheckboxSelectionButton
+            onClick={showCheckboxes}
+          ></CheckboxSelectionButton>
+        ) : (
+          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+        )}
+        {!checkboxSelection && (
+          <PlusButton onClick={handleAddNewRow}></PlusButton>
+        )}
+        {!checkboxSelection && <MinusButton></MinusButton>}
+        {checkboxSelection && (
+          <DeleteButton onClick={deleteRows}></DeleteButton>
+        )}
+        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
       </>
     );
   }
@@ -89,7 +104,10 @@ export default function Promocodes({ rowData }) {
 
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarContainer
+        sx={{ margin: "24px 32px 16px 4px" }}
+        style={{ maxWidth: "1246px", flexWrap: "nowrap" }}
+      >
         <GridToolbarQuickFilter
           InputProps={{ disableUnderline: true }}
           placeholder="Поиск"
@@ -100,7 +118,9 @@ export default function Promocodes({ rowData }) {
               paddingLeft: "8px",
               paddingBottom: 0,
             },
-            maxWidth: "790px",
+          }}
+          style={{
+            maxWidth: "1156px",
             width: "100%",
           }}
         ></GridToolbarQuickFilter>
@@ -114,7 +134,24 @@ export default function Promocodes({ rowData }) {
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           hideFooter={true}
-          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slots={{
+            columnMenu: CustomColumnMenu,
+            toolbar: CustomToolbar,
+            columnUnsortedIcon: UnfoldMoreIcon,
+            columnSortedAscendingIcon: ExpandMoreIcon,
+            columnSortedDescendingIcon: ExpandLessIcon,
+            baseCheckbox: (props) => (
+              <Checkbox
+                {...props}
+                checkedIcon={<CheckBoxOutlinedIcon />}
+                icon={
+                  <CheckBoxOutlineBlankOutlinedIcon
+                    style={{ color: "#DDE0E4" }}
+                  />
+                }
+              />
+            ),
+          }}
           slotProps={{
             toolbar: {
               showQuickFilter: true,
@@ -129,6 +166,12 @@ export default function Promocodes({ rowData }) {
             ".MuiDataGrid-columnHeaders": {
               backgroundColor: "#F9FAFB",
               minWidth: "100%",
+            },
+            ".MuiDataGrid-iconButtonContainer": {
+              visibility: "visible",
+            },
+            ".MuiDataGrid-sortIcon": {
+              opacity: "inherit !important",
             },
           }}
           rowModesModel={rowModesModel}

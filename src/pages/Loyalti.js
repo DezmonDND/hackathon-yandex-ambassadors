@@ -11,9 +11,17 @@ import {
   ClearButton,
   DateButton,
   CheckboxSelectionButton,
+  CloseIconButton
 } from "../components/Buttons/Buttons";
 import { LOYALTI_PROGRAMM_COLUMN } from "../mocks/users-data";
 import { useState } from "react";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import { Checkbox } from "@mui/material";
+
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
@@ -30,11 +38,17 @@ export default function Promocodes({ rowData }) {
   function MenuButtons() {
     return (
       <>
-        <CheckboxSelectionButton
-          onClick={showCheckboxes}
-        ></CheckboxSelectionButton>
-        <DateButton></DateButton>
-        <ClearButton onClick={resetRows}></ClearButton>
+        {!checkboxSelection ? (
+          <CheckboxSelectionButton
+            onClick={showCheckboxes}
+          ></CheckboxSelectionButton>
+        ) : (
+          <CloseIconButton
+            onClick={showCheckboxes}
+          ></CloseIconButton>
+        )}
+        {!checkboxSelection && <DateButton></DateButton>}
+        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
       </>
     );
   }
@@ -52,7 +66,10 @@ export default function Promocodes({ rowData }) {
 
   function CustomToolbar() {
     return (
-      <GridToolbarContainer sx={{ margin: "24px 0 16px 4px" }}>
+      <GridToolbarContainer
+        sx={{ margin: "24px 32px 16px 4px" }}
+        style={{ maxWidth: "1246px", flexWrap: "nowrap" }}
+      >
         <GridToolbarQuickFilter
           InputProps={{ disableUnderline: true }}
           placeholder="Поиск"
@@ -63,24 +80,28 @@ export default function Promocodes({ rowData }) {
               paddingLeft: "8px",
               paddingBottom: 0,
             },
-            maxWidth: "803px",
+          }}
+          style={{
+            maxWidth: "1156px",
             width: "100%",
           }}
         ></GridToolbarQuickFilter>
         <MenuButtons></MenuButtons>
-        <GridToolbarExport
-          startIcon={false}
-          sx={{
-            color: "#1d6bf3",
-            border: "1px solid #1d6bf3",
-            width: "132px",
-            height: "34px",
-            fontWeight: "400",
-            padding: "0",
-            fontSize: "14px",
-            textTransform: "none",
-          }}
-        />
+        {checkboxSelection && (
+          <GridToolbarExport
+            startIcon={false}
+            sx={{
+              color: "#1d6bf3",
+              border: "1px solid #1d6bf3",
+              minWidth: "132px",
+              height: "34px",
+              fontWeight: "400",
+              padding: "0",
+              fontSize: "14px",
+              textTransform: "none",
+            }}
+          />
+        )}
       </GridToolbarContainer>
     );
   }
@@ -96,7 +117,24 @@ export default function Promocodes({ rowData }) {
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           hideFooter={true}
-          slots={{ columnMenu: CustomColumnMenu, toolbar: CustomToolbar }}
+          slots={{
+            columnMenu: CustomColumnMenu,
+            toolbar: CustomToolbar,
+            columnUnsortedIcon: UnfoldMoreIcon,
+            columnSortedAscendingIcon: ExpandMoreIcon,
+            columnSortedDescendingIcon: ExpandLessIcon,
+            baseCheckbox: (props) => (
+              <Checkbox
+                {...props}
+                checkedIcon={<CheckBoxOutlinedIcon />}
+                icon={
+                  <CheckBoxOutlineBlankOutlinedIcon
+                    style={{ color: "#DDE0E4" }}
+                  />
+                }
+              />
+            ),
+          }}
           slotProps={{
             toolbar: {
               showQuickFilter: true,
@@ -111,6 +149,12 @@ export default function Promocodes({ rowData }) {
             ".MuiDataGrid-columnHeaders": {
               backgroundColor: "#F9FAFB",
               minWidth: "100%",
+            },
+            ".MuiDataGrid-iconButtonContainer": {
+              visibility: "visible",
+            },
+            ".MuiDataGrid-sortIcon": {
+              opacity: "inherit !important",
             },
           }}
           checkboxSelection={checkboxSelection}
