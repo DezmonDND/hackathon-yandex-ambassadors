@@ -11,10 +11,12 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import arrow from '../../assets/images/arrow.svg'
 import pencil from "../../assets/images/pencil.svg"
+import { useNavigate } from "react-router-dom";
 
 function FAQ() {
+  const navigate = useNavigate();
   const handleAddNewFaq = () => {
-    console.log('work')
+    navigate("add-faq");
   }
   function MenuButtons() {
     return (

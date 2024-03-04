@@ -27,3 +27,8 @@
   border: none;
   cursor: pointer;
 }
+.MuiInputBase-root {
+  padding: 8px 12px !important;
+  border: none;
+  border-radius: 8px !important;
+}
