@@ -73,6 +73,7 @@ export default function Promocodes({ rowData }) {
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
+        style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{
             columnMenu: CustomColumnMenu,

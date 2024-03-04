@@ -56,6 +56,7 @@ select {
 .content {
   max-width: 1246px;
   width: 100%;
+  border-right: 0.5px solid #cccccc;
 }
 .center {
   text-align: center;

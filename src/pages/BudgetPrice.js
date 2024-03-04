@@ -97,8 +97,9 @@ export default function Promocodes({ rowData }) {
   return (
     <Layout>
       <BudgetTabs></BudgetTabs>
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <Box sx={{ height: "calc(100% - 32px)", width: "100%" }}>
         <DataGrid
+          style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{
             columnMenu: CustomColumnMenu,
