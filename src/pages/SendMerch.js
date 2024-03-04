@@ -4,8 +4,6 @@ import {
   DataGrid,
   GridColumnMenu,
   GridRowModes,
-  GridToolbarContainer,
-  GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import {
   CheckboxSelectionButton,
@@ -23,6 +21,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import Toolbar from "../components/Toolbar/Toolbar";
 import { Checkbox } from "@mui/material";
 
 export default function Promocodes({ rowData }) {
@@ -104,29 +103,12 @@ export default function Promocodes({ rowData }) {
 
   function CustomToolbar() {
     return (
-      <GridToolbarContainer
-        sx={{ margin: "24px 32px 16px 4px" }}
-        style={{ maxWidth: "1246px", flexWrap: "nowrap" }}
-      >
-        <GridToolbarQuickFilter
-          InputProps={{ disableUnderline: true }}
-          placeholder="Поиск"
-          sx={{
-            ".MuiInputBase-root": {
-              backgroundColor: "#f1f1f1",
-              borderRadius: "8px",
-              paddingLeft: "8px",
-              paddingBottom: 0,
-            },
-          }}
-          style={{
-            maxWidth: "1156px",
-            width: "100%",
-          }}
-        ></GridToolbarQuickFilter>
-        <MenuButtons></MenuButtons>
-      </GridToolbarContainer>
-    );
+      <>
+        <Toolbar checkboxSelection={checkboxSelection}>
+          <MenuButtons></MenuButtons>
+        </Toolbar>
+      </>
+    )
   }
 
   return (
