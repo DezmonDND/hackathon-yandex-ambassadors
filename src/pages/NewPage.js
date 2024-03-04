@@ -1,30 +1,30 @@
 import { NavLink } from "react-router-dom";
-import "./BudgetTabs.css";
+import MenuList from "../components/MenuList/MenuList";
+import Layout from "../layouts/default";
 
-function BudgetTabs() {
+export function NewPage() {
   return (
-    <ul className="page__buget">
+    <Layout>
       <NavLink
-        className="page__link"
-        to="/budget-info"
+        className="menu__sub-link"
+        to="/budget"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#1D6BF3" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
         Бюджет
       </NavLink>
       <NavLink
-        className="page__link"
+        className="menu__sub-link"
         to="/budget-price"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#1D6BF3" : "",
+          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
         Стоимость товара
       </NavLink>
-    </ul>
+    </Layout>
   );
 }
-export default BudgetTabs;

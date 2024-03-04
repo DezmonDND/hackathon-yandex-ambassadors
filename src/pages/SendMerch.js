@@ -43,7 +43,7 @@ export default function Promocodes({ rowData }) {
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userName" },
     }));
 
     // Сохранение строки

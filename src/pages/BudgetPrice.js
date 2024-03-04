@@ -13,6 +13,7 @@ import { useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
 
 export default function Promocodes({ rowData }) {
   const [rows, setRows] = useState(rowData);
@@ -95,6 +96,7 @@ export default function Promocodes({ rowData }) {
 
   return (
     <Layout>
+      <BudgetTabs></BudgetTabs>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           hideFooter={true}

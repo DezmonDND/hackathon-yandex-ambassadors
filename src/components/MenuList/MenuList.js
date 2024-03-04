@@ -1,14 +1,15 @@
 import "./MenuList.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function MenuList() {
+  const { pathname } = useLocation();
+
   return (
     <ul className="menu__list">
       <NavLink
         className="menu__link"
         to="/promocodes"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -18,7 +19,6 @@ function MenuList() {
         className="menu__link"
         to="/ambassadors"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -28,7 +28,6 @@ function MenuList() {
         className="menu__link"
         to="/content"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -38,7 +37,6 @@ function MenuList() {
         className="menu__link"
         to="/send-merch"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -46,9 +44,8 @@ function MenuList() {
       </NavLink>
       <NavLink
         className="menu__link"
-        to="/budget"
+        to="/budget-info"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -56,19 +53,8 @@ function MenuList() {
       </NavLink>
       <NavLink
         className="menu__link"
-        to="/budget-price"
-        style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
-          color: isActive ? "#FFFFFF" : "",
-        })}
-      >
-        Стоимость товара
-      </NavLink>
-      <NavLink
-        className="menu__link"
         to="/loyalty-programm"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -78,7 +64,6 @@ function MenuList() {
         className="menu__link"
         to="/faq"
         style={({ isActive }) => ({
-          // backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >

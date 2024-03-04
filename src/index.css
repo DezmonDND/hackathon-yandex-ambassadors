@@ -106,3 +106,7 @@ select {
 .MuiList-root {
   min-width: 150px;
 }
+
+.MuiDataGrid-root {
+  border-style: hidden;
+}

@@ -1,18 +1,8 @@
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Button, FormControl, MenuItem, Select } from "@mui/material";
 import { useGridApiContext } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "../index.css";
 import { randomId } from "@mui/x-data-grid-generator";
-import { useState } from "react";
-import { RestoreFromTrashRounded } from "@mui/icons-material";
 
 function buttonClick() {
   alert("Привет!");
@@ -149,7 +139,7 @@ export const USERS = [
     id: randomId(),
     userStatus: "не амбассадор",
     userId: "4",
-    userDate: '04.03.2024',
+    userDate: "04.03.2024",
     userName: "Иванов Иван Иванович",
     userProgramm: "Продакт — менеджер для специалистов с опытом",
     userCountry: "Россия",
@@ -204,13 +194,13 @@ function SelectEditInputCell(props) {
 
   return (
     <div>
-      <FormControl sx={{  width: 130, margin: 0 }}>
+      <FormControl sx={{ width: 130, margin: 0 }}>
         <Select
           sx={{
             ".MuiOutlinedInput-input": {
               padding: "6px 6px 6px 6px",
             },
-            backgroundColor: '#E8F2FF'
+            backgroundColor: "#E8F2FF",
           }}
           value={value}
           autoFocus
@@ -246,21 +236,25 @@ function SelectEditInputCellProfession(props) {
 
   return (
     <div>
-      <FormControl sx={{  width: 380, margin: 0 }}>
+      <FormControl sx={{ width: 380, margin: 0 }}>
         <Select
           sx={{
             ".MuiOutlinedInput-input": {
               padding: "6px 6px 6px 6px",
             },
-            backgroundColor: '#E8F2FF'
+            backgroundColor: "#E8F2FF",
           }}
           value={value}
           autoFocus
           onChange={handleChange}
           autoWidth
         >
-          <MenuItem value={"Дизайнер интерфейсов"}>Дизайнер интерфейсов</MenuItem>
-          <MenuItem value={"Продакт — менеджер для специалистов с опытом"}>Продакт — менеджер для специалистов с опытом</MenuItem>
+          <MenuItem value={"Дизайнер интерфейсов"}>
+            Дизайнер интерфейсов
+          </MenuItem>
+          <MenuItem value={"Продакт — менеджер для специалистов с опытом"}>
+            Продакт — менеджер для специалистов с опытом
+          </MenuItem>
           <MenuItem value={"Бизнес-аналитик"}>Бизнес-аналитик</MenuItem>
           <MenuItem value={"Системный аналитик"}>Системный аналитик</MenuItem>
         </Select>
@@ -288,13 +282,13 @@ function SelectEditInputCellMerch(props) {
 
   return (
     <div>
-      <FormControl sx={{  width: 150, margin: 0 }}>
+      <FormControl sx={{ width: 150, margin: 0 }}>
         <Select
           sx={{
             ".MuiOutlinedInput-input": {
               padding: "6px 6px 6px 6px",
             },
-            backgroundColor: '#E8F2FF'
+            backgroundColor: "#E8F2FF",
           }}
           value={value}
           autoFocus
@@ -603,6 +597,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
+    editable: true,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -624,6 +619,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 208,
     headerAlign: "center",
     align: "center",
+    editable: true,
   },
   {
     headerName: "Размер толстовки",
@@ -631,6 +627,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 195,
     headerAlign: "center",
     align: "center",
+    editable: true,
   },
   {
     headerName: "Размер носков",
@@ -638,6 +635,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 195,
     headerAlign: "center",
     align: "center",
+    editable: true,
   },
   {
     headerName: "ФИО",
@@ -645,6 +643,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
+    editable: true,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -666,6 +665,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 103,
     headerAlign: "center",
     align: "center",
+    editable: true,
   },
 ];
 

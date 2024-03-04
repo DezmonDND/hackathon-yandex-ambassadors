@@ -13,7 +13,7 @@ import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
-
+import BudgetTabs from "./components/BudgetTabs/BudgetTabs";
 
 const theme = createTheme({
   typography: {
@@ -40,10 +40,10 @@ function App() {
           <Route path="/content" element={<Content rowData={rowData} />} />
           <Route path="/send-merch" element={<SendMerch rowData={rowData} />} />
           <Route path="/budget" element={<Budget rowData={rowData} />} />
-          {/* <Route path="/budget/info" element={<Budget rowData={rowData} />} /> */}
+          <Route path="/budget-price" element={<BudgetPrice rowData={rowData} />} />
           <Route
-            path="/budget-price"
-            element={<BudgetPrice rowData={rowData} />}
+            path="/budget-info"
+            element={<Budget rowData={rowData} />}
           />
           <Route
             path="/loyalty-programm"
