@@ -11,7 +11,7 @@ import SendMerch from "./pages/SendMerch";
 import Budget from "./pages/Budget";
 import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
-import FAQ from "./pages/FAQ";
+import FAQ from "./pages/FAQ/FAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 
