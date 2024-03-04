@@ -21,7 +21,7 @@ import {
   CloseIconButton,
 } from "../components/Buttons/Buttons";
 import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import { Menu, Checkbox } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
@@ -73,7 +73,7 @@ export default function Ambassadors({ rowData }) {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
   }
 
-  function MenuButtons() {
+  const MenuButtons = () => {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
 
@@ -107,9 +107,9 @@ export default function Ambassadors({ rowData }) {
         )}
       </>
     );
-  }
+  };
 
-  function CustomPopupCheckboxes(props) {
+  const CustomPopupCheckboxes = (props) => {
     const apiRef = useGridApiContext();
 
     const [visibleColumns, setVisibleColumns] = useState([]);
@@ -131,11 +131,15 @@ export default function Ambassadors({ rowData }) {
         onClose={() => props.setOpenColumnsMenu(!props.openColumnsMenu)}
       >
         {columns.map((column) => {
+          column.id = randomId()
           let isVisible = visibleColumns.filter(
             (x) => x.field === column.field
           );
           return (
-            <div style={column.hideable ? {} : { display: "none" }}>
+            <div
+              key={column.id}
+              style={column.hideable ? {} : { display: "none" }}
+            >
               <Checkbox
                 icon={<CheckBoxOutlineBlankIcon />}
                 checkedIcon={<CheckBoxIcon />}
@@ -154,9 +158,9 @@ export default function Ambassadors({ rowData }) {
         })}
       </Menu>
     );
-  }
+  };
 
-  function CustomColumnMenu(props) {
+  const CustomColumnMenu = (props) => {
     return (
       <GridColumnMenu
         {...props}
@@ -166,9 +170,9 @@ export default function Ambassadors({ rowData }) {
         }}
       />
     );
-  }
+  };
 
-  function CustomToolbar() {
+  const CustomToolbar = () => {
     return (
       <GridToolbarContainer
         sx={{ margin: "24px 32px 16px 4px" }}
@@ -208,7 +212,7 @@ export default function Ambassadors({ rowData }) {
         )}
       </GridToolbarContainer>
     );
-  }
+  };
 
   return (
     <Layout>
@@ -256,7 +260,7 @@ export default function Ambassadors({ rowData }) {
             },
             ".MuiDataGrid-menuIcon": {
               visibility: "visible",
-            }
+            },
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
