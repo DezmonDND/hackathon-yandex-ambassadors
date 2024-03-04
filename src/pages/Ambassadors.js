@@ -4,9 +4,6 @@ import {
   DataGrid,
   GridColumnMenu,
   GridRowModes,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridToolbarQuickFilter,
   useGridApiContext,
 } from "@mui/x-data-grid";
 import {
@@ -29,6 +26,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
+import Toolbar from "../components/Toolbar/Toolbar";
 
 export default function Ambassadors({ rowData }) {
   const [rows, setRows] = useState(rowData);
@@ -170,43 +168,11 @@ export default function Ambassadors({ rowData }) {
 
   function CustomToolbar() {
     return (
-      <GridToolbarContainer
-        sx={{ margin: "24px 32px 16px 4px" }}
-        style={{ maxWidth: "1246px", flexWrap: "nowrap" }}
-      >
-        <GridToolbarQuickFilter
-          InputProps={{ disableUnderline: true }}
-          placeholder="Поиск"
-          sx={{
-            ".MuiInputBase-root": {
-              backgroundColor: "#f1f1f1",
-              borderRadius: "8px",
-              paddingLeft: "8px",
-              paddingBottom: 0,
-            },
-          }}
-          style={{
-            maxWidth: "1156px",
-            width: "100%",
-          }}
-        ></GridToolbarQuickFilter>
-        <MenuButtons></MenuButtons>
-        {checkboxSelection && (
-          <GridToolbarExport
-            startIcon={false}
-            sx={{
-              color: "#1d6bf3",
-              border: "1px solid #1d6bf3",
-              minWidth: "132px",
-              height: "34px",
-              fontWeight: "400",
-              padding: "0",
-              fontSize: "14px",
-              textTransform: "none",
-            }}
-          />
-        )}
-      </GridToolbarContainer>
+      <>
+        <Toolbar checkboxSelection={checkboxSelection}>
+          <MenuButtons></MenuButtons>
+        </Toolbar>
+      </>
     );
   }
 
