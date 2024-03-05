@@ -3,8 +3,10 @@ import { useGridApiContext } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "../index.css";
 import { randomId } from "@mui/x-data-grid-generator";
+import { GridActionsCellItem } from "@mui/x-data-grid";
+import SaveIcon from "@mui/icons-material/Save";
 
-function buttonClick() {
+export function buttonClick() {
   alert("Привет!");
 }
 
@@ -217,7 +219,7 @@ function SelectEditInputCell(props) {
   );
 }
 
-const renderSelectEditInputCell = (params) => {
+export const renderSelectEditInputCell = (params) => {
   return <SelectEditInputCell {...params} />;
 };
 
@@ -263,7 +265,7 @@ function SelectEditInputCellProfession(props) {
   );
 }
 
-const renderSelectEditInputCellProfession = (params) => {
+export const renderSelectEditInputCellProfession = (params) => {
   return <SelectEditInputCellProfession {...params} />;
 };
 
@@ -306,7 +308,7 @@ function SelectEditInputCellMerch(props) {
   );
 }
 
-const renderSelectEditInputCellMerch = (params) => {
+export const renderSelectEditInputCellMerch = (params) => {
   return <SelectEditInputCellMerch {...params} />;
 };
 
@@ -402,6 +404,27 @@ export const AMBASSADORS_COLUMNS = [
     type: "number",
     sortable: false,
     disableColumnMenu: true,
+  },
+  {
+    field: "id",
+    type: "actions",
+    headerName: "Действия",
+    headerAlign: "center",
+    align: "center",
+    width: 100,
+    disableColumnMenu: true,
+    getActions: ({ id }) => {
+      return (
+        <GridActionsCellItem
+          icon={<SaveIcon />}
+          label="Save"
+          sx={{
+            color: "primary.main",
+          }}
+          // onClick={handleSaveClick(id)}
+        />
+      );
+    },
   },
   {
     field: "userDate",

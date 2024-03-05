@@ -7,32 +7,199 @@ import {
   useGridApiContext,
 } from "@mui/x-data-grid";
 import {
-  CheckboxSelectionButton,
-  ClearButton,
   DeleteButton,
   MinusButton,
   PlusButton,
   SettingsButton,
-  CheckBoxIcon,
-  CheckBoxOutlineBlankIcon,
   CloseIconButton,
+  CheckboxSelectionButton,
 } from "../components/Buttons/Buttons";
-import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
-import React, { useEffect, useState } from "react";
+// import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
+import React, { useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
-import { Menu, Checkbox } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Close";
+import {
+  buttonClick,
+  renderSelectEditInputCell,
+  renderSelectEditInputCellProfession,
+} from "../mocks/users-data";
+import { GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
+import SaveIcon from "@mui/icons-material/Save";
+import { Button } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export default function Ambassadors({ rowData }) {
   const [rows, setRows] = useState(rowData);
+  const [rowModesModel, setRowModesModel] = useState({});
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
-  const [rowModesModel, setRowModesModel] = useState({});
-  const [isClicked, setIsClicked] = useState(false);
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const AMBASSADORS_COLUMNS = [
+    {
+      field: "userStatus",
+      headerName: "Статус",
+      headerAlign: "center",
+      align: "center",
+      width: 150,
+      editable: true,
+      sortable: false,
+      disableColumnMenu: true,
+      type: "singleSelect",
+      renderEditCell: renderSelectEditInputCell,
+    },
+    {
+      field: "id",
+      headerName: "ID",
+      headerAlign: "center",
+      align: "center",
+      width: 90,
+      type: "number",
+      sortable: false,
+      editable: false,
+      disableColumnMenu: true,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      cellClassName: "actions",
+      headerName: "Действия",
+      headerAlign: "center",
+      editable: false,
+      align: "center",
+      width: 100,
+      disableColumnMenu: true,
+      renderCell: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: "#1d6bf3",
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              sx={{
+                color: "#1d6bf3",
+              }}
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            sx={{
+              border: "1px solid #1d6bf3",
+              color: "#1d6bf3",
+              borderRadius: "4px",
+            }}
+            icon={<EditOutlinedIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+
+    {
+      field: "userDate",
+      headerName: " Дата",
+      headerAlign: "center",
+      align: "center",
+      width: 120,
+      editable: true,
+      disableColumnMenu: true,
+    },
+    {
+      field: "userName",
+      headerName: "ФИО",
+      headerAlign: "center",
+      align: "center",
+      width: 220,
+      editable: false,
+      disableColumnMenu: true,
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            style={{
+              color: "#1D6BF3",
+              textTransform: "none",
+              fontWeight: "400",
+            }}
+            onClick={buttonClick}
+          >
+            {cellValues.row.userName}
+          </Button>
+        );
+      },
+    },
+    {
+      field: "userProgramm",
+      headerName: "Программа",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 400,
+      type: "singleSelect",
+      sortable: false,
+      renderEditCell: renderSelectEditInputCellProfession,
+    },
+    {
+      field: "userCountry",
+      headerName: "Страна",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 120,
+      sortable: false,
+    },
+    {
+      field: "userCity",
+      headerName: "Город",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 120,
+      sortable: false,
+    },
+  ];
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -52,11 +219,18 @@ export default function Ambassadors({ rowData }) {
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userName" },
     }));
+  };
 
-    // Сохранение строки
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
   };
 
   function showCheckboxes() {
@@ -71,7 +245,13 @@ export default function Ambassadors({ rowData }) {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
   }
 
-  const MenuButtons = () => {
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const MenuButtons = (props) => {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
 
@@ -101,62 +281,10 @@ export default function Ambassadors({ rowData }) {
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
         {!checkboxSelection && <MinusButton></MinusButton>}
-        {checkboxSelection && <ClearButton onClick={resetRows}> </ClearButton>}
         {checkboxSelection && (
           <DeleteButton onClick={deleteRows}></DeleteButton>
         )}
       </>
-    );
-  };
-
-  const CustomPopupCheckboxes = (props) => {
-    const apiRef = useGridApiContext();
-
-    const [visibleColumns, setVisibleColumns] = useState([]);
-    const [columns, setColumns] = useState(apiRef.current.getVisibleColumns());
-
-    useEffect(() => {
-      setVisibleColumns(apiRef.current.getVisibleColumns());
-    }, [apiRef]);
-
-    return (
-      <Menu
-        style={{
-          top: "7px",
-          left: "-130px",
-        }}
-        id="long-menu"
-        anchorEl={props.moreMenuAnchorEl}
-        open={props.openColumnsMenu}
-        onClose={() => props.setOpenColumnsMenu(!props.openColumnsMenu)}
-      >
-        {columns.map((column) => {
-          column.id = randomId();
-          let isVisible = visibleColumns.filter(
-            (x) => x.field === column.field
-          );
-          return (
-            <div
-              key={column.id}
-              style={column.hideable ? {} : { display: "none" }}
-            >
-              <Checkbox
-                icon={<CheckBoxOutlineBlankIcon />}
-                checkedIcon={<CheckBoxIcon />}
-                checked={isVisible.length !== 0 ? true : false}
-                onChange={(e) => {
-                  apiRef.current.setColumnVisibility(
-                    column.field,
-                    e.target.checked
-                  );
-                  setVisibleColumns(apiRef.current.getVisibleColumns());
-                }}
-              />
-              {column.headerName}
-            </div>
-          );
-        })}
-      </Menu>
     );
   };
 
@@ -188,6 +316,7 @@ export default function Ambassadors({ rowData }) {
         <DataGrid
           style={{ borderStyle: "hidden" }}
           hideFooter={true}
+          editMode="row"
           slots={{
             columnMenu: CustomColumnMenu,
             toolbar: CustomToolbar,
@@ -201,6 +330,8 @@ export default function Ambassadors({ rowData }) {
           slotProps={{
             toolbar: {
               showQuickFilter: true,
+              setRows,
+              setRowModesModel,
             },
           }}
           localeText={{
@@ -226,6 +357,9 @@ export default function Ambassadors({ rowData }) {
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
           onRowSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}
