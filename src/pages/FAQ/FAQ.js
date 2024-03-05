@@ -9,8 +9,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import arrow from "../../assets/images/arrow.svg";
-import pencil from "../../assets/images/pencil.svg";
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { useNavigate } from "react-router-dom";
 
 function FAQ() {
@@ -25,9 +25,19 @@ function FAQ() {
       </>
     );
   }
+  const handleEditFAQClick = () => {
+    // Переход на страницу /edit-faq и передача пропсов
+    navigate('edit-faq', {
+      state: {
+        category: 'Категория пропс',
+        question: 'Текст вопроса пропс',
+        answer: 'Текст ответа пропс',
+      }
+    });
+  };
   return (
     <Layout>
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <Box sx={{ height: "100%", width: "100%" }} className="faq">
         <Box
           sx={{
             height: "auto",
@@ -61,7 +71,7 @@ function FAQ() {
         </Box>
         <Accordion sx={{ boxShadow: "none", mb: "10px" }}>
           <AccordionSummary
-            expandIcon={<img src={arrow} alt="Стрелка" />}
+            expandIcon={<ExpandMoreRoundedIcon />}
             aria-controls="faq"
             id="faq_category"
             sx={{ bgcolor: "#FBFBFB", borderRadius: "12px" }}
@@ -76,8 +86,8 @@ function FAQ() {
               <div>
                 <span>A:</span> Текст ответа
               </div>
-              <button>
-                <img src={pencil} alt="Карандаш"></img>
+              <button onClick={handleEditFAQClick} >
+                <BorderColorOutlinedIcon fontSize="small" />
               </button>
             </div>
             <div className="faq-item">
@@ -87,8 +97,8 @@ function FAQ() {
               <div>
                 <span>A:</span> Текст ответа
               </div>
-              <button>
-                <img src={pencil} alt="Карандаш"></img>
+              <button onClick={handleEditFAQClick}>
+                <BorderColorOutlinedIcon fontSize="small"/>
               </button>
             </div>
             <div className="faq-item">
@@ -98,15 +108,15 @@ function FAQ() {
               <div>
                 <span>A:</span> Текст ответа
               </div>
-              <button>
-                <img src={pencil} alt="Карандаш"></img>
+              <button onClick={handleEditFAQClick}>
+                <BorderColorOutlinedIcon fontSize="small"/>
               </button>
             </div>
           </AccordionDetails>
         </Accordion>
         <Accordion sx={{ boxShadow: "none", mb: "10px" }}>
           <AccordionSummary
-            expandIcon={<img src={arrow} alt="Стрелка" />}
+            expandIcon={<ExpandMoreRoundedIcon />}
             aria-controls="faq"
             id="faq_category"
             sx={{ bgcolor: "#FBFBFB", borderRadius: "12px" }}
@@ -121,15 +131,15 @@ function FAQ() {
               <div>
                 <span>A:</span> Текст ответа
               </div>
-              <button>
-                <img src={pencil} alt="Карандаш"></img>
+              <button onClick={handleEditFAQClick}>
+                <BorderColorOutlinedIcon fontSize="small"/>
               </button>
             </div>
           </AccordionDetails>
         </Accordion>
         <Accordion sx={{ boxShadow: "none", mb: "10px" }}>
           <AccordionSummary
-            expandIcon={<img src={arrow} alt="Стрелка" />}
+            expandIcon={<ExpandMoreRoundedIcon />}
             aria-controls="faq"
             id="faq_category"
             sx={{ bgcolor: "#FBFBFB", borderRadius: "12px" }}
@@ -144,8 +154,8 @@ function FAQ() {
               <div>
                 <span>A:</span> Текст ответа
               </div>
-              <button>
-                <img src={pencil} alt="Карандаш"></img>
+              <button onClick={handleEditFAQClick}>
+                <BorderColorOutlinedIcon fontSize="small"/>
               </button>
             </div>
           </AccordionDetails>
