@@ -37,7 +37,7 @@ function FAQ() {
   };
   return (
     <Layout>
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <Box sx={{ height: "100%", width: "100%" }} className="faq">
         <Box
           sx={{
             height: "auto",

@@ -14,7 +14,7 @@
   line-height: 20px;
   font-weight: 500;
 }
-.MuiPaper-root::before {
+.faq > .MuiPaper-root::before {
   height: 0 !important;
 }
 .faq-item > button {
