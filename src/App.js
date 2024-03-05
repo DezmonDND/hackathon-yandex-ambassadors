@@ -14,7 +14,7 @@ import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ/FAQ";
 import AddFAQ from "./pages/FAQ/AddFAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
-import BudgetTabs from "./components/BudgetTabs/BudgetTabs";
+import  NotFound from "./pages/NotFound/NotFound"
 
 const theme = createTheme({
   typography: {
@@ -53,7 +53,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/faq/add-faq" element={<AddFAQ />} />
           <Route path="/login" element={<Login />} />
-          {/* TODO: добавить страницу 404 */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
     </>
