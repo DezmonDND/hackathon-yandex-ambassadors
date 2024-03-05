@@ -32,6 +32,7 @@ export default function Ambassadors({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -83,12 +84,14 @@ export default function Ambassadors({ rowData }) {
         ) : (
           <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
         )}
-        <SettingsButton
-          onClick={(event) => {
-            setOpenColumnsMenu(!openColumnsMenu);
-            setColumnsMenuAnchorEl(event.currentTarget);
-          }}
-        ></SettingsButton>
+        {!checkboxSelection && (
+          <SettingsButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></SettingsButton>
+        )}
         <CustomPopupCheckboxes
           moreMenuAnchorEl={columnsMenuAnchorEl}
           openColumnsMenu={openColumnsMenu}

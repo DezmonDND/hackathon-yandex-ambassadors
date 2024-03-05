@@ -111,3 +111,7 @@ select {
 .MuiDataGrid-root {
   border-style: hidden;
 }
+
+.MuiDataGrid-main {
+  /* border-right: 0.5px solid #cccccc; */
+}
