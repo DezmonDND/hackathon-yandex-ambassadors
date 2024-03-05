@@ -42,6 +42,17 @@ export default function Promocodes({ rowData }) {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+  
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }
@@ -121,15 +132,25 @@ export default function Promocodes({ rowData }) {
               backgroundColor: "#F9FAFB",
               minWidth: "100%",
             },
+            ".MuiDataGrid-editInputCell": {
+              padding: '7px 0',
+              margin: '0 3px',
+              backgroundColor: '#E8F2FF',
+              border: '1px solid #E0E0E0',
+              borderRadius:' 4px',
+            }
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
           onRowSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}
           disableRowSelectionOnClick
           disableColumnMenu
+          editMode="row"
         />
       </Box>
     </Layout>

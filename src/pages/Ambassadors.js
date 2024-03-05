@@ -353,6 +353,13 @@ export default function Ambassadors({ rowData }) {
             ".MuiDataGrid-menuIcon": {
               visibility: "visible",
             },
+            ".MuiDataGrid-editInputCell": {
+              padding: '7px 0',
+              margin: '0 3px',
+              backgroundColor: '#E8F2FF',
+              border: '1px solid #E0E0E0',
+              borderRadius:' 4px',
+            }
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}

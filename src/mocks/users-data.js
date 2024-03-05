@@ -346,7 +346,7 @@ export const PROMOCODES_COLUMNS = [
     field: "userName",
     headerName: "ФИО",
     width: 220,
-    editable: true,
+    editable: false,
     headerAlign: "center",
     align: "center",
     renderCell: (cellValues) => {
@@ -370,6 +370,7 @@ export const PROMOCODES_COLUMNS = [
     headerAlign: "center",
     align: "center",
     sortable: false,
+    editable: true,
     width: 200,
   },
   {
@@ -378,6 +379,7 @@ export const PROMOCODES_COLUMNS = [
     headerAlign: "center",
     align: "center",
     sortable: false,
+    editable: true,
     width: 220,
   },
 ];
@@ -514,13 +516,6 @@ export const CONTENT_COLUMNS = [
     editable: true,
     disableColumnMenu: true,
     type: "singleSelect",
-    // valueOptions: [
-    //   "Доступно",
-    //   "Доступно: 0/2",
-    //   "Доступно: 1/2",
-    //   "Доступно: 2/2",
-    //   "Недоступно",
-    // ],
     renderEditCell: renderSelectEditInputCellMerch,
   },
   {
@@ -539,7 +534,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userName",
     width: 220,
-    editable: true,
+    editable: false,
     disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
@@ -562,6 +557,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userTelegram",
     width: 164,
+    editable: true,
     disableColumnMenu: true,
   },
   {
@@ -570,6 +566,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userFeedback",
     width: 214,
+    editable: true,
     disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
@@ -589,6 +586,7 @@ export const CONTENT_COLUMNS = [
     align: "center",
     field: "userHabr",
     width: 214,
+    editable: true,
     disableColumnMenu: true,
     renderCell: (cellValues) => {
       return (
@@ -620,7 +618,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
-    editable: true,
+    editable: false,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -666,7 +664,7 @@ export const SEND_MERCH_COLUMNS = [
     width: 184,
     headerAlign: "center",
     align: "center",
-    editable: true,
+    editable: false,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -707,6 +705,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userName",
     width: 200,
+    editable: false,
     renderCell: (cellValues) => {
       return (
         <Button
@@ -728,6 +727,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userTotal",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Январь",
@@ -735,6 +735,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userJanuare",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Февраль",
@@ -742,6 +743,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userFebruare",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Март",
@@ -749,6 +751,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userMart",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Апрель",
@@ -756,6 +759,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userApril",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Май",
@@ -763,6 +767,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userMay",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Июнь",
@@ -770,6 +775,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userJune",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Июль",
@@ -777,6 +783,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userJuly",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Август",
@@ -784,6 +791,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userAugust",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Сентябрь",
@@ -791,6 +799,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userSeptember",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Октябрь",
@@ -798,6 +807,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userOctober",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Ноябрь",
@@ -805,6 +815,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userNovember",
     width: 100,
+    editable: true,
   },
   {
     headerName: "Декабрь",
@@ -812,6 +823,7 @@ export const BUDGET_COLUMN = [
     align: "center",
     field: "userDecember",
     width: 100,
+    editable: true,
   },
 ];
 
@@ -839,8 +851,8 @@ export const BUDGET_PRICE_COLUMN = [
     align: "center",
     field: "userMerchPrice",
     width: 300,
-    sortable: false,
     editable: true,
+    sortable: false,
   },
 ];
 
@@ -880,6 +892,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userHudi",
     width: 120,
+    editable: true,
   },
   {
     headerName: "Кофе",
@@ -887,6 +900,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userCoffee",
     width: 110,
+    editable: true,
   },
   {
     headerName: "Стикеры",
@@ -894,6 +908,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userSticker",
     width: 110,
+    editable: true,
   },
   {
     headerName: "Плюс",
@@ -901,6 +916,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userPlus",
     width: 110,
+    editable: true,
   },
   {
     headerName: "Арзамас",
@@ -908,6 +924,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userArzamas",
     width: 110,
+    editable: true,
   },
   {
     headerName: "Шоппер",
@@ -915,6 +932,7 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userShopper",
     width: 110,
+    editable: true,
   },
   {
     headerName: "Рюкзак",
@@ -922,5 +940,6 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     align: "center",
     field: "userBackpack",
     width: 110,
+    editable: true,
   },
 ];
