@@ -69,7 +69,8 @@ function FAQ() {
           </Paper>
           <MenuButtons></MenuButtons>
         </Box>
-        <Accordion sx={{ boxShadow: "none", mb: "10px" }}>
+        <div className="faq-list">
+          <Accordion sx={{ boxShadow: "none", mb: "10px" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreRoundedIcon />}
             aria-controls="faq"
@@ -160,6 +161,8 @@ function FAQ() {
             </div>
           </AccordionDetails>
         </Accordion>
+        </div>
+
       </Box>
     </Layout>
   );

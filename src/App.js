@@ -15,6 +15,7 @@ import FAQ from "./pages/FAQ/FAQ";
 import AddFAQ from "./pages/FAQ/AddFAQ";
 import EditFAQ from "./pages/FAQ/EditFAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import  NotFound from "./pages/NotFound/NotFound"
 
 const theme = createTheme({
   typography: {
@@ -54,7 +55,7 @@ function App() {
           <Route path="/faq/add-faq" element={<AddFAQ />} />
           <Route path="/faq/edit-faq" element={<EditFAQ />} />
           <Route path="/login" element={<Login />} />
-          {/* TODO: добавить страницу 404 */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
     </>

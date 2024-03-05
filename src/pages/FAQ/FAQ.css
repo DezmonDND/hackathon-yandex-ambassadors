@@ -1,3 +1,6 @@
+.faq-list {
+  padding: 10px;
+}
 .faq-item {
   display: flex;
   flex-direction: column;
@@ -14,7 +17,7 @@
   line-height: 20px;
   font-weight: 500;
 }
-.faq > .MuiPaper-root::before {
+.faq-list > .MuiPaper-root::before {
   height: 0 !important;
 }
 .faq-item > button {
