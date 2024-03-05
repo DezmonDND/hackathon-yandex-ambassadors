@@ -13,8 +13,8 @@ import BudgetPrice from "./pages/BudgetPrice";
 import Loyalti from "./pages/Loyalti";
 import FAQ from "./pages/FAQ/FAQ";
 import AddFAQ from "./pages/FAQ/AddFAQ";
+import EditFAQ from "./pages/FAQ/EditFAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
-import BudgetTabs from "./components/BudgetTabs/BudgetTabs";
 
 const theme = createTheme({
   typography: {
@@ -52,6 +52,7 @@ function App() {
           />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/faq/add-faq" element={<AddFAQ />} />
+          <Route path="/faq/edit-faq" element={<EditFAQ />} />
           <Route path="/login" element={<Login />} />
           {/* TODO: добавить страницу 404 */}
         </Routes>

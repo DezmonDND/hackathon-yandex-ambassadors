@@ -19,16 +19,11 @@
 }
 .faq-item > button {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 20px;
-  padding: 12px 20px;
+  padding: 8px 16px;
   border-radius: 8px;
   background-color: #fff;
-  border: none;
+  border: 1px solid #EBEBEB;
   cursor: pointer;
 }
-/* .MuiInputBase-root {
-  padding: 8px 12px !important;
-  border: none;
-  border-radius: 8px !important;
-} */
