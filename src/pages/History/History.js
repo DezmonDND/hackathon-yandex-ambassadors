@@ -6,7 +6,7 @@ import {
   CheckboxSelectionButton,
   CloseIconButton,
 } from "../../components/Buttons/Buttons";
-import { HISTORY_COLUMN } from "../../mocks/users-data";
+import { HISTORY_COLUMN } from "../../utils/columns";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";

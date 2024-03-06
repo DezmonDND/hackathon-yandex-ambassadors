@@ -943,71 +943,12 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     editable: true,
   },
 ];
-export const HISTORY_COLUMN = [
-  {
-    headerName: "",
-    headerAlign: "center",
-    align: "center",
-    field: "userIconStatus",
-    width: 60,
-    sortable: false,
-  },
-  {
-    headerName: "Дата/Время",
-    headerAlign: "center",
-    align: "center",
-    field: "userData",
-    width: 140,
-  },
-  {
-    headerName: "Раздел",
-    headerAlign: "center",
-    align: "center",
-    field: "userSection",
-    width: 140,
-  },
-  {
-    headerName: "ID",
-    headerAlign: "center",
-    align: "center",
-    field: "userId",
-    width: 60,
-    sortable: false,
-  },
-  {
-    headerName: "ФИО",
-    headerAlign: "center",
-    align: "center",
-    field: "userName",
-    width: 220,
-    renderCell: (cellValues) => {
-      return (
-        <Button
-          style={{
-            color: "#1D6BF3",
-            textTransform: "none",
-            fontWeight: "400",
-          }}
-          onClick={buttonClick}
-        >
-          {cellValues.row.userName}
-        </Button>
-      );
-    },
-  },
-  {
-    headerName: "Действие",
-    headerAlign: "center",
-    align: "center",
-    field: "userAction",
-    width: 340,
-  },
-];
+
 export const HISTORY = [
   {
     userId: '3',
     userData: '14.02.2024 15:23',
-    userIconStatus: '',
+    userIconStatus: '1',
     userSection: 'Амбассадоры',
     userName: 'Иванов Иван Иванович',
     userAction: 'Новый амбассадор'
@@ -1015,7 +956,7 @@ export const HISTORY = [
   {
     userId: '10',
     userData: '14.02.2024 15:23',
-    userIconStatus: '',
+    userIconStatus: '2',
     userSection: 'Промокоды',
     userName: 'Иванов НЕИван Иванович',
     userAction: 'Получен промокод ABCDEF12'
@@ -1023,7 +964,7 @@ export const HISTORY = [
   {
     userId: '89',
     userData: '14.02.2024 15:23',
-    userIconStatus: '',
+    userIconStatus: '3',
     userSection: 'Контент',
     userName: 'Петров Петрович',
     userAction: 'Добавлен новый контент'
@@ -1031,7 +972,7 @@ export const HISTORY = [
   {
     userId: '7',
     userData: '14.02.2024 15:23',
-    userIconStatus: '',
+    userIconStatus: '4',
     userSection: 'Контент',
     userName: 'Петров Петрович',
     userAction: 'Гайд'
