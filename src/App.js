@@ -17,6 +17,7 @@ import EditFAQ from "./pages/FAQ/EditFAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import  NotFound from "./pages/NotFound/NotFound"
 import History from "./pages/History/History"
+import Notices from "./pages/Notices/Notices"
 
 const theme = createTheme({
   typography: {
@@ -57,6 +58,7 @@ function App() {
           <Route path="/faq/edit-faq" element={<EditFAQ />} />
           <Route path="/login" element={<Login />} />
           <Route path="/history" element={<History rowData={HISTORY} />} />
+          <Route path="/notices" element={<Notices rowData={HISTORY} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
