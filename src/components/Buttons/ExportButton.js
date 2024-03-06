@@ -2,10 +2,10 @@ import { GridToolbarExportContainer } from "@mui/x-data-grid";
 import * as React from "react";
 import { ExportMenuItem } from "../Export";
 
-export function ExportButton(props) {
+export function ExportButton({ config, ...rest }) {
   return (
-    <GridToolbarExportContainer {...props}>
-      <ExportMenuItem />
+    <GridToolbarExportContainer {...rest}>
+      <ExportMenuItem config={config}/>
     </GridToolbarExportContainer>
   );
 }
