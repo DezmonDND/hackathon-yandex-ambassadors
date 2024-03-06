@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu, gridClasses } from "@mui/x-data-grid";
 import {
-  ClearButton,
   CheckboxSelectionButton,
   CloseIconButton,
   FilterExportButton
@@ -56,7 +55,6 @@ export default function Promocodes({ rowData }) {
           openColumnsMenu={openColumnsMenu}
           setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
         />
-        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
       </>
     );
   }
