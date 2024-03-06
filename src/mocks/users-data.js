@@ -943,3 +943,38 @@ export const LOYALTI_PROGRAMM_COLUMN = [
     editable: true,
   },
 ];
+
+export const HISTORY = [
+  {
+    userId: '3',
+    userData: '14.02.2024 15:23',
+    userIconStatus: '1',
+    userSection: 'Амбассадоры',
+    userName: 'Иванов Иван Иванович',
+    userAction: 'Новый амбассадор'
+  },
+  {
+    userId: '10',
+    userData: '14.02.2024 15:23',
+    userIconStatus: '2',
+    userSection: 'Промокоды',
+    userName: 'Иванов НЕИван Иванович',
+    userAction: 'Получен промокод ABCDEF12'
+  },
+  {
+    userId: '89',
+    userData: '14.02.2024 15:23',
+    userIconStatus: '3',
+    userSection: 'Контент',
+    userName: 'Петров Петрович',
+    userAction: 'Добавлен новый контент'
+  },
+  {
+    userId: '7',
+    userData: '14.02.2024 15:23',
+    userIconStatus: '4',
+    userSection: 'Контент',
+    userName: 'Петров Петрович',
+    userAction: 'Гайд'
+  },
+]
