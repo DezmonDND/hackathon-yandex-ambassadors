@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   GridToolbarContainer,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { ExportButton } from "../Buttons/ExportButton";
-import {
-  gridFilteredSortedRowIdsSelector,
-  gridVisibleColumnFieldsSelector,
-  useGridApiContext,
-} from "@mui/x-data-grid";
+import useExportXSLX from "../../hooks/exportXSLX"
 
-function Toolbar({ checkboxSelection, columns, children }) {
-  const apiRef = useGridApiContext();
-  const [columnsKey, setColumns] = useState(gridVisibleColumnFieldsSelector(apiRef));
-  const columnsHeaderName = columns.map(column => column.headerName)
-
-  useEffect(() => {
-    const columnsHeader = gridVisibleColumnFieldsSelector(apiRef)
-    setColumns(columnsHeader.slice(1, columnsHeader.length));
-  }, [apiRef]);
-
-  const config = {
-    columnNames: columnsHeaderName,
-    keys: columnsKey,
-    fileName: 'data.xlsx',
-    sheetName: 'Promocodes Info',
-  };
+function Toolbar({ checkboxSelection, columns = null, children }) {
+  const config = useExportXSLX(columns)
 
   return (
     <GridToolbarContainer

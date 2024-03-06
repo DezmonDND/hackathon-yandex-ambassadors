@@ -6,7 +6,7 @@ import {
   ClearButton,
   CheckboxSelectionButton,
   CloseIconButton,
-  SettingsButton,
+  FilterExportButton
 } from "../components/Buttons/Buttons";
 import { PROMOCODES_COLUMNS } from "../mocks/users-data";
 import { useState } from "react";
@@ -16,6 +16,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { padding } from "@mui/system";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
@@ -43,12 +44,12 @@ export default function Promocodes({ rowData }) {
           <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
         )}
         {checkboxSelection && (
-          <SettingsButton
+          <FilterExportButton
             onClick={(event) => {
               setOpenColumnsMenu(!openColumnsMenu);
               setColumnsMenuAnchorEl(event.currentTarget);
             }}
-          ></SettingsButton>
+          ></FilterExportButton>
         )}
         <CustomPopupCheckboxes
           moreMenuAnchorEl={columnsMenuAnchorEl}

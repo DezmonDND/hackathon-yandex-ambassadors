@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
 import {
-  ClearButton,
   DateButton,
   CheckboxSelectionButton,
   CloseIconButton,
+  FilterExportButton
 } from "../components/Buttons/Buttons";
 import { LOYALTI_PROGRAMM_COLUMN } from "../mocks/users-data";
 import { useState } from "react";
@@ -14,6 +14,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
@@ -28,6 +29,8 @@ export default function Promocodes({ rowData }) {
   }
 
   function MenuButtons() {
+    const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
+    const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
     return (
       <>
         {!checkboxSelection ? (
@@ -38,7 +41,19 @@ export default function Promocodes({ rowData }) {
           <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
         )}
         {!checkboxSelection && <DateButton></DateButton>}
-        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
+        {checkboxSelection && (
+          <FilterExportButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></FilterExportButton>
+        )}
+        <CustomPopupCheckboxes
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
       </>
     );
   }
@@ -57,7 +72,7 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar checkboxSelection={checkboxSelection} columns={LOYALTI_PROGRAMM_COLUMN}>
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
