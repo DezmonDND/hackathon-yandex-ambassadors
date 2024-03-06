@@ -335,7 +335,7 @@ export const PROMOCODES_COLUMNS = [
   },
   {
     field: "userDate",
-    headerName: " Дата",
+    headerName: "Дата",
     width: 120,
     editable: true,
     headerAlign: "center",

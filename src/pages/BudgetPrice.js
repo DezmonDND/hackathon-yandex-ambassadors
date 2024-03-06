@@ -20,6 +20,18 @@ export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
+  const [showButtons1, setShowButtons1] = useState(false);
+  const [showButtons2, setShowButtons2] = useState(false);
+
+  const handleClick1 = () => {
+    setShowButtons1(true);
+    setShowButtons2(false);
+  }
+  
+  const handleClick2 = () => {
+    setShowButtons1(false);
+    setShowButtons2(true);
+  }
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -78,7 +90,7 @@ export default function Promocodes({ rowData }) {
         {!checkboxSelection && (
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
-        {!checkboxSelection && <MinusButton></MinusButton>}
+        {!showButtons2 && <MinusButton onClick={handleClick2}></MinusButton>}
         {checkboxSelection && <ClearButton onClick={resetRows}> </ClearButton>}
       </>
     );
