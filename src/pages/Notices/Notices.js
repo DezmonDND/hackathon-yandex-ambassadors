@@ -87,7 +87,7 @@ export default function History({ rowData }) {
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
-        style={{ borderStyle: "hidden" }}
+          style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{
             columnMenu: CustomColumnMenu,
@@ -125,7 +125,7 @@ export default function History({ rowData }) {
               margin: '0 3px',
               backgroundColor: '#E8F2FF',
               border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
+              borderRadius: ' 4px',
             }
           }}
           checkboxSelection={checkboxSelection}

@@ -11,3 +11,31 @@
   padding: 12px 0 12px 4px;
   border-radius: 8px;
 }
+.menu__badge {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.menu__badge > div {
+  position: relative;
+}
+.menu__badge > div > span {
+  color: #000;
+  position: absolute;
+  font-weight: 500;
+  top: 3px;
+  left: 3px;
+}
+.logout {
+  color: #B5B5B7;
+  padding: 12px 0 12px 4px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+.logout:hover {
+  background-color: #2337B7;
+  color: #FFFFFF;
+}
