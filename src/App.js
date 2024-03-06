@@ -2,7 +2,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { USERS } from "./mocks/users-data";
+import { USERS, HISTORY } from "./mocks/users-data";
 import Login from "./pages/Login/Login";
 import Promocodes from "./pages/Promocodes";
 import Ambassadors from "./pages/Ambassadors";
@@ -16,6 +16,7 @@ import AddFAQ from "./pages/FAQ/AddFAQ";
 import EditFAQ from "./pages/FAQ/EditFAQ";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import  NotFound from "./pages/NotFound/NotFound"
+import History from "./pages/History/History"
 
 const theme = createTheme({
   typography: {
@@ -55,6 +56,7 @@ function App() {
           <Route path="/faq/add-faq" element={<AddFAQ />} />
           <Route path="/faq/edit-faq" element={<EditFAQ />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/history" element={<History rowData={HISTORY} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
