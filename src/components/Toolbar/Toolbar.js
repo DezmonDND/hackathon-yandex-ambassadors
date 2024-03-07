@@ -6,7 +6,7 @@ import {
 import { ExportButton } from "../Buttons/ExportButton";
 import useExportXSLX from "../../hooks/exportXSLX"
 
-function Toolbar({ checkboxSelection, columns = null, children }) {
+function Toolbar({ checkboxSelection, columns = null, children, showExportButton }) {
   const config = useExportXSLX(columns)
 
   return (
@@ -31,13 +31,13 @@ function Toolbar({ checkboxSelection, columns = null, children }) {
         }}
       ></GridToolbarQuickFilter>
       {children}
-      {checkboxSelection && (
+      {showExportButton && (
         <ExportButton
           config={config}
           startIcon={false}
           sx={{
-            color: "#1d6bf3",
-            border: "1px solid #1d6bf3",
+            color: "#FFFFFF",
+            backgroundColor: "#1d6bf3",
             minWidth: "132px",
             height: "34px",
             fontWeight: "400",

@@ -236,16 +236,15 @@ export function CloseIconButton({ onClick }) {
     <IconButton
       onClick={onClick}
       sx={{
-        border: "1px solid #1d6bf3",
         borderRadius: "4px",
         width: "34px",
         height: "34px",
-        backgroundColor: "#1D6BF3",
+        backgroundColor: "#F1F1F1",
       }}
     >
       <SvgIcon
         sx={{
-          color: "#ffffff",
+          color: "#1A1B22",
           width: "19px",
           height: "19px",
         }}

@@ -7,6 +7,7 @@ import {
   gridVisibleColumnFieldsSelector,
 } from "@mui/x-data-grid";
 
+
 export function ExportMenuItem({ config, hideMenu }) {
   const apiRef = useGridApiContext();
 
@@ -35,9 +36,36 @@ export function ExportMenuItem({ config, hideMenu }) {
       origin: "A1",
     });
 
+    return row;
+  });
+
+
+
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, config.sheetName);
     XLSX.writeFile(workbook, config.fileName, { compression: true });
+  }
+
+  function handleExport(apiRef) {
+    console.log(props.config);
+    const data = getExcelData(apiRef);
+  
+    const rows = data.map((row) => {
+      const mRow = {};
+      for (const key of props.config.keys) {
+        mRow[key] = row[key];
+      }
+      return mRow;
+    });
+  
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.sheet_add_aoa(worksheet, [[...props.config.columnNames]], {
+      origin: "A1",
+    });
+  
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, props.config.sheetName);
+    XLSX.writeFile(workbook, props.config.fileName, { compression: true });
   }
 
   return (

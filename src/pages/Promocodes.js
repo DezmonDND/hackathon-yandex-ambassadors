@@ -20,14 +20,21 @@ import { padding } from "@mui/system";
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
+  const [showExportButton, setShowExportButton] = useState(false);
 
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection)
   }
 
-  function resetRows() {
-    setSelectionModel([]);
-  }
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -37,10 +44,10 @@ export default function Promocodes({ rowData }) {
       <>
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
         {checkboxSelection && (
           <FilterExportButton
@@ -70,10 +77,10 @@ export default function Promocodes({ rowData }) {
     );
   }
 
-  function CustomToolbar() {
+  function CustomToolbar({ config }) {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection} columns={PROMOCODES_COLUMNS}>
+        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection} columns={PROMOCODES_COLUMNS}>
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>

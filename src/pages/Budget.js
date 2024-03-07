@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
 import {
-  ClearButton,
   DateButton,
   CheckboxSelectionButton,
   CloseIconButton,
+  SettingsButton,
 } from "../components/Buttons/Buttons";
 import { BUDGET_COLUMN } from "../mocks/users-data";
 import { useState } from "react";
@@ -15,31 +15,54 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
+  const [showExportButton, setShowExportButton] = useState(false);
 
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }
 
-  function resetRows() {
-    setSelectionModel([]);
-  }
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
 
   function MenuButtons() {
+    const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
+    const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
+
     return (
       <>
-        {!checkboxSelection && <DateButton></DateButton>}
+        {!checkboxSelection && (
+          <SettingsButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></SettingsButton>
+        )}
+        <CustomPopupCheckboxes
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
-        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
+        {!checkboxSelection && <DateButton></DateButton>}
       </>
     );
   }
@@ -58,7 +81,10 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -110,12 +136,12 @@ export default function Promocodes({ rowData }) {
               opacity: "inherit !important",
             },
             ".MuiDataGrid-editInputCell": {
-              padding: '7px 0',
-              margin: '0 3px',
-              backgroundColor: '#E8F2FF',
-              border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
-            }
+              padding: "7px 0",
+              margin: "0 3px",
+              backgroundColor: "#E8F2FF",
+              border: "1px solid #E0E0E0",
+              borderRadius: " 4px",
+            },
           }}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}

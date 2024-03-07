@@ -602,6 +602,146 @@ export const CONTENT_COLUMNS = [
   },
 ];
 
+// const AMBASSADORS_COLUMNS = [
+//   {
+//     field: "userStatus",
+//     headerName: "Статус",
+//     headerAlign: "center",
+//     align: "center",
+//     width: 150,
+//     editable: true,
+//     sortable: false,
+//     disableColumnMenu: true,
+//     type: "singleSelect",
+//     renderEditCell: renderSelectEditInputCell,
+//   },
+//   {
+//     field: "id",
+//     headerName: "ID",
+//     headerAlign: "center",
+//     align: "center",
+//     width: 90,
+//     type: "number",
+//     sortable: false,
+//     editable: false,
+//     disableColumnMenu: true,
+//   },
+//   {
+//     field: "actions",
+//     type: "actions",
+//     cellClassName: "actions",
+//     headerName: "Действия",
+//     headerAlign: "center",
+//     editable: false,
+//     align: "center",
+//     width: 100,
+//     disableColumnMenu: true,
+//     renderCell: ({ id }) => {
+//       const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+//       if (isInEditMode) {
+//         return [
+//           <GridActionsCellItem
+//             icon={<SaveIcon />}
+//             label="Save"
+//             sx={{
+//               color: "#1d6bf3",
+//             }}
+//             onClick={handleSaveClick(id)}
+//           />,
+//           <GridActionsCellItem
+//             sx={{
+//               color: "#1d6bf3",
+//             }}
+//             icon={<CancelIcon />}
+//             label="Cancel"
+//             className="textPrimary"
+//             onClick={handleCancelClick(id)}
+//             color="inherit"
+//           />,
+//         ];
+//       }
+
+//       return [
+//         <GridActionsCellItem
+//           sx={{
+//             border: "1px solid #1d6bf3",
+//             color: "#1d6bf3",
+//             borderRadius: "4px",
+//           }}
+//           icon={<EditOutlinedIcon />}
+//           label="Edit"
+//           className="textPrimary"
+//           onClick={handleEditClick(id)}
+//           color="inherit"
+//         />,
+//       ];
+//     },
+//   },
+
+//   {
+//     field: "userDate",
+//     headerName: " Дата",
+//     headerAlign: "center",
+//     align: "center",
+//     width: 120,
+//     editable: true,
+//     disableColumnMenu: true,
+//   },
+//   {
+//     field: "userName",
+//     headerName: "ФИО",
+//     headerAlign: "center",
+//     align: "center",
+//     width: 220,
+//     editable: false,
+//     disableColumnMenu: true,
+//     renderCell: (cellValues) => {
+//       return (
+//         <Button
+//           style={{
+//             color: "#1D6BF3",
+//             textTransform: "none",
+//             fontWeight: "400",
+//           }}
+//           onClick={buttonClick}
+//         >
+//           {cellValues.row.userName}
+//         </Button>
+//       );
+//     },
+//   },
+//   {
+//     field: "userProgramm",
+//     headerName: "Программа",
+//     headerAlign: "center",
+//     align: "center",
+//     editable: true,
+//     width: 400,
+//     type: "singleSelect",
+//     sortable: false,
+//     renderEditCell: renderSelectEditInputCellProfession,
+//   },
+//   {
+//     field: "userCountry",
+//     headerName: "Страна",
+//     headerAlign: "center",
+//     align: "center",
+//     editable: true,
+//     width: 120,
+//     sortable: false,
+//   },
+//   {
+//     field: "userCity",
+//     headerName: "Город",
+//     headerAlign: "center",
+//     align: "center",
+//     editable: true,
+//     width: 120,
+//     sortable: false,
+//   },
+// ];
+
 export const SEND_MERCH_COLUMNS = [
   {
     headerName: "ID",

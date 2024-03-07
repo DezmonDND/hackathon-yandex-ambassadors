@@ -3,30 +3,32 @@ import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu, GridRowModes } from "@mui/x-data-grid";
 import {
   CheckboxSelectionButton,
-  ClearButton,
   DeleteButton,
   MinusButton,
   PlusButton,
   CloseIconButton,
+  SettingsButton,
 } from "../components/Buttons/Buttons";
 import { SEND_MERCH_COLUMNS } from "../mocks/users-data";
 import { useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
+import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
-import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
-export default function Promocodes({ rowData }) {
+export default function SendMerch({ rowData }) {
   const [rows, setRows] = useState(rowData);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
+  const [showExportButton, setShowExportButton] = useState(false);
 
   const handleAddNewRow = () => {
     const id = randomId();
-    console.log(id);
     setRows((oldRows) => [
       ...oldRows,
       {
@@ -43,11 +45,8 @@ export default function Promocodes({ rowData }) {
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userName" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userHudiSize" },
     }));
-
-    // Сохранение строки
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
   const processRowUpdate = (newRow) => {
@@ -72,24 +71,55 @@ export default function Promocodes({ rowData }) {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
   }
 
+  const handleShowDeleteButton = () => {
+    setShowDeleteButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowDeleteButton(false);
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
+
   function MenuButtons() {
+    const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
+    const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
+
     return (
       <>
+        {!checkboxSelection && (
+          <SettingsButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></SettingsButton>
+        )}
+        <CustomPopupCheckboxes
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowDeleteButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
+        )}
+        {!checkboxSelection && (
+          <MinusButton onClick={handleShowExportButton}></MinusButton>
         )}
         {!checkboxSelection && (
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
-        {!checkboxSelection && <MinusButton></MinusButton>}
-        {checkboxSelection && (
-          <DeleteButton onClick={deleteRows}></DeleteButton>
-        )}
-        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
+        {showDeleteButton && <DeleteButton onClick={deleteRows}></DeleteButton>}
       </>
     );
   }
@@ -108,7 +138,10 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -155,12 +188,12 @@ export default function Promocodes({ rowData }) {
               opacity: "inherit !important",
             },
             ".MuiDataGrid-editInputCell": {
-              padding: '7px 0',
-              margin: '0 3px',
-              backgroundColor: '#E8F2FF',
-              border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
-            }
+              padding: "7px 0",
+              margin: "0 3px",
+              backgroundColor: "#E8F2FF",
+              border: "1px solid #E0E0E0",
+              borderRadius: " 4px",
+            },
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
