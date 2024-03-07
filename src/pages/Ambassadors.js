@@ -32,7 +32,6 @@ import { GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { configAmb } from "../components/Export";
 
 export default function Ambassadors({ rowData }) {
   const [rows, setRows] = useState(rowData);
@@ -323,7 +322,6 @@ export default function Ambassadors({ rowData }) {
       <>
         <Toolbar
           showExportButton={showExportButton}
-          config={configAmb}
           checkboxSelection={checkboxSelection}
         >
           <MenuButtons></MenuButtons>
