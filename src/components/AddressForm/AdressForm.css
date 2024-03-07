@@ -1,0 +1,78 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background-color: #FFF;
+  border-radius: 4px;
+}
+
+.form__subtitle-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form__subtitle {
+  margin: 0 0 2px 0;
+  font-family: "YS Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1A1B22;
+}
+
+.form__button-block {
+  display: flex;
+}
+
+.form__button {
+  margin: 0 0 0 13px;
+  width: 56px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid #1D6BF3;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+}
+
+.form__button_edit {
+  background-image: url(../../assets/images/btn_icon_edit.svg);
+}
+
+.form__button_edit:hover {
+  background-color: #1D6BF3;
+  background-image: url(../../assets/images/btn_icon_edit-hovered.svg);
+}
+
+.form__button_copy {
+  border: 1px solid #5A9BFF;
+  background-color: #5A9BFF;
+  background-image: url(../../assets/images/btn_icon_copy.svg);
+}
+
+.form__button_copy:hover {
+  border: 1px solid #1D6BF3;
+  background-color: #1D6BF3;
+}
+
+.form__button_save {
+  background-image: url(../../assets/images/btn_icon_save.svg);
+}
+
+.form__button_save:hover {
+  background-color: #1D6BF3;
+  background-image: url(../../assets/images/btn_icon_save-hovered.svg);
+}
+
+.form__input {
+  border: none;
+  padding: 6px 4px;
+  font-family: "YS Text";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  color: #1A1B22;
+}
