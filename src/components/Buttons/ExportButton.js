@@ -5,7 +5,7 @@ import { ExportMenuItem } from "../Export";
 export function ExportButton(props) {
   return (
     <GridToolbarExportContainer {...props}>
-      <ExportMenuItem />
+      <ExportMenuItem config={props.config}/>
     </GridToolbarExportContainer>
   );
 }

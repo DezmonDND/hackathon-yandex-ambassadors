@@ -2,11 +2,11 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu, GridRowModes } from "@mui/x-data-grid";
 import {
-  ClearButton,
   CheckboxSelectionButton,
   MinusButton,
   PlusButton,
   CloseIconButton,
+  DeleteButton,
 } from "../components/Buttons/Buttons";
 import { BUDGET_PRICE_COLUMN } from "../mocks/users-data";
 import { useState } from "react";
@@ -20,18 +20,24 @@ export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
-  const [showButtons1, setShowButtons1] = useState(false);
-  const [showButtons2, setShowButtons2] = useState(false);
+  const [showExportButton, setShowExportButton] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
-  const handleClick1 = () => {
-    setShowButtons1(true);
-    setShowButtons2(false);
-  }
-  
-  const handleClick2 = () => {
-    setShowButtons1(false);
-    setShowButtons2(true);
-  }
+  const handleShowDeleteButton = () => {
+    setShowDeleteButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowDeleteButton(false);
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -47,13 +53,9 @@ export default function Promocodes({ rowData }) {
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userMerchName" },
     }));
-
-    // Сохранение строки
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
-
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -64,13 +66,9 @@ export default function Promocodes({ rowData }) {
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
-  
+
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
-  }
-
-  function resetRows() {
-    setSelectionModel([]);
   }
 
   function deleteRows() {
@@ -82,16 +80,18 @@ export default function Promocodes({ rowData }) {
       <>
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
+        )}
+        {!checkboxSelection && (
+          <MinusButton onClick={handleShowDeleteButton}></MinusButton>
         )}
         {!checkboxSelection && (
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
-        {!showButtons2 && <MinusButton onClick={handleClick2}></MinusButton>}
-        {checkboxSelection && <ClearButton onClick={resetRows}> </ClearButton>}
+        {showDeleteButton && <DeleteButton onClick={deleteRows}></DeleteButton>}
       </>
     );
   }
@@ -110,7 +110,10 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -145,12 +148,12 @@ export default function Promocodes({ rowData }) {
               minWidth: "100%",
             },
             ".MuiDataGrid-editInputCell": {
-              padding: '7px 0',
-              margin: '0 3px',
-              backgroundColor: '#E8F2FF',
-              border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
-            }
+              padding: "7px 0",
+              margin: "0 3px",
+              backgroundColor: "#E8F2FF",
+              border: "1px solid #E0E0E0",
+              borderRadius: " 4px",
+            },
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}

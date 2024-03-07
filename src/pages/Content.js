@@ -6,6 +6,7 @@ import {
   ClearButton,
   CheckboxSelectionButton,
   CloseIconButton,
+  SettingsButton,
 } from "../components/Buttons/Buttons";
 import { CONTENT_COLUMNS } from "../mocks/users-data";
 import { useState } from "react";
@@ -14,30 +15,61 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
+  const [showExportButton, setShowExportButton] = useState(false);
 
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }
+
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
 
   function resetRows() {
     setSelectionModel([]);
   }
 
   function MenuButtons() {
+    const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
+    const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
+
     return (
       <>
+        {!checkboxSelection && (
+          <SettingsButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></SettingsButton>
+        )}
+          <CustomPopupCheckboxes sx={{
+            '.MuiMenu-list': {
+              minWidth: '200px'
+            }
+          }}
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
-        {checkboxSelection && <ClearButton onClick={resetRows}> </ClearButton>}
       </>
     );
   }
@@ -56,7 +88,7 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection}>
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>

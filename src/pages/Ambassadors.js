@@ -4,7 +4,6 @@ import {
   DataGrid,
   GridColumnMenu,
   GridRowModes,
-  useGridApiContext,
 } from "@mui/x-data-grid";
 import {
   DeleteButton,
@@ -23,7 +22,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
-import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Close";
 import {
   buttonClick,
@@ -34,12 +32,15 @@ import { GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { configAmb } from "../components/Export";
 
 export default function Ambassadors({ rowData }) {
   const [rows, setRows] = useState(rowData);
   const [rowModesModel, setRowModesModel] = useState({});
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
+  const [showExportButton, setShowExportButton] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
@@ -251,19 +252,28 @@ export default function Ambassadors({ rowData }) {
     }
   };
 
-  const MenuButtons = (props) => {
+  const handleShowDeleteButton = () => {
+    setShowDeleteButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowDeleteButton(false);
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
+
+  const MenuButtons = () => {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
 
     return (
       <>
-        {!checkboxSelection ? (
-          <CheckboxSelectionButton
-            onClick={showCheckboxes}
-          ></CheckboxSelectionButton>
-        ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
-        )}
         {!checkboxSelection && (
           <SettingsButton
             onClick={(event) => {
@@ -277,13 +287,21 @@ export default function Ambassadors({ rowData }) {
           openColumnsMenu={openColumnsMenu}
           setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
         />
+        {!checkboxSelection ? (
+          <CheckboxSelectionButton
+            onClick={handleShowExportButton}
+          ></CheckboxSelectionButton>
+        ) : (
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
+        )}
+        {!checkboxSelection && (
+          <MinusButton onClick={handleShowDeleteButton}></MinusButton>
+        )}
         {!checkboxSelection && (
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
-        {!checkboxSelection && <MinusButton></MinusButton>}
-        {checkboxSelection && (
-          <DeleteButton onClick={deleteRows}></DeleteButton>
-        )}
+
+        {showDeleteButton && <DeleteButton onClick={deleteRows}></DeleteButton>}
       </>
     );
   };
@@ -303,7 +321,11 @@ export default function Ambassadors({ rowData }) {
   const CustomToolbar = () => {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          config={configAmb}
+          checkboxSelection={checkboxSelection}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -354,12 +376,12 @@ export default function Ambassadors({ rowData }) {
               visibility: "visible",
             },
             ".MuiDataGrid-editInputCell": {
-              padding: '7px 0',
-              margin: '0 3px',
-              backgroundColor: '#E8F2FF',
-              border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
-            }
+              padding: "7px 0",
+              margin: "0 3px",
+              backgroundColor: "#E8F2FF",
+              border: "1px solid #E0E0E0",
+              borderRadius: " 4px",
+            },
           }}
           rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}

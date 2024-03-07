@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu, gridClasses } from "@mui/x-data-grid";
 import {
-  ClearButton,
   CheckboxSelectionButton,
   CloseIconButton,
 } from "../components/Buttons/Buttons";
@@ -13,32 +12,37 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { ExportMenuItem } from "../components/Export";
-import { ExportButton } from "../components/Buttons/ExportButton";
+import { configPromo } from "../components/Export";
 
 export default function Promocodes({ rowData }) {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
+  const [showExportButton, setShowExportButton] = useState(false);
 
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }
 
-  function resetRows() {
-    setSelectionModel([]);
-  }
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
 
   function MenuButtons() {
     return (
       <>
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={showCheckboxes}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
-          <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
+          <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
-        {checkboxSelection && <ClearButton onClick={resetRows}></ClearButton>}
       </>
     );
   }
@@ -54,10 +58,14 @@ export default function Promocodes({ rowData }) {
     );
   }
 
-  function CustomToolbar() {
+  function CustomToolbar({ config }) {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          config={configPromo}
+          checkboxSelection={checkboxSelection}
+          >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>

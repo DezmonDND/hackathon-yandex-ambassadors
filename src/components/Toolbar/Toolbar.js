@@ -1,11 +1,10 @@
 import {
   GridToolbarContainer,
-  GridToolbarExport,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { ExportButton } from "../Buttons/ExportButton";
 
-function Toolbar({ checkboxSelection, children }) {
+function Toolbar({ children, config, showExportButton}) {
   return (
     <GridToolbarContainer
       sx={{ margin: "24px 32px 16px 4px" }}
@@ -28,12 +27,13 @@ function Toolbar({ checkboxSelection, children }) {
         }}
       ></GridToolbarQuickFilter>
       {children}
-      {checkboxSelection && (
+      {showExportButton && (
         <ExportButton
+          config={config}
           startIcon={false}
           sx={{
-            color: "#1d6bf3",
-            border: "1px solid #1d6bf3",
+            color: "#FFFFFF",
+            backgroundColor: "#1d6bf3",
             minWidth: "132px",
             height: "34px",
             fontWeight: "400",
