@@ -2,9 +2,9 @@ import { MenuItem } from "@mui/material";
 import * as XLSX from "xlsx";
 import * as React from "react";
 import {
+  useGridApiContext,
   gridFilteredSortedRowIdsSelector,
   gridVisibleColumnFieldsSelector,
-  useGridApiContext,
 } from "@mui/x-data-grid";
 
 export function ExportMenuItem({ config, hideMenu }) {
@@ -14,22 +14,22 @@ export function ExportMenuItem({ config, hideMenu }) {
     const filteredSortedRowIds = gridFilteredSortedRowIdsSelector(apiRef);
     const visibleColumnsField = gridVisibleColumnFieldsSelector(apiRef);
 
-    const data = filteredSortedRowIds.map((id) => {
+    // Получение выбранных строк
+    const selectedRows = filteredSortedRowIds.filter((id) =>
+      apiRef.current.isRowSelected(id)
+    );
+
+    // Фильтрация данных для выбранных строк
+    const rows = selectedRows.map((id) => {
       const row = {};
       visibleColumnsField.forEach((field) => {
-        row[field] = apiRef.current.getCellParams(id, field).value;
+        if (field !== '__check__') {
+          row[field] = apiRef.current.getCellParams(id, field).value;
+        }
       });
       return row;
     });
-
-    const rows = data.map((row) => {
-      const mRow = {};
-      for (const key of config.keys) {
-        mRow[key] = row[key];
-      }
-      return mRow;
-    });
-
+    // Создание документа Excel
     const worksheet = XLSX.utils.json_to_sheet(rows);
     XLSX.utils.sheet_add_aoa(worksheet, [[...config.columnNames]], {
       origin: "A1",

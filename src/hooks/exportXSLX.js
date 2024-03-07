@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import {
   gridVisibleColumnFieldsSelector,
-  useGridApiContext,
+  useGridApiContext
 } from "@mui/x-data-grid";
 
 function useExportXSLX(columns) {
   const apiRef = useGridApiContext();
-  const [columnsKey, setColumns] = useState(gridVisibleColumnFieldsSelector(apiRef));
-  const columnsHeaderName = columns?.map(column => column.headerName)
+  const watch = gridVisibleColumnFieldsSelector(apiRef);
+
+
+  const [columnsKey, setColumnsKey] = useState([]);
+  const [columnsNames, setColumnsNames] = useState([]);
 
   useEffect(() => {
-    const columnsHeader = gridVisibleColumnFieldsSelector(apiRef)
-    setColumns(columnsHeader.slice(1, columnsHeader.length));
-  }, [apiRef]);
+    const columnsHeader = gridVisibleColumnFieldsSelector(apiRef);
+    setColumnsKey(columnsHeader.filter(item => item !== '__check__'));
+  }, [apiRef, watch]);
+
+  useEffect(() => {
+    if (columns) {
+      const filteredColumns = columns.filter(column => columnsKey.includes(column.field));
+      setColumnsNames(filteredColumns.map(column => column.headerName))
+    }
+  }, [columns, columnsKey]);
 
   const config = {
-    columnNames: columnsHeaderName,
+    columnNames: columnsNames,
     keys: columnsKey,
     fileName: 'data.xlsx',
     sheetName: 'Info xlsx',
   };
 
-  return config
+  return config;
 }
+
 export default useExportXSLX;
