@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
 import {
-  ClearButton,
   DateButton,
   CheckboxSelectionButton,
   CloseIconButton,
+  FilterExportButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
 import { LOYALTI_PROGRAMM_COLUMN } from "../mocks/users-data";
@@ -67,6 +67,19 @@ export default function Promocodes({ rowData }) {
           <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
         {!checkboxSelection && <DateButton></DateButton>}
+        {checkboxSelection && (
+          <FilterExportButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></FilterExportButton>
+        )}
+        <CustomPopupCheckboxes
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
       </>
     );
   }
@@ -85,10 +98,7 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar
-          showExportButton={showExportButton}
-          checkboxSelection={checkboxSelection}
-        >
+        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection} columns={LOYALTI_PROGRAMM_COLUMN}>
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>

@@ -2,9 +2,9 @@ import Box from "@mui/material/Box";
 import Layout from "../../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
 import {
-  SettingsButton,
   CheckboxSelectionButton,
   CloseIconButton,
+  FilterExportButton
 } from "../../components/Buttons/Buttons";
 import { HISTORY_COLUMN } from "../../utils/columns";
 import { useState } from "react";
@@ -40,12 +40,12 @@ export default function History({ rowData }) {
           <CloseIconButton onClick={showCheckboxes}></CloseIconButton>
         )}
         {checkboxSelection && (
-          <SettingsButton
+          <FilterExportButton
             onClick={(event) => {
               setOpenColumnsMenu(!openColumnsMenu);
               setColumnsMenuAnchorEl(event.currentTarget);
             }}
-          ></SettingsButton>
+          ></FilterExportButton>
         )}
         <CustomPopupCheckboxes
           moreMenuAnchorEl={columnsMenuAnchorEl}
@@ -70,7 +70,7 @@ export default function History({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar checkboxSelection={checkboxSelection}>
+        <Toolbar checkboxSelection={checkboxSelection} columns={HISTORY_COLUMN}>
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>

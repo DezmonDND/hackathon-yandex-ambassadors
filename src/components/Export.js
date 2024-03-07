@@ -2,56 +2,47 @@ import { MenuItem } from "@mui/material";
 import * as XLSX from "xlsx";
 import * as React from "react";
 import {
+  useGridApiContext,
   gridFilteredSortedRowIdsSelector,
   gridVisibleColumnFieldsSelector,
-  useGridApiContext,
 } from "@mui/x-data-grid";
 
-export const configPromo= {
-    columnNames: [
-      'Статус',
-      'ID',
-      'Дата',
-      'ФИО',
-      'Telegram',
-      'Промокод',
-    ],
-    keys: ['userStatus', 'id', 'userDate', 'userName', 'userTelegram', 'userPromocode'],
-    fileName: 'data.xlsx',
-    sheetName: 'Promocodes Info',
-  };
 
- export const configAmb= {
-    columnNames: [
-      'Статус',
-      'ID',
-      'Дата',
-    ],
-    keys: ['userStatus', 'id', 'userDate'],
-    fileName: 'data.xlsx',
-    sheetName: 'Promocodes Info',
-  };
-
-function getExcelData(apiRef) {
-  const filteredSortedRowIds = gridFilteredSortedRowIdsSelector(apiRef);
-  const visibleColumnsField = gridVisibleColumnFieldsSelector(apiRef);
-
-  const data = filteredSortedRowIds.map((id) => {
-    const row = {};
-    visibleColumnsField.forEach((field) => {
-      row[field] = apiRef.current.getCellParams(id, field).value;
-    });
-    return row;
-  });
-
-  return data;
-}
-
-
-
-export function ExportMenuItem(props) {
+export function ExportMenuItem({ config, hideMenu }) {
   const apiRef = useGridApiContext();
-  const { hideMenu } = props;
+
+  function handleExport() {
+    const filteredSortedRowIds = gridFilteredSortedRowIdsSelector(apiRef);
+    const visibleColumnsField = gridVisibleColumnFieldsSelector(apiRef);
+
+    // Получение выбранных строк
+    const selectedRows = filteredSortedRowIds.filter((id) =>
+      apiRef.current.isRowSelected(id)
+    );
+
+    // Фильтрация данных для выбранных строк
+    const rows = selectedRows.map((id) => {
+      const row = {};
+      visibleColumnsField.forEach((field) => {
+        if (field !== '__check__') {
+          row[field] = apiRef.current.getCellParams(id, field).value;
+        }
+      });
+      return row;
+    });
+    // Создание документа Excel
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.sheet_add_aoa(worksheet, [[...config.columnNames]], {
+      origin: "A1",
+    });
+
+    return row;
+  };
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, config.sheetName);
+    XLSX.writeFile(workbook, config.fileName, { compression: true });
+  }
 
   function handleExport(apiRef) {
     console.log(props.config);
@@ -78,7 +69,7 @@ export function ExportMenuItem(props) {
   return (
     <MenuItem
       onClick={() => {
-        handleExport(apiRef);
+        handleExport();
         hideMenu?.();
       }}
     >

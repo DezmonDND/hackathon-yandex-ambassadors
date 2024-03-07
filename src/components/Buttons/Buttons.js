@@ -332,3 +332,27 @@ export function FilterButton(props) {
     </MenuItem>
   );
 }
+
+export function FilterExportButton({ onClick }) {
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        border: "1px solid #1d6bf3",
+        borderRadius: "4px",
+        width: "34px",
+        height: "34px",
+        backgroundColor: "#fffff",
+      }}
+    >
+      <SvgIcon
+        sx={{
+          color: "#1D6BF3",
+          width: "19px",
+          height: "19px",
+        }}
+        component={FilterAltOutlinedIcon}
+      ></SvgIcon>
+    </IconButton>
+  );
+}

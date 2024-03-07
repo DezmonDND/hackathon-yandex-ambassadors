@@ -1,10 +1,14 @@
+import React from "react";
 import {
   GridToolbarContainer,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { ExportButton } from "../Buttons/ExportButton";
+import useExportXSLX from "../../hooks/exportXSLX"
 
-function Toolbar({ children, config, showExportButton}) {
+function Toolbar({ checkboxSelection, columns = null, children, showExportButton }) {
+  const config = useExportXSLX(columns)
+
   return (
     <GridToolbarContainer
       sx={{ margin: "24px 32px 16px 4px" }}
