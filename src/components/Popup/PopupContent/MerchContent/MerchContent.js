@@ -11,10 +11,6 @@ function MerchContent() {
             <h2 className="merchContent__subtitle">Промокод</h2>
             <span class="merchContent__text merchContent__data">samplepromocode13</span>
           </li>
-          {/* <li class="merchContent__table-item">
-            <span class="merchContent__text">Неактивные</span>
-            <span class="merchContent__text merchContent__data">1234567, 23567777</span>
-          </li> */}
           {Object.entries(promoData).map(([key, value]) => (
             <li className="merchContent__table-item" key={key}>
               <span class="merchContent__text">{key}</span>

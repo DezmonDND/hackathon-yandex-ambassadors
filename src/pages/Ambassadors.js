@@ -32,8 +32,9 @@ import { GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Popup from "../components/Popup/Popup";
 
-export default function Ambassadors({ rowData }) {
+export default function Ambassadors({ rowData, isOpen, onClose, onClick }) {
   const [rows, setRows] = useState(rowData);
   const [rowModesModel, setRowModesModel] = useState({});
   const [checkboxSelection, setCheckboxSelection] = useState(false);
@@ -163,7 +164,7 @@ export default function Ambassadors({ rowData }) {
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={buttonClick}
+            onClick={onClick}
           >
             {cellValues.row.userName}
           </Button>
@@ -331,68 +332,71 @@ export default function Ambassadors({ rowData }) {
   };
 
   return (
-    <Layout>
-      <Box sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          style={{ borderStyle: "hidden" }}
-          hideFooter={true}
-          editMode="row"
-          slots={{
-            columnMenu: CustomColumnMenu,
-            toolbar: CustomToolbar,
-            columnUnsortedIcon: ({ sortingOrder, ...other }) => (
-              <UnfoldMoreIcon {...other} />
-            ),
-            columnSortedAscendingIcon: ExpandMoreIcon,
-            columnSortedDescendingIcon: ExpandLessIcon,
-            baseCheckbox: newBaseCheckbox,
-          }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              setRows,
-              setRowModesModel,
-            },
-          }}
-          localeText={{
-            toolbarExport: "Экспортировать",
-          }}
-          rows={rows}
-          columns={AMBASSADORS_COLUMNS}
-          sx={{
-            ".MuiDataGrid-columnHeaders": {
-              backgroundColor: "#F9FAFB",
-              minWidth: "100%",
-            },
-            ".MuiDataGrid-iconButtonContainer": {
-              visibility: "visible",
-            },
-            ".MuiDataGrid-sortIcon": {
-              opacity: "inherit !important",
-            },
-            ".MuiDataGrid-menuIcon": {
-              visibility: "visible",
-            },
-            ".MuiDataGrid-editInputCell": {
-              padding: "7px 0",
-              margin: "0 3px",
-              backgroundColor: "#E8F2FF",
-              border: "1px solid #E0E0E0",
-              borderRadius: " 4px",
-            },
-          }}
-          rowModesModel={rowModesModel}
-          checkboxSelection={checkboxSelection}
-          rowSelectionModel={selectionModel}
-          processRowUpdate={processRowUpdate}
-          onRowModesModelChange={handleRowModesModelChange}
-          onRowEditStop={handleRowEditStop}
-          onRowSelectionModelChange={(newSelectionModel) => {
-            setSelectionModel(newSelectionModel);
-          }}
-          disableRowSelectionOnClick
-        />
-      </Box>
-    </Layout>
+    <>
+      <Layout>
+        <Box sx={{ height: "100%", width: "100%" }}>
+          <DataGrid
+            style={{ borderStyle: "hidden" }}
+            hideFooter={true}
+            editMode="row"
+            slots={{
+              columnMenu: CustomColumnMenu,
+              toolbar: CustomToolbar,
+              columnUnsortedIcon: ({ sortingOrder, ...other }) => (
+                <UnfoldMoreIcon {...other} />
+              ),
+              columnSortedAscendingIcon: ExpandMoreIcon,
+              columnSortedDescendingIcon: ExpandLessIcon,
+              baseCheckbox: newBaseCheckbox,
+            }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+                setRows,
+                setRowModesModel,
+              },
+            }}
+            localeText={{
+              toolbarExport: "Экспортировать",
+            }}
+            rows={rows}
+            columns={AMBASSADORS_COLUMNS}
+            sx={{
+              ".MuiDataGrid-columnHeaders": {
+                backgroundColor: "#F9FAFB",
+                minWidth: "100%",
+              },
+              ".MuiDataGrid-iconButtonContainer": {
+                visibility: "visible",
+              },
+              ".MuiDataGrid-sortIcon": {
+                opacity: "inherit !important",
+              },
+              ".MuiDataGrid-menuIcon": {
+                visibility: "visible",
+              },
+              ".MuiDataGrid-editInputCell": {
+                padding: "7px 0",
+                margin: "0 3px",
+                backgroundColor: "#E8F2FF",
+                border: "1px solid #E0E0E0",
+                borderRadius: " 4px",
+              },
+            }}
+            rowModesModel={rowModesModel}
+            checkboxSelection={checkboxSelection}
+            rowSelectionModel={selectionModel}
+            processRowUpdate={processRowUpdate}
+            onRowModesModelChange={handleRowModesModelChange}
+            onRowEditStop={handleRowEditStop}
+            onRowSelectionModelChange={(newSelectionModel) => {
+              setSelectionModel(newSelectionModel);
+            }}
+            disableRowSelectionOnClick
+          />
+        </Box>
+      </Layout>
+      <Popup isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
