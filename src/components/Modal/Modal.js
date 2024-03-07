@@ -24,8 +24,8 @@ function Modal({ isOpen, onClose, children }) {
 
   return (
     <div
-      // className={`modalOverlay ${isOpen ? "modalOverlay_isOpened" : ''}`}
-      className={`modalOverlay modalOverlay_isOpened`}
+      className={`modalOverlay ${isOpen ? "modalOverlay_isOpened" : ''}`}
+      // className={`modalOverlay modalOverlay_isOpened`}
       ref={overlayRef}
     >
       <div className="modal">
