@@ -37,9 +37,7 @@ export function ExportMenuItem({ config, hideMenu }) {
     });
 
     return row;
-  });
-
-
+  };
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, config.sheetName);
