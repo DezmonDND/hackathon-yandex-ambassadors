@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { USERS, HISTORY } from "./mocks/users-data";
 import Login from "./pages/Login/Login";
@@ -31,6 +31,30 @@ const theme = createTheme({
 });
 function App() {
   const [rowData, setRowData] = useState(USERS);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  function handleEscapeClick(evt) {
+    if (evt.key === 'Escape') {
+      closePopup();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscapeClick);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeClick);
+    };
+  });
+
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   const [selectionModel, setSelectionModel] = useState([]);
@@ -139,6 +163,7 @@ function App() {
     ];
   };
 
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -175,6 +200,11 @@ function App() {
             element={
               <Ambassadors
                 rowData={rowData}
+
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                onClick={handleClick}
+
                 rows={rows}
                 setRows={setRows}
                 rowModesModel={rowModesModel}
@@ -261,6 +291,7 @@ function App() {
                 setShowExportButton={setShowExportButton}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
+
               />
             }
           />
