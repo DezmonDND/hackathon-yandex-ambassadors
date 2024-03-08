@@ -333,7 +333,7 @@ export default function Ambassadors({
     apiTables.getAmbassadors().then((ambassadors) => {
       setRows(ambassadors);
     });
-  }, []);
+  }, [setRows]);
 
   return (
     <Layout>
