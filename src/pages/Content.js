@@ -3,12 +3,16 @@ import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
 import {
-  ClearButton,
   CheckboxSelectionButton,
   CloseIconButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import { CONTENT_COLUMNS } from "../mocks/users-data";
+import {
+  // CONTENT_COLUMNS,
+  buttonClick,
+  renderSelectEditInputCell,
+  renderSelectEditInputCellMerch,
+} from "../mocks/users-data";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -16,29 +20,142 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
-export default function Promocodes({ rowData }) {
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [showExportButton, setShowExportButton] = useState(false);
+export default function Content({
+  rowData,
+  // setRows,
+  rowModesModel,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+}) {
+  const [rows, setRows] = useState(rowData);
 
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
-
-  function resetRows() {
-    setSelectionModel([]);
-  }
+  const CONTENT_COLUMNS = [
+    {
+      headerName: "ID",
+      headerAlign: "center",
+      align: "center",
+      field: "userId",
+      sortable: false,
+      disableColumnMenu: true,
+      width: 90,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      cellClassName: "actions",
+      headerName: "Действия",
+      headerAlign: "center",
+      editable: false,
+      align: "center",
+      width: 100,
+      disableColumnMenu: true,
+      renderCell: renderActions,
+    },
+    {
+      headerName: "Отправка мерча",
+      headerAlign: "center",
+      align: "center",
+      field: "userSendMerch",
+      width: 162,
+      editable: true,
+      disableColumnMenu: true,
+      type: "singleSelect",
+      renderEditCell: renderSelectEditInputCellMerch,
+    },
+    {
+      headerName: "Статус",
+      headerAlign: "center",
+      align: "center",
+      field: "userStatus",
+      width: 140,
+      editable: true,
+      disableColumnMenu: true,
+      renderEditCell: renderSelectEditInputCell,
+    },
+    {
+      headerName: "ФИО",
+      headerAlign: "center",
+      align: "center",
+      field: "userName",
+      width: 220,
+      editable: false,
+      disableColumnMenu: true,
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            style={{
+              color: "#1D6BF3",
+              textTransform: "none",
+              fontWeight: "400",
+            }}
+            onClick={buttonClick}
+          >
+            {cellValues.row.userName}
+          </Button>
+        );
+      },
+    },
+    {
+      headerName: "Telegram",
+      headerAlign: "center",
+      align: "center",
+      field: "userTelegram",
+      width: 164,
+      editable: true,
+      disableColumnMenu: true,
+    },
+    {
+      headerName: "Отзыв",
+      headerAlign: "center",
+      align: "center",
+      field: "userFeedback",
+      width: 214,
+      editable: true,
+      disableColumnMenu: true,
+      renderCell: (cellValues) => {
+        return (
+          <Link
+            style={{ textDecoration: "none", color: "#1D6BF3" }}
+            to={cellValues.row.userFeedback}
+            target="blank"
+          >
+            {cellValues.row.userFeedback}
+          </Link>
+        );
+      },
+    },
+    {
+      headerName: "Хабр",
+      headerAlign: "center",
+      align: "center",
+      field: "userHabr",
+      width: 214,
+      editable: true,
+      disableColumnMenu: true,
+      renderCell: (cellValues) => {
+        return (
+          <Link
+            style={{ textDecoration: "none", color: "#1D6BF3" }}
+            to={cellValues.row.userHabr}
+            target="blank"
+          >
+            {cellValues.row.userHabr}
+          </Link>
+        );
+      },
+    },
+  ];
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -54,10 +171,11 @@ export default function Promocodes({ rowData }) {
             }}
           ></SettingsButton>
         )}
-          <CustomPopupCheckboxes sx={{
-            '.MuiMenu-list': {
-              minWidth: '200px'
-            }
+        <CustomPopupCheckboxes
+          sx={{
+            ".MuiMenu-list": {
+              minWidth: "200px",
+            },
           }}
           moreMenuAnchorEl={columnsMenuAnchorEl}
           openColumnsMenu={openColumnsMenu}
@@ -88,7 +206,10 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -96,16 +217,16 @@ export default function Promocodes({ rowData }) {
   }
 
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
+  // const rows = rowData.map((row) => ({
+  //   ...row,
+  //   id: row.id,
+  // }));
 
   return (
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
-        style={{ borderStyle: "hidden" }}
+          style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{
             columnMenu: CustomColumnMenu,
@@ -139,13 +260,17 @@ export default function Promocodes({ rowData }) {
               opacity: "inherit !important",
             },
             ".MuiDataGrid-editInputCell": {
-              padding: '7px 0',
-              margin: '0 3px',
-              backgroundColor: '#E8F2FF',
-              border: '1px solid #E0E0E0',
-              borderRadius:' 4px',
-            }
+              padding: "7px 0",
+              margin: "0 3px",
+              backgroundColor: "#E8F2FF",
+              border: "1px solid #E0E0E0",
+              borderRadius: " 4px",
+            },
           }}
+          rowModesModel={rowModesModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
           onRowSelectionModelChange={(newSelectionModel) => {

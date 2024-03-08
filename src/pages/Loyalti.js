@@ -17,28 +17,26 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
-export default function Promocodes({ rowData }) {
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [showExportButton, setShowExportButton] = useState(false);
-
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
-
-  function resetRows() {
-    setSelectionModel([]);
-  }
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
+export default function Loyalti({
+  rowData,
+  // rows,
+  // setRows,
+  rowModesModel,
+  setRowModesModel,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+  showDeleteButton,
+  handleShowDeleteButton,
+}) {
+  const [rows, setRows] = useState(rowData);
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -98,7 +96,11 @@ export default function Promocodes({ rowData }) {
   function CustomToolbar() {
     return (
       <>
-        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection} columns={LOYALTI_PROGRAMM_COLUMN}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+          columns={LOYALTI_PROGRAMM_COLUMN}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
@@ -106,10 +108,10 @@ export default function Promocodes({ rowData }) {
   }
 
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
+  // const rows = rowData.map((row) => ({
+  //   ...row,
+  //   id: row.userId,
+  // }));
 
   return (
     <Layout>
@@ -156,8 +158,12 @@ export default function Promocodes({ rowData }) {
               borderRadius: " 4px",
             },
           }}
+          rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
           onRowSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}

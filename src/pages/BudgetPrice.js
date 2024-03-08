@@ -8,36 +8,72 @@ import {
   CloseIconButton,
   DeleteButton,
 } from "../components/Buttons/Buttons";
-import { BUDGET_PRICE_COLUMN } from "../mocks/users-data";
-import { useState } from "react";
+import { useEffect } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
+import { apiTables } from "../components/utils/apiTables";
 
-export default function Promocodes({ rowData }) {
-  const [rows, setRows] = useState(rowData);
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [rowModesModel, setRowModesModel] = useState({});
-  const [showExportButton, setShowExportButton] = useState(false);
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
-
-  const handleShowDeleteButton = () => {
-    setShowDeleteButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowDeleteButton(false);
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
+export default function Promocodes({
+  // rowData,
+  rows,
+  setRows,
+  rowModesModel,
+  setRowModesModel,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  // processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+  showDeleteButton,
+  handleShowDeleteButton,
+}) {
+  const BUDGET_PRICE_COLUMN = [
+    {
+      headerName: "ID",
+      headerAlign: "center",
+      align: "center",
+      field: "id",
+      width: 40,
+      sortable: false,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      cellClassName: "actions",
+      headerName: "Действия",
+      headerAlign: "center",
+      editable: false,
+      align: "center",
+      width: 100,
+      disableColumnMenu: true,
+      renderCell: renderActions,
+    },
+    {
+      headerName: "Мерч",
+      headerAlign: "center",
+      align: "center",
+      field: "name",
+      width: 792,
+      sortable: false,
+      editable: true,
+    },
+    {
+      headerName: "Стоимость",
+      headerAlign: "center",
+      align: "center",
+      field: "cost",
+      width: 300,
+      editable: true,
+      sortable: false,
+    },
+  ];
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -45,31 +81,25 @@ export default function Promocodes({ rowData }) {
       ...oldRows,
       {
         id,
-        userMerchName: "",
-        userMerchPrice: "",
+        name: "",
+        cost: "",
         isNew: true,
       },
     ]);
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userMerchName" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
   };
 
   const processRowUpdate = (newRow) => {
+
     const updatedRow = { ...newRow, isNew: false };
+    // apiTables.createBudgetPrice(updatedRow)
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
-
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
 
   function deleteRows() {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
@@ -120,6 +150,12 @@ export default function Promocodes({ rowData }) {
     );
   }
 
+  useEffect(() => {
+    apiTables.getBudgetPrice().then((price) => {
+      setRows(price);
+    });
+  }, [setRows]);
+
   return (
     <Layout>
       <BudgetTabs></BudgetTabs>
@@ -159,6 +195,7 @@ export default function Promocodes({ rowData }) {
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
           processRowUpdate={processRowUpdate}
+          onRowEditStop={handleRowEditStop}
           onRowModesModelChange={handleRowModesModelChange}
           onRowSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);

@@ -17,25 +17,17 @@ import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
-export default function Promocodes({ rowData }) {
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [showExportButton, setShowExportButton] = useState(false);
-
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
-
+export default function Promocodes({
+  rowData,
+  // rows,
+  // setRows,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleShowExportButton,
+  handleHideButtons,
+}) {
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
