@@ -9,8 +9,8 @@ import {
   CloseIconButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import { SEND_MERCH_COLUMNS } from "../mocks/users-data";
-import { useState } from "react";
+import { SEND_MERCH_COLUMNS, buttonClick } from "../mocks/users-data";
+import { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
@@ -18,14 +18,158 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { apiTables } from "../components/utils/apiTables";
+import { Button } from "@mui/material";
 
-export default function SendMerch({ rowData }) {
-  const [rows, setRows] = useState(rowData);
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [rowModesModel, setRowModesModel] = useState({});
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
-  const [showExportButton, setShowExportButton] = useState(false);
+export default function SendMerch({
+  // setRows,
+  rowModesModel,
+  setRowModesModel,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+  showDeleteButton,
+  handleShowDeleteButton,
+}) {
+  const [rows, setRows] = useState([]);
+
+  const SEND_MERCH_COLUMNS = [
+    {
+      headerName: "ID",
+      field: "id",
+      width: 60,
+      headerAlign: "center",
+      align: "center",
+      type: "number",
+      sortable: false,
+    },
+    {
+      headerName: "Куратор",
+      field: "tutor",
+      width: 184,
+      headerAlign: "center",
+      align: "center",
+      editable: false,
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            style={{
+              color: "#1D6BF3",
+              textTransform: "none",
+              fontWeight: "400",
+            }}
+            onClick={buttonClick}
+          >
+            {cellValues.row.tutor.full_name}
+          </Button>
+        );
+      },
+    },
+    {
+      headerName: "Мерч",
+      field: "merch",
+      width: 208,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      valueGetter: (params) => params.row.merch.name,
+    },
+    {
+      headerName: "Размер толстовки",
+      field: "name_and_size",
+      width: 195,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Размер носков",
+      field: "clothing_size",
+      width: 195,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      valueGetter: (params) => params.row.ambassador.clothing_size,
+    },
+    {
+      headerName: "ФИО",
+      field: "name",
+      width: 184,
+      headerAlign: "center",
+      align: "center",
+      editable: false,
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            style={{
+              color: "#1D6BF3",
+              textTransform: "none",
+              fontWeight: "400",
+            }}
+            onClick={buttonClick}
+          >
+            {cellValues.row.ambassador.name}
+          </Button>
+        );
+      },
+    },
+    {
+      headerName: "Индекс",
+      field: "postal_code",
+      width: 103,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Страна",
+      field: "country",
+      width: 103,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Город",
+      field: "city",
+      width: 103,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Улица, дом, квартира",
+      field: "street",
+      width: 194,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Телефон",
+      field: "application_number",
+      width: 108,
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+    },
+    {
+      headerName: "Месяц отправки",
+      field: "created",
+      width: 173,
+      headerAlign: "center",
+      align: "center",
+      editable: false,
+      valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
+    },
+  ];
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -49,43 +193,9 @@ export default function SendMerch({ rowData }) {
     }));
   };
 
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
-
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
-
-  function resetRows() {
-    setSelectionModel([]);
-  }
-
   function deleteRows() {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
   }
-
-  const handleShowDeleteButton = () => {
-    setShowDeleteButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowDeleteButton(false);
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -147,6 +257,12 @@ export default function SendMerch({ rowData }) {
       </>
     );
   }
+
+  useEffect(() => {
+    apiTables.getSendMerch().then((merch) => {
+      setRows(merch);
+    });
+  }, []);
 
   return (
     <Layout>

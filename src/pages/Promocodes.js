@@ -1,40 +1,134 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
+import { useEffect } from "react";
 import { DataGrid, GridColumnMenu, gridClasses } from "@mui/x-data-grid";
 import {
   CheckboxSelectionButton,
   CloseIconButton,
-  FilterExportButton
+  FilterExportButton,
 } from "../components/Buttons/Buttons";
-import { PROMOCODES_COLUMNS } from "../mocks/users-data";
+import {
+  buttonClick,
+  // PROMOCODES_COLUMNS,
+  renderSelectEditInputCell,
+} from "../mocks/users-data";
 import { useState } from "react";
+import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { Button } from "@mui/material";
+import { apiTables } from "../components/utils/apiTables";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
-import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
-import { padding } from "@mui/system";
 
-export default function Promocodes({ rowData }) {
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [showExportButton, setShowExportButton] = useState(false);
+export default function Promocodes({
+  // rows,
+  // setRows,
+  rowModesModel,
+  checkboxSelection,
+  setCheckboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  setShowExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+}) {
+  const [rows, setRows] = useState([]);
 
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection)
-  }
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
+  const PROMOCODES_COLUMNS = [
+    {
+      field: "status",
+      headerName: "Статус",
+      width: 150,
+      editable: true,
+      sortable: false,
+      headerAlign: "center",
+      align: "center",
+      type: "singleSelect",
+      valueGetter: (params) => params.row.ambassador.status.name,
+      renderEditCell: renderSelectEditInputCell,
+    },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 90,
+      type: "number",
+      sortable: false,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "actions",
+      type: "actions",
+      cellClassName: "actions",
+      headerName: "Действия",
+      headerAlign: "center",
+      editable: false,
+      align: "center",
+      width: 100,
+      disableColumnMenu: true,
+      renderCell: renderActions,
+    },
+    {
+      field: "created",
+      headerName: "Дата",
+      width: 120,
+      editable: false,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
+    },
+    {
+      field: "name",
+      headerName: "ФИО",
+      width: 220,
+      editable: true,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => {
+        return (
+          <Button
+            style={{
+              color: "#1D6BF3",
+              textTransform: "none",
+              fontWeight: "400",
+            }}
+            onClick={buttonClick}
+          >
+            {params.row.ambassador.name}
+          </Button>
+        );
+      },
+    },
+    {
+      field: "telegram",
+      headerName: "Telegram",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      editable: true,
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.ambassador.telegram;
+      },
+    },
+    {
+      field: "code",
+      headerName: "Промокод",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      editable: true,
+      width: 220,
+    },
+  ];
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -77,21 +171,25 @@ export default function Promocodes({ rowData }) {
     );
   }
 
-  function CustomToolbar({ config }) {
+  function CustomToolbar() {
     return (
       <>
-        <Toolbar showExportButton={showExportButton} checkboxSelection={checkboxSelection} columns={PROMOCODES_COLUMNS}>
+        <Toolbar
+          showExportButton={showExportButton}
+          checkboxSelection={checkboxSelection}
+          columns={PROMOCODES_COLUMNS}
+        >
           <MenuButtons></MenuButtons>
         </Toolbar>
       </>
     );
   }
 
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
+  useEffect(() => {
+    apiTables.getPromocodes().then((promocodes) => {
+      setRows(promocodes);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -146,6 +244,10 @@ export default function Promocodes({ rowData }) {
                 outline: "none",
               },
           }}
+          rowModesModel={rowModesModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
           onRowSelectionModelChange={(newSelectionModel) => {

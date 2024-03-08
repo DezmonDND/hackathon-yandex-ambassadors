@@ -1,10 +1,6 @@
 import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
-import {
-  DataGrid,
-  GridColumnMenu,
-  GridRowModes,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColumnMenu, GridRowModes } from "@mui/x-data-grid";
 import {
   DeleteButton,
   MinusButton,
@@ -14,7 +10,7 @@ import {
   CheckboxSelectionButton,
 } from "../components/Buttons/Buttons";
 // import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -22,48 +18,35 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
-import CancelIcon from "@mui/icons-material/Close";
 import {
   buttonClick,
   renderSelectEditInputCell,
   renderSelectEditInputCellProfession,
 } from "../mocks/users-data";
-import { GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
-import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { apiTables } from "../components/utils/apiTables";
 
-export default function Ambassadors({ rowData }) {
-  const [rows, setRows] = useState(rowData);
-  const [rowModesModel, setRowModesModel] = useState({});
-  const [checkboxSelection, setCheckboxSelection] = useState(false);
-  const [selectionModel, setSelectionModel] = useState([]);
-  const [showExportButton, setShowExportButton] = useState(false);
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
-
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
+export default function Ambassadors({
+  rows,
+  setRows,
+  rowModesModel,
+  setRowModesModel,
+  checkboxSelection,
+  selectionModel,
+  setSelectionModel,
+  showExportButton,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
+  renderActions,
+  handleShowExportButton,
+  handleHideButtons,
+  showDeleteButton,
+  handleShowDeleteButton,
+}) {
   const AMBASSADORS_COLUMNS = [
     {
-      field: "userStatus",
+      field: "status",
       headerName: "Статус",
       headerAlign: "center",
       align: "center",
@@ -95,65 +78,25 @@ export default function Ambassadors({ rowData }) {
       align: "center",
       width: 100,
       disableColumnMenu: true,
-      renderCell: ({ id }) => {
-        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-        if (isInEditMode) {
-          return [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: "#1d6bf3",
-              }}
-              onClick={handleSaveClick(id)}
-            />,
-            <GridActionsCellItem
-              sx={{
-                color: "#1d6bf3",
-              }}
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              onClick={handleCancelClick(id)}
-              color="inherit"
-            />,
-          ];
-        }
-
-        return [
-          <GridActionsCellItem
-            sx={{
-              border: "1px solid #1d6bf3",
-              color: "#1d6bf3",
-              borderRadius: "4px",
-            }}
-            icon={<EditOutlinedIcon />}
-            label="Edit"
-            className="textPrimary"
-            onClick={handleEditClick(id)}
-            color="inherit"
-          />,
-        ];
-      },
+      renderCell: renderActions,
     },
-
     {
-      field: "userDate",
+      field: "created",
       headerName: " Дата",
       headerAlign: "center",
       align: "center",
       width: 120,
       editable: true,
       disableColumnMenu: true,
+      valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
     },
     {
-      field: "userName",
+      field: "name",
       headerName: "ФИО",
       headerAlign: "center",
       align: "center",
       width: 220,
-      editable: false,
+      editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
         return (
@@ -165,13 +108,31 @@ export default function Ambassadors({ rowData }) {
             }}
             onClick={buttonClick}
           >
-            {cellValues.row.userName}
+            {cellValues.row.name}
           </Button>
         );
       },
     },
     {
-      field: "userProgramm",
+      field: "gender",
+      headerName: "Пол",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 80,
+      sortable: false,
+    },
+    {
+      field: "onboarding_status",
+      headerName: "Онбординг",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 120,
+      sortable: false,
+    },
+    {
+      field: "program",
       headerName: "Программа",
       headerAlign: "center",
       align: "center",
@@ -182,21 +143,86 @@ export default function Ambassadors({ rowData }) {
       renderEditCell: renderSelectEditInputCellProfession,
     },
     {
-      field: "userCountry",
+      field: "country",
       headerName: "Страна",
       headerAlign: "center",
       align: "center",
       editable: true,
       width: 120,
       sortable: false,
+      valueGetter: (params) => params.row.address.country,
     },
     {
-      field: "userCity",
+      field: "city",
       headerName: "Город",
       headerAlign: "center",
       align: "center",
       editable: true,
       width: 120,
+      sortable: false,
+      valueGetter: (params) => params.row.address.city,
+    },
+    {
+      field: "email",
+      headerName: "E-mail",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 141,
+      sortable: false,
+    },
+    {
+      field: "phone_number",
+      headerName: "Телефон",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 136,
+      sortable: false,
+    },
+    {
+      field: "telegram_id",
+      headerName: "Telegram",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 122,
+      sortable: false,
+    },
+    {
+      field: "education",
+      headerName: "Образование",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 219,
+      sortable: false,
+    },
+    {
+      field: "job",
+      headerName: "Место работы/должность",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 272,
+      sortable: false,
+    },
+    {
+      field: "purpose",
+      headerName: "Цель в Практикуме",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 462,
+      sortable: false,
+    },
+    {
+      field: "tutor",
+      headerName: "Цель амбассадорства",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 347,
       sortable: false,
     },
   ];
@@ -207,65 +233,34 @@ export default function Ambassadors({ rowData }) {
       ...oldRows,
       {
         id,
-        userStatus: "уточняется",
-        userDate: "",
-        userName: "",
-        userProgramm: "",
-        userCountry: "",
-        userCity: "",
+        status: "уточняется",
+        created: "",
+        name: "",
+        gender: "",
+        onboarding_status: "",
+        program: "",
+        country: "",
+        city: "",
+        email: "",
+        phone_number: "",
+        telegram_id: "",
+        education: "",
+        job: "",
+        purpose: "",
+        tutor: "",
         isNew: true,
       },
     ]);
 
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "userName" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
   };
-
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
-
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
-  function showCheckboxes() {
-    setCheckboxSelection(!checkboxSelection);
-  }
-
-  function resetRows() {
-    setSelectionModel([]);
-  }
 
   function deleteRows() {
     setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
   }
-
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
-
-  const handleShowDeleteButton = () => {
-    setShowDeleteButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleShowExportButton = () => {
-    setShowExportButton(true);
-    showCheckboxes(true);
-  };
-
-  const handleHideButtons = () => {
-    setShowDeleteButton(false);
-    setShowExportButton(false);
-    showCheckboxes(false);
-  };
 
   const MenuButtons = () => {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
@@ -330,10 +325,21 @@ export default function Ambassadors({ rowData }) {
     );
   };
 
+  function getRowId(row) {
+    return row.name;
+  }
+
+  useEffect(() => {
+    apiTables.getAmbassadors().then((ambassadors) => {
+      setRows(ambassadors);
+    });
+  }, []);
+
   return (
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
+          getRowId={getRowId}
           style={{ borderStyle: "hidden" }}
           hideFooter={true}
           editMode="row"

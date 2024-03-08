@@ -356,3 +356,45 @@ export function FilterExportButton({ onClick }) {
     </IconButton>
   );
 }
+
+export function GetButton(props) {
+  return (
+    <Button
+      color="primary"
+      sx={{
+        color: "#1d6bf3",
+        border: "1px solid #1d6bf3",
+        height: "34px",
+        fontWeight: "400",
+        fontSize: "14px",
+        lineHeight: "20px",
+        textWrap: "nowrap",
+        textTransform: "none",
+      }}
+      onClick={props.onClick}
+    >
+      GET
+    </Button>
+  );
+}
+
+export function PostButton(props) {
+  return (
+    <Button
+      color="primary"
+      sx={{
+        color: "#1d6bf3",
+        border: "1px solid #1d6bf3",
+        height: "34px",
+        fontWeight: "400",
+        fontSize: "14px",
+        lineHeight: "20px",
+        textWrap: "nowrap",
+        textTransform: "none",
+      }}
+      onClick={props.onClick}
+    >
+      POST
+    </Button>
+  );
+}

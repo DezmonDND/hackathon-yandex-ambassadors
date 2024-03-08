@@ -181,7 +181,7 @@ export const USERS = [
   },
 ];
 
-function SelectEditInputCell(props) {
+export function SelectEditInputCell(props) {
   const { id, value, field } = props;
   const apiRef = useGridApiContext();
 
@@ -312,387 +312,118 @@ export const renderSelectEditInputCellMerch = (params) => {
   return <SelectEditInputCellMerch {...params} />;
 };
 
-export const PROMOCODES_COLUMNS = [
-  {
-    field: "userStatus",
-    headerName: "Статус",
-    width: 150,
-    editable: true,
-    sortable: false,
-    headerAlign: "center",
-    align: "center",
-    type: "singleSelect",
-    renderEditCell: renderSelectEditInputCell,
-  },
-  {
-    field: "id",
-    headerName: "ID",
-    width: 90,
-    type: "number",
-    sortable: false,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "userDate",
-    headerName: "Дата",
-    width: 120,
-    editable: true,
-    headerAlign: "center",
-    align: "center",
-    // type: 'date'
-  },
-  {
-    field: "userName",
-    headerName: "ФИО",
-    width: 220,
-    editable: false,
-    headerAlign: "center",
-    align: "center",
-    renderCell: (cellValues) => {
-      return (
-        <Button
-          style={{
-            color: "#1D6BF3",
-            textTransform: "none",
-            fontWeight: "400",
-          }}
-          onClick={buttonClick}
-        >
-          {cellValues.row.userName}
-        </Button>
-      );
-    },
-  },
-  {
-    field: "userTelegram",
-    headerName: "Telegram",
-    headerAlign: "center",
-    align: "center",
-    sortable: false,
-    editable: true,
-    width: 200,
-  },
-  {
-    field: "userPromocode",
-    headerName: "Промокод",
-    headerAlign: "center",
-    align: "center",
-    sortable: false,
-    editable: true,
-    width: 220,
-  },
-];
-
-export const AMBASSADORS_COLUMNS = [
-  {
-    field: "userStatus",
-    headerName: "Статус",
-    headerAlign: "center",
-    align: "center",
-    width: 150,
-    editable: true,
-    sortable: false,
-    disableColumnMenu: true,
-    type: "singleSelect",
-    renderEditCell: renderSelectEditInputCell,
-  },
-  {
-    field: "id",
-    headerName: "ID",
-    headerAlign: "center",
-    align: "center",
-    width: 90,
-    type: "number",
-    sortable: false,
-    disableColumnMenu: true,
-  },
-  {
-    field: "id",
-    type: "actions",
-    headerName: "Действия",
-    headerAlign: "center",
-    align: "center",
-    width: 100,
-    disableColumnMenu: true,
-    getActions: ({ id }) => {
-      return (
-        <GridActionsCellItem
-          icon={<SaveIcon />}
-          label="Save"
-          sx={{
-            color: "primary.main",
-          }}
-          // onClick={handleSaveClick(id)}
-        />
-      );
-    },
-  },
-  {
-    field: "userDate",
-    headerName: " Дата",
-    headerAlign: "center",
-    align: "center",
-    width: 120,
-    editable: true,
-    disableColumnMenu: true,
-  },
-  {
-    field: "userName",
-    headerName: "ФИО",
-    headerAlign: "center",
-    align: "center",
-    width: 220,
-    editable: true,
-    disableColumnMenu: true,
-    renderCell: (cellValues) => {
-      return (
-        <Button
-          style={{
-            color: "#1D6BF3",
-            textTransform: "none",
-            fontWeight: "400",
-          }}
-          onClick={buttonClick}
-        >
-          {cellValues.row.userName}
-        </Button>
-      );
-    },
-  },
-  {
-    field: "userProgramm",
-    headerName: "Программа",
-    headerAlign: "center",
-    align: "center",
-    editable: true,
-    width: 400,
-    type: "singleSelect",
-    sortable: false,
-    // valueOptions: [
-    //   "Дизайнер интерфейсов",
-    //   "Продакт — менеджер для специалистов с опытом",
-    //   "Бизнес-аналитик",
-    //   "Системный аналитик",
-    // ],
-    renderEditCell: renderSelectEditInputCellProfession,
-  },
-  {
-    field: "userCountry",
-    headerName: "Страна",
-    headerAlign: "center",
-    align: "center",
-    editable: true,
-    width: 120,
-    sortable: false,
-  },
-  {
-    field: "userCity",
-    headerName: "Город",
-    headerAlign: "center",
-    align: "center",
-    editable: true,
-    width: 120,
-    sortable: false,
-  },
-];
-
-export const CONTENT_COLUMNS = [
-  {
-    headerName: "ID",
-    headerAlign: "center",
-    align: "center",
-    field: "userId",
-    sortable: false,
-    disableColumnMenu: true,
-    width: 90,
-  },
-  {
-    headerName: "Отправка мерча",
-    headerAlign: "center",
-    align: "center",
-    field: "userSendMerch",
-    width: 162,
-    editable: true,
-    disableColumnMenu: true,
-    type: "singleSelect",
-    renderEditCell: renderSelectEditInputCellMerch,
-  },
-  {
-    headerName: "Статус",
-    headerAlign: "center",
-    align: "center",
-    field: "userStatus",
-    width: 140,
-    editable: true,
-    disableColumnMenu: true,
-    renderEditCell: renderSelectEditInputCell,
-  },
-  {
-    headerName: "ФИО",
-    headerAlign: "center",
-    align: "center",
-    field: "userName",
-    width: 220,
-    editable: false,
-    disableColumnMenu: true,
-    renderCell: (cellValues) => {
-      return (
-        <Button
-          style={{
-            color: "#1D6BF3",
-            textTransform: "none",
-            fontWeight: "400",
-          }}
-          onClick={buttonClick}
-        >
-          {cellValues.row.userName}
-        </Button>
-      );
-    },
-  },
-  {
-    headerName: "Telegram",
-    headerAlign: "center",
-    align: "center",
-    field: "userTelegram",
-    width: 164,
-    editable: true,
-    disableColumnMenu: true,
-  },
-  {
-    headerName: "Отзыв",
-    headerAlign: "center",
-    align: "center",
-    field: "userFeedback",
-    width: 214,
-    editable: true,
-    disableColumnMenu: true,
-    renderCell: (cellValues) => {
-      return (
-        <Link
-          style={{ textDecoration: "none", color: "#1D6BF3" }}
-          to={cellValues.row.userFeedback}
-          target="blank"
-        >
-          {cellValues.row.userFeedback}
-        </Link>
-      );
-    },
-  },
-  {
-    headerName: "Хабр",
-    headerAlign: "center",
-    align: "center",
-    field: "userHabr",
-    width: 214,
-    editable: true,
-    disableColumnMenu: true,
-    renderCell: (cellValues) => {
-      return (
-        <Link
-          style={{ textDecoration: "none", color: "#1D6BF3" }}
-          to={cellValues.row.userHabr}
-          target="blank"
-        >
-          {cellValues.row.userHabr}
-        </Link>
-      );
-    },
-  },
-];
-
-// const AMBASSADORS_COLUMNS = [
+// export const PROMOCODES_COLUMNS = [
 //   {
-//     field: "userStatus",
+//     field: "status",
 //     headerName: "Статус",
-//     headerAlign: "center",
-//     align: "center",
 //     width: 150,
 //     editable: true,
 //     sortable: false,
-//     disableColumnMenu: true,
+//     headerAlign: "center",
+//     align: "center",
 //     type: "singleSelect",
+//     valueGetter: (params) => params.row.ambassador.status.name,
 //     renderEditCell: renderSelectEditInputCell,
 //   },
 //   {
 //     field: "id",
 //     headerName: "ID",
-//     headerAlign: "center",
-//     align: "center",
 //     width: 90,
 //     type: "number",
 //     sortable: false,
-//     editable: false,
-//     disableColumnMenu: true,
-//   },
-//   {
-//     field: "actions",
-//     type: "actions",
-//     cellClassName: "actions",
-//     headerName: "Действия",
-//     headerAlign: "center",
-//     editable: false,
-//     align: "center",
-//     width: 100,
-//     disableColumnMenu: true,
-//     renderCell: ({ id }) => {
-//       const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-//       if (isInEditMode) {
-//         return [
-//           <GridActionsCellItem
-//             icon={<SaveIcon />}
-//             label="Save"
-//             sx={{
-//               color: "#1d6bf3",
-//             }}
-//             onClick={handleSaveClick(id)}
-//           />,
-//           <GridActionsCellItem
-//             sx={{
-//               color: "#1d6bf3",
-//             }}
-//             icon={<CancelIcon />}
-//             label="Cancel"
-//             className="textPrimary"
-//             onClick={handleCancelClick(id)}
-//             color="inherit"
-//           />,
-//         ];
-//       }
-
-//       return [
-//         <GridActionsCellItem
-//           sx={{
-//             border: "1px solid #1d6bf3",
-//             color: "#1d6bf3",
-//             borderRadius: "4px",
-//           }}
-//           icon={<EditOutlinedIcon />}
-//           label="Edit"
-//           className="textPrimary"
-//           onClick={handleEditClick(id)}
-//           color="inherit"
-//         />,
-//       ];
-//     },
-//   },
-
-//   {
-//     field: "userDate",
-//     headerName: " Дата",
 //     headerAlign: "center",
 //     align: "center",
+//   },
+//   {
+//     field: "created",
+//     headerName: "Дата",
 //     width: 120,
 //     editable: true,
-//     disableColumnMenu: true,
+//     headerAlign: "center",
+//     align: "center",
+//     valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
 //   },
 //   {
 //     field: "userName",
 //     headerName: "ФИО",
+//     width: 220,
+//     editable: true,
 //     headerAlign: "center",
 //     align: "center",
+//     renderCell: (params) => {
+//       return (
+//         <Button
+//           style={{
+//             color: "#1D6BF3",
+//             textTransform: "none",
+//             fontWeight: "400",
+//           }}
+//           onClick={buttonClick}
+//         >
+//           {params.row.ambassador.name}
+//         </Button>
+//       );
+//     },
+//   },
+//   {
+//     field: "userTelegram",
+//     headerName: "Telegram",
+//     headerAlign: "center",
+//     align: "center",
+//     sortable: false,
+//     editable: true,
+//     width: 200,
+//     valueGetter: (params) => {
+//       return params.row.ambassador.telegram;
+//     },
+//   },
+//   {
+//     field: "code",
+//     headerName: "Промокод",
+//     headerAlign: "center",
+//     align: "center",
+//     sortable: false,
+//     editable: true,
+//     width: 220,
+//   },
+// ];
+
+// export const CONTENT_COLUMNS = [
+//   {
+//     headerName: "ID",
+//     headerAlign: "center",
+//     align: "center",
+//     field: "userId",
+//     sortable: false,
+//     disableColumnMenu: true,
+//     width: 90,
+//   },
+//   {
+//     headerName: "Отправка мерча",
+//     headerAlign: "center",
+//     align: "center",
+//     field: "userSendMerch",
+//     width: 162,
+//     editable: true,
+//     disableColumnMenu: true,
+//     type: "singleSelect",
+//     renderEditCell: renderSelectEditInputCellMerch,
+//   },
+//   {
+//     headerName: "Статус",
+//     headerAlign: "center",
+//     align: "center",
+//     field: "userStatus",
+//     width: 140,
+//     editable: true,
+//     disableColumnMenu: true,
+//     renderEditCell: renderSelectEditInputCell,
+//   },
+//   {
+//     headerName: "ФИО",
+//     headerAlign: "center",
+//     align: "center",
+//     field: "userName",
 //     width: 220,
 //     editable: false,
 //     disableColumnMenu: true,
@@ -712,33 +443,53 @@ export const CONTENT_COLUMNS = [
 //     },
 //   },
 //   {
-//     field: "userProgramm",
-//     headerName: "Программа",
+//     headerName: "Telegram",
 //     headerAlign: "center",
 //     align: "center",
+//     field: "userTelegram",
+//     width: 164,
 //     editable: true,
-//     width: 400,
-//     type: "singleSelect",
-//     sortable: false,
-//     renderEditCell: renderSelectEditInputCellProfession,
+//     disableColumnMenu: true,
 //   },
 //   {
-//     field: "userCountry",
-//     headerName: "Страна",
+//     headerName: "Отзыв",
 //     headerAlign: "center",
 //     align: "center",
+//     field: "userFeedback",
+//     width: 214,
 //     editable: true,
-//     width: 120,
-//     sortable: false,
+//     disableColumnMenu: true,
+//     renderCell: (cellValues) => {
+//       return (
+//         <Link
+//           style={{ textDecoration: "none", color: "#1D6BF3" }}
+//           to={cellValues.row.userFeedback}
+//           target="blank"
+//         >
+//           {cellValues.row.userFeedback}
+//         </Link>
+//       );
+//     },
 //   },
 //   {
-//     field: "userCity",
-//     headerName: "Город",
+//     headerName: "Хабр",
 //     headerAlign: "center",
 //     align: "center",
+//     field: "userHabr",
+//     width: 214,
 //     editable: true,
-//     width: 120,
-//     sortable: false,
+//     disableColumnMenu: true,
+//     renderCell: (cellValues) => {
+//       return (
+//         <Link
+//           style={{ textDecoration: "none", color: "#1D6BF3" }}
+//           to={cellValues.row.userHabr}
+//           target="blank"
+//         >
+//           {cellValues.row.userHabr}
+//         </Link>
+//       );
+//     },
 //   },
 // ];
 
@@ -1086,35 +837,35 @@ export const LOYALTI_PROGRAMM_COLUMN = [
 
 export const HISTORY = [
   {
-    userId: '3',
-    userData: '14.02.2024 15:23',
-    userIconStatus: '1',
-    userSection: 'Амбассадоры',
-    userName: 'Иванов Иван Иванович',
-    userAction: 'Новый амбассадор'
+    userId: "3",
+    userData: "14.02.2024 15:23",
+    userIconStatus: "1",
+    userSection: "Амбассадоры",
+    userName: "Иванов Иван Иванович",
+    userAction: "Новый амбассадор",
   },
   {
-    userId: '10',
-    userData: '14.02.2024 15:23',
-    userIconStatus: '2',
-    userSection: 'Промокоды',
-    userName: 'Иванов НЕИван Иванович',
-    userAction: 'Получен промокод ABCDEF12'
+    userId: "10",
+    userData: "14.02.2024 15:23",
+    userIconStatus: "2",
+    userSection: "Промокоды",
+    userName: "Иванов НЕИван Иванович",
+    userAction: "Получен промокод ABCDEF12",
   },
   {
-    userId: '89',
-    userData: '14.02.2024 15:23',
-    userIconStatus: '3',
-    userSection: 'Контент',
-    userName: 'Петров Петрович',
-    userAction: 'Добавлен новый контент'
+    userId: "89",
+    userData: "14.02.2024 15:23",
+    userIconStatus: "3",
+    userSection: "Контент",
+    userName: "Петров Петрович",
+    userAction: "Добавлен новый контент",
   },
   {
-    userId: '7',
-    userData: '14.02.2024 15:23',
-    userIconStatus: '4',
-    userSection: 'Контент',
-    userName: 'Петров Петрович',
-    userAction: 'Гайд'
+    userId: "7",
+    userData: "14.02.2024 15:23",
+    userIconStatus: "4",
+    userSection: "Контент",
+    userName: "Петров Петрович",
+    userAction: "Гайд",
   },
-]
+];
