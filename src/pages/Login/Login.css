@@ -8,6 +8,10 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-image: url(../../assets/images/background.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .login__form {
@@ -147,41 +151,4 @@
 
 .login__submitButtonDisable:hover {
   background-color: #B5B5B7;
-}
-
-.login__image_circle {
-  position: absolute;
-  top: -332px;
-  right: -527px;
-  width: 527px;
-  height: 406px;
-  background-image: url(../../assets/images/Vector_circle.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
-.login__image_rectangle {
-  position: absolute;
-  top: -20px;
-  right: -527px;
-  width: 527px;
-  height: 768px;
-  background-image: url(../../assets/images/Vector_rectangle.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: 2;
-}
-
-.login__image_triangle {
-  position: absolute;
-  top: -264px;
-  left: -527px;
-  width: 348.5px;
-  height: 623.05px;
-  background-image: url(../../assets/images/Vector_triangle.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
 }
