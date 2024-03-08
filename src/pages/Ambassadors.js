@@ -9,7 +9,6 @@ import {
   CloseIconButton,
   CheckboxSelectionButton,
 } from "../components/Buttons/Buttons";
-// import { AMBASSADORS_COLUMNS } from "../mocks/users-data";
 import React, { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";

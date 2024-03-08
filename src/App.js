@@ -249,15 +249,73 @@ function App() {
               />
             }
           />
-          <Route path="/budget" element={<Budget rowData={rowData} />} />
+          <Route
+            path="/budget"
+            element={
+              <Budget
+                rowData={rowData}
+                rows={rows}
+                checkboxSelection={checkboxSelection}
+                setCheckboxSelection={setCheckboxSelection}
+                showExportButton={showExportButton}
+                setShowExportButton={setShowExportButton}
+                handleShowExportButton={handleShowExportButton}
+                handleHideButtons={handleHideButtons}
+              />
+            }
+          />
           <Route
             path="/budget-price"
-            element={<BudgetPrice rowData={rowData} />}
+            element={
+              <BudgetPrice
+                rowData={rowData}
+                rows={rows}
+                setRows={setRows}
+                rowModesModel={rowModesModel}
+                setRowModesModel={setRowModesModel}
+                checkboxSelection={checkboxSelection}
+                setCheckboxSelection={setCheckboxSelection}
+                selectionModel={selectionModel}
+                setSelectionModel={setSelectionModel}
+                showExportButton={showExportButton}
+                setShowExportButton={setShowExportButton}
+                handleRowModesModelChange={handleRowModesModelChange}
+                handleRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                renderActions={renderActions}
+                handleShowExportButton={handleShowExportButton}
+                handleHideButtons={handleHideButtons}
+                showDeleteButton={showDeleteButton}
+                handleShowDeleteButton={handleShowDeleteButton}
+              />
+            }
           />
           <Route path="/budget-info" element={<Budget rowData={rowData} />} />
           <Route
             path="/loyalty-programm"
-            element={<Loyalti rowData={rowData} />}
+            element={
+              <Loyalti
+                rowData={rowData}
+                rows={rows}
+                setRows={setRows}
+                rowModesModel={rowModesModel}
+                setRowModesModel={setRowModesModel}
+                checkboxSelection={checkboxSelection}
+                setCheckboxSelection={setCheckboxSelection}
+                selectionModel={selectionModel}
+                setSelectionModel={setSelectionModel}
+                showExportButton={showExportButton}
+                setShowExportButton={setShowExportButton}
+                handleRowModesModelChange={handleRowModesModelChange}
+                handleRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                renderActions={renderActions}
+                handleShowExportButton={handleShowExportButton}
+                handleHideButtons={handleHideButtons}
+                showDeleteButton={showDeleteButton}
+                handleShowDeleteButton={handleShowDeleteButton}
+              />
+            }
           />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/faq/add-faq" element={<AddFAQ />} />

@@ -85,6 +85,48 @@ export class ApiTables {
       },
     }).then(this._checkError);
   }
+
+  getBudgetPrice() {
+    const token =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
+    // const token = localStorage.getItem("jwt");
+    return fetch(`${this._baseUrl}/merch_price`, {
+      headers: {
+        // method: "GET",
+        authorization: token,
+        "Content-Type": "application/json",
+        // authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
+
+  createBudgetPrice() {
+    const token =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
+    // const token = localStorage.getItem("jwt");
+    return fetch(`${this._baseUrl}/merch_price`, {
+      headers: {
+        method: "POST",
+        authorization: token,
+        "Content-Type": "application/json",
+        // authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
+
+  getLoyalti() {
+    const token =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
+    // const token = localStorage.getItem("jwt");
+    return fetch(`${this._baseUrl}/merch_price`, {
+      headers: {
+        // method: "GET",
+        authorization: token,
+        "Content-Type": "application/json",
+        // authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
 }
 
 export const apiTables = new ApiTables({
