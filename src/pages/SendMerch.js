@@ -9,7 +9,7 @@ import {
   CloseIconButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import { SEND_MERCH_COLUMNS, buttonClick } from "../mocks/users-data";
+import { buttonClick } from "../mocks/users-data";
 import { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
@@ -22,7 +22,6 @@ import { apiTables } from "../components/utils/apiTables";
 import { Button } from "@mui/material";
 
 export default function SendMerch({
-  // setRows,
   rowModesModel,
   setRowModesModel,
   checkboxSelection,
@@ -30,9 +29,7 @@ export default function SendMerch({
   setSelectionModel,
   showExportButton,
   handleRowModesModelChange,
-  handleRowEditStop,
   processRowUpdate,
-  renderActions,
   handleShowExportButton,
   handleHideButtons,
   showDeleteButton,
@@ -67,7 +64,7 @@ export default function SendMerch({
             }}
             onClick={buttonClick}
           >
-            {cellValues.row.tutor.full_name}
+            {cellValues?.row?.tutor?.full_name}
           </Button>
         );
       },
@@ -87,7 +84,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.clothing_size,
+      valueGetter: (params) => params?.row?.ambassador?.clothing_size,
     },
     {
       headerName: "Размер носков",
@@ -96,7 +93,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.shoe_size,
+      valueGetter: (params) => params?.row?.ambassador?.shoe_size,
     },
     {
       headerName: "ФИО",
@@ -115,7 +112,7 @@ export default function SendMerch({
             }}
             onClick={buttonClick}
           >
-            {cellValues.row.ambassador.name}
+            {cellValues?.row?.ambassador?.name}
           </Button>
         );
       },
@@ -127,7 +124,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.address.postal_code,
+      valueGetter: (params) => params?.row?.ambassador?.address?.postal_code,
     },
     {
       headerName: "Страна",
@@ -136,7 +133,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.address.country,
+      valueGetter: (params) => params?.row?.ambassador?.address?.country,
     },
     {
       headerName: "Город",
@@ -145,7 +142,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.address.city,
+      valueGetter: (params) => params?.row?.ambassador?.address?.city,
     },
     {
       headerName: "Улица, дом, квартира",
@@ -154,7 +151,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.address.street,
+      valueGetter: (params) => params?.row?.ambassador?.address?.street,
     },
     {
       headerName: "Телефон",
@@ -171,7 +168,8 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: false,
-      valueFormatter: (params) => new Date(params?.value).toLocaleString('default', { month: 'long' }),
+      valueFormatter: (params) =>
+        new Date(params?.value).toLocaleString("default", { month: "long" }),
     },
   ];
 
@@ -263,10 +261,30 @@ export default function SendMerch({
     );
   }
 
+  // function deleteRows() {
+  //   const ids = rows
+  //     .filter((r) => selectionModel.includes(r.id))
+  //     .map(({ id }) => id);
+  //   console.log(ids);
+
+  //   ids.forEach((id) => {
+  //     apiTables
+  //       .deleteRowSendMerch(id)
+  //       .then((res) => {
+  //         console.log(res);
+  //         setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+  //       })
+  //       .catch((e) => console.log(`Error! ${e}`));
+  //   });
+  // }
+
   useEffect(() => {
-    apiTables.getSendMerch().then((merch) => {
-      setRows(merch);
-    });
+    apiTables
+      .getSendMerch()
+      .then((merch) => {
+        setRows(merch);
+      })
+      .catch((e) => console.log(`Error! ${e}`));
   }, []);
 
   return (

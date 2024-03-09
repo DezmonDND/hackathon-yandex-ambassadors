@@ -18,10 +18,8 @@ import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
-export default function Promocodes({
+export default function Budget({
   rowData,
-  // rows,
-  // setRows,
   rowModesModel,
   selectionModel,
   setSelectionModel,
@@ -114,12 +112,6 @@ export default function Promocodes({
       </>
     );
   }
-
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  // const rows = rowData.map((row) => ({
-  //   ...row,
-  //   id: row.userId,
-  // }));
 
   return (
     <Layout>

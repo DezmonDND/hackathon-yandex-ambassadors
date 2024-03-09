@@ -8,7 +8,6 @@ import {
   SettingsButton,
 } from "../components/Buttons/Buttons";
 import {
-  // CONTENT_COLUMNS,
   buttonClick,
   renderSelectEditInputCell,
   renderSelectEditInputCellMerch,
@@ -22,19 +21,20 @@ import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import { GridRowEditStopReasons } from "@mui/x-data-grid";
 
 export default function Content({
   rowData,
-  // setRows,
   rowModesModel,
+  setRowModesModel,
   checkboxSelection,
   selectionModel,
   setSelectionModel,
   showExportButton,
-  handleRowModesModelChange,
-  handleRowEditStop,
-  processRowUpdate,
-  renderActions,
   handleShowExportButton,
   handleHideButtons,
 }) {
@@ -157,6 +157,86 @@ export default function Content({
     },
   ];
 
+  // Меню действий на странице
+  function renderActions({ id }) {
+    const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+    if (isInEditMode) {
+      return [
+        <GridActionsCellItem
+          icon={<SaveIcon />}
+          label="Save"
+          sx={{
+            color: "#1d6bf3",
+          }}
+          onClick={handleSaveClick(id)}
+        />,
+        <GridActionsCellItem
+          sx={{
+            color: "#1d6bf3",
+          }}
+          icon={<CancelIcon />}
+          label="Cancel"
+          className="textPrimary"
+          onClick={handleCancelClick(id)}
+          color="inherit"
+        />,
+      ];
+    }
+
+    return [
+      <GridActionsCellItem
+        sx={{
+          border: "1px solid #1d6bf3",
+          color: "#1d6bf3",
+          borderRadius: "4px",
+        }}
+        icon={<EditOutlinedIcon />}
+        label="Edit"
+        className="textPrimary"
+        onClick={handleEditClick(id)}
+        color="inherit"
+      />,
+    ];
+  }
+
+  // Работа со строками
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  function processRowUpdate(newRow) {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  }
+
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
@@ -215,12 +295,6 @@ export default function Content({
       </>
     );
   }
-
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  // const rows = rowData.map((row) => ({
-  //   ...row,
-  //   id: row.id,
-  // }));
 
   return (
     <Layout>

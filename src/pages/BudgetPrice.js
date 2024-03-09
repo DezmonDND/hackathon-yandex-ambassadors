@@ -14,21 +14,19 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
 import { apiTables } from "../components/utils/apiTables";
+import { GridActionsCellItem } from "@mui/x-data-grid";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import { GridRowEditStopReasons } from "@mui/x-data-grid";
 
 export default function Promocodes({
-  // rowData,
-  // rows,
-  // setRows,
   rowModesModel,
   setRowModesModel,
   checkboxSelection,
   selectionModel,
   setSelectionModel,
   showExportButton,
-  handleRowModesModelChange,
-  handleRowEditStop,
-  // processRowUpdate,
-  renderActions,
   handleShowExportButton,
   handleHideButtons,
   showDeleteButton,
@@ -83,11 +81,11 @@ export default function Promocodes({
       width: 100,
       sortable: false,
       editable: true,
-      valueGetter: (params) => params.row.category.id,
+      valueGetter: (params) => params?.row?.category?.id,
     },
   ];
 
-  const handleAddNewRow = () => {
+  function handleAddNewRow() {
     const id = randomId();
 
     setRows((oldRows) => [
@@ -104,9 +102,40 @@ export default function Promocodes({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
+  }
+
+  // Работа со строками
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
   };
 
-  const processRowUpdate = (newRow) => {
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  function processRowUpdate(newRow) {
     apiTables
       .addNewRowBudgetPrice(newRow)
       .then((res) => {
@@ -117,7 +146,7 @@ export default function Promocodes({
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
-  };
+  }
 
   function deleteRows() {
     const ids = rows
@@ -133,6 +162,49 @@ export default function Promocodes({
         })
         .catch((e) => console.log(`Error! ${e}`));
     });
+  }
+
+  // Меню действий на странице
+  function renderActions({ id }) {
+    const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+    if (isInEditMode) {
+      return [
+        <GridActionsCellItem
+          icon={<SaveIcon />}
+          label="Save"
+          sx={{
+            color: "#1d6bf3",
+          }}
+          onClick={handleSaveClick(id)}
+        />,
+        <GridActionsCellItem
+          sx={{
+            color: "#1d6bf3",
+          }}
+          icon={<CancelIcon />}
+          label="Cancel"
+          className="textPrimary"
+          onClick={handleCancelClick(id)}
+          color="inherit"
+        />,
+      ];
+    }
+
+    return [
+      <GridActionsCellItem
+        sx={{
+          border: "1px solid #1d6bf3",
+          color: "#1d6bf3",
+          borderRadius: "4px",
+        }}
+        icon={<EditOutlinedIcon />}
+        label="Edit"
+        className="textPrimary"
+        onClick={handleEditClick(id)}
+        color="inherit"
+      />,
+    ];
   }
 
   function MenuButtons() {
@@ -194,7 +266,6 @@ export default function Promocodes({
       <BudgetTabs></BudgetTabs>
       <Box sx={{ height: "calc(100% - 56px)", width: "100%" }}>
         <DataGrid
-          getRowId={(row) => row.id}
           style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{

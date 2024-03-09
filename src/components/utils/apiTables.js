@@ -34,12 +34,61 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
+  deleteRowAmbassadors(id) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/ambassadors/${id}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
+
+  addNewRowAmbassadors(data) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/ambassadors/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: data.id,
+        status: data.status,
+        created: data.created,
+        name: data.name,
+        gender: data.gender,
+        onboarding_status: data.onboarding_status,
+        program: data.program,
+        email: data.email,
+        phone_number: data.phone_number,
+        telegram_id: data.telegram_id,
+        education: data.education,
+        job: data.job,
+        purpose: data.purpose,
+        tutor: data.tutor,
+      }),
+    }).then(this._checkError);
+  }
+
   // Таблица Отправка мерча
   getSendMerch() {
     const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/send_merch`, {
       headers: {
         method: "GET",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
+
+  deleteRowSendMerch(id) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/send_merch/${id}/`, {
+      method: "DELETE",
+      headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
@@ -72,6 +121,7 @@ export class ApiTables {
   }
 
   addNewRowBudgetPrice(data) {
+    console.log(data);
     const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/merch_price/`, {
       method: "POST",
@@ -80,6 +130,7 @@ export class ApiTables {
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
+        id: data.id,
         name: data.name,
         cost: data.cost,
         category: data.category,

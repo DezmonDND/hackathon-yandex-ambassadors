@@ -173,21 +173,12 @@ function App() {
             path="/promocodes"
             element={
               <Promocodes
-                rowData={rowData}
-                rows={rows}
-                setRows={setRows}
                 rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
+                setRowModesModel={setRowModesModel}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
               />
@@ -197,7 +188,6 @@ function App() {
             path="/ambassadors"
             element={
               <Ambassadors
-                rowData={rowData}
                 isOpen={isPopupOpen}
                 onClose={closePopup}
                 onClick={handleClick}
@@ -206,15 +196,9 @@ function App() {
                 rowModesModel={rowModesModel}
                 setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
                 showDeleteButton={showDeleteButton}
@@ -227,25 +211,14 @@ function App() {
             element={
               <Content
                 rowData={rowData}
-                rows={rows}
-                setRows={setRows}
                 rowModesModel={rowModesModel}
                 setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
-                handleSaveClick={handleSaveClick}
-                handleEditClick={handleEditClick}
-                handleCancelClick={handleCancelClick}
               />
             }
           />
@@ -253,21 +226,14 @@ function App() {
             path="/send-merch"
             element={
               <SendMerch
-                rowData={rowData}
-                rows={rows}
-                setRows={setRows}
                 rowModesModel={rowModesModel}
                 setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
                 handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
                 showDeleteButton={showDeleteButton}
@@ -280,13 +246,12 @@ function App() {
             element={
               <Budget
                 rowData={rowData}
-                rows={rows}
-                checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
-                showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
+                rowModesModel={rowModesModel}
+                selectionModel={selectionModel}
+                setSelectionModel={setSelectionModel}
+                handleRowModesModelChange={handleRowModesModelChange}
+                handleRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
               />
             }
           />
@@ -294,21 +259,12 @@ function App() {
             path="/budget-price"
             element={
               <BudgetPrice
-                rowData={rowData}
-                rows={rows}
-                setRows={setRows}
                 rowModesModel={rowModesModel}
                 setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
                 showDeleteButton={showDeleteButton}
@@ -322,24 +278,16 @@ function App() {
             element={
               <Loyalti
                 rowData={rowData}
-                rows={rows}
-                setRows={setRows}
                 rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
                 checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
                 selectionModel={selectionModel}
                 setSelectionModel={setSelectionModel}
                 showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
                 handleRowModesModelChange={handleRowModesModelChange}
                 handleRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
-                renderActions={renderActions}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
-                showDeleteButton={showDeleteButton}
-                handleShowDeleteButton={handleShowDeleteButton}
               />
             }
           />

@@ -2,17 +2,18 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Layout from "../layouts/default";
 import { useEffect } from "react";
-import { DataGrid, GridColumnMenu, gridClasses } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColumnMenu,
+  gridClasses,
+  GridRowModes,
+} from "@mui/x-data-grid";
 import {
   CheckboxSelectionButton,
   CloseIconButton,
   FilterExportButton,
 } from "../components/Buttons/Buttons";
-import {
-  buttonClick,
-  // PROMOCODES_COLUMNS,
-  renderSelectEditInputCell,
-} from "../mocks/users-data";
+import { buttonClick, renderSelectEditInputCell } from "../mocks/users-data";
 import { useState } from "react";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
@@ -22,21 +23,19 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
+import { GridActionsCellItem } from "@mui/x-data-grid";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import { GridRowEditStopReasons } from "@mui/x-data-grid";
 
 export default function Promocodes({
-  // rows,
-  // setRows,
   rowModesModel,
   checkboxSelection,
-  setCheckboxSelection,
   selectionModel,
   setSelectionModel,
   showExportButton,
-  setShowExportButton,
-  handleRowModesModelChange,
-  handleRowEditStop,
-  processRowUpdate,
-  renderActions,
+  setRowModesModel,
   handleShowExportButton,
   handleHideButtons,
 }) {
@@ -52,7 +51,7 @@ export default function Promocodes({
       headerAlign: "center",
       align: "center",
       type: "singleSelect",
-      valueGetter: (params) => params.row.ambassador.status.name,
+      valueGetter: (params) => params?.row?.ambassador?.status?.name,
       renderEditCell: renderSelectEditInputCell,
     },
     {
@@ -92,6 +91,7 @@ export default function Promocodes({
       editable: true,
       headerAlign: "center",
       align: "center",
+      valueGetter: (params) => params?.row?.ambassador?.name,
       renderCell: (params) => {
         return (
           <Button
@@ -102,7 +102,7 @@ export default function Promocodes({
             }}
             onClick={buttonClick}
           >
-            {params.row.ambassador.name}
+            {params?.row?.ambassador?.name}
           </Button>
         );
       },
@@ -115,9 +115,7 @@ export default function Promocodes({
       sortable: false,
       editable: true,
       width: 200,
-      valueGetter: (params) => {
-        return params.row.ambassador.telegram;
-      },
+      valueGetter: (params) => params?.row?.ambassador?.telegram,
     },
     {
       field: "code",
@@ -129,6 +127,86 @@ export default function Promocodes({
       width: 220,
     },
   ];
+
+  // Работа со строками
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  function processRowUpdate(newRow) {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  }
+
+  // Меню действий на странице
+  function renderActions({ id }) {
+    const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+    if (isInEditMode) {
+      return [
+        <GridActionsCellItem
+          icon={<SaveIcon />}
+          label="Save"
+          sx={{
+            color: "#1d6bf3",
+          }}
+          onClick={handleSaveClick(id)}
+        />,
+        <GridActionsCellItem
+          sx={{
+            color: "#1d6bf3",
+          }}
+          icon={<CancelIcon />}
+          label="Cancel"
+          className="textPrimary"
+          onClick={handleCancelClick(id)}
+          color="inherit"
+        />,
+      ];
+    }
+
+    return [
+      <GridActionsCellItem
+        sx={{
+          border: "1px solid #1d6bf3",
+          color: "#1d6bf3",
+          borderRadius: "4px",
+        }}
+        icon={<EditOutlinedIcon />}
+        label="Edit"
+        className="textPrimary"
+        onClick={handleEditClick(id)}
+        color="inherit"
+      />,
+    ];
+  }
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);

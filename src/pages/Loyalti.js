@@ -19,10 +19,7 @@ import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
 
 export default function Loyalti({
   rowData,
-  // rows,
-  // setRows,
   rowModesModel,
-  setRowModesModel,
   checkboxSelection,
   selectionModel,
   setSelectionModel,
@@ -30,11 +27,8 @@ export default function Loyalti({
   handleRowModesModelChange,
   handleRowEditStop,
   processRowUpdate,
-  renderActions,
   handleShowExportButton,
   handleHideButtons,
-  showDeleteButton,
-  handleShowDeleteButton,
 }) {
   const [rows, setRows] = useState(rowData);
 
@@ -106,12 +100,6 @@ export default function Loyalti({
       </>
     );
   }
-
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  // const rows = rowData.map((row) => ({
-  //   ...row,
-  //   id: row.userId,
-  // }));
 
   return (
     <Layout>
