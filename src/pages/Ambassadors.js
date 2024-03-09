@@ -329,10 +329,6 @@ export default function Ambassadors({
     );
   };
 
-  function getRowId(row) {
-    return row.name;
-  }
-
   useEffect(() => {
     apiTables.getAmbassadors().then((ambassadors) => {
       setRows(ambassadors);
@@ -344,7 +340,7 @@ export default function Ambassadors({
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
-          getRowId={getRowId}
+          getRowId={(row) => row.name}
           style={{ borderStyle: "hidden" }}
           hideFooter={true}
           editMode="row"
