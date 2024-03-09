@@ -25,7 +25,11 @@ function Tabs() {
         ))}
       </div>
       {tabs.map((tab) => (
-        currentTab === `${tab.id}` && tab.content
+        currentTab === `${tab.id}` && (
+          <div key={tab.id}>
+            {tab.content}
+          </div>
+        )
       ))}
     </div>
   );
