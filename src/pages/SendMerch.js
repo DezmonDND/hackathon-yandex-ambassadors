@@ -79,7 +79,6 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.merch.name,
     },
     {
       headerName: "Размер толстовки",
@@ -88,6 +87,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params.row.ambassador.clothing_size,
     },
     {
       headerName: "Размер носков",
@@ -96,7 +96,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
-      valueGetter: (params) => params.row.ambassador.clothing_size,
+      valueGetter: (params) => params.row.ambassador.shoe_size,
     },
     {
       headerName: "ФИО",
@@ -127,6 +127,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params.row.ambassador.address.postal_code,
     },
     {
       headerName: "Страна",
@@ -135,6 +136,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params.row.ambassador.address.country,
     },
     {
       headerName: "Город",
@@ -143,6 +145,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params.row.ambassador.address.city,
     },
     {
       headerName: "Улица, дом, квартира",
@@ -151,6 +154,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params.row.ambassador.address.street,
     },
     {
       headerName: "Телефон",
@@ -167,7 +171,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: false,
-      valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
+      valueFormatter: (params) => new Date(params?.value).toLocaleString('default', { month: 'long' }),
     },
   ];
 
