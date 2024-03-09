@@ -23,6 +23,8 @@ import {
   renderSelectEditInputCellProfession,
 } from "../mocks/users-data";
 import { Button } from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Popup from "../components/Popup/Popup";
 import { apiTables } from "../components/utils/apiTables";
 
 export default function Ambassadors({
@@ -42,6 +44,9 @@ export default function Ambassadors({
   handleHideButtons,
   showDeleteButton,
   handleShowDeleteButton,
+  isOpen,
+  onClose, 
+  onClick
 }) {
   const AMBASSADORS_COLUMNS = [
     {
@@ -105,7 +110,7 @@ export default function Ambassadors({
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={buttonClick}
+            onClick={onClick}
           >
             {cellValues.row.name}
           </Button>
@@ -335,6 +340,7 @@ export default function Ambassadors({
   }, [setRows]);
 
   return (
+   <>
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid
@@ -399,5 +405,7 @@ export default function Ambassadors({
         />
       </Box>
     </Layout>
+   <Popup isOpen={isOpen} onClose={onClose} />
+  </>
   );
 }

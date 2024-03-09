@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { USERS, HISTORY } from "./mocks/users-data";
 import Login from "./pages/Login/Login";
@@ -37,6 +37,29 @@ function App() {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [showExportButton, setShowExportButton] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // Попап при клике на ФИО
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  function handleEscapeClick(evt) {
+    if (evt.key === "Escape") {
+      closePopup();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscapeClick);
+    return () => {
+      document.removeEventListener("keydown", handleEscapeClick);
+    };
+  });
 
   // Кнопки
   function showCheckboxes() {
@@ -143,7 +166,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<Navigate to="/promocodes" replace />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
@@ -175,6 +198,9 @@ function App() {
             element={
               <Ambassadors
                 rowData={rowData}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                onClick={handleClick}
                 rows={rows}
                 setRows={setRows}
                 rowModesModel={rowModesModel}
@@ -253,26 +279,14 @@ function App() {
             path="/budget"
             element={
               <Budget
-              rowData={rowData}
-              rows={rows}
-              setRows={setRows}
-              rowModesModel={rowModesModel}
-              setRowModesModel={setRowModesModel}
-              checkboxSelection={checkboxSelection}
-              setCheckboxSelection={setCheckboxSelection}
-              selectionModel={selectionModel}
-              setSelectionModel={setSelectionModel}
-              showExportButton={showExportButton}
-              setShowExportButton={setShowExportButton}
-              handleRowModesModelChange={handleRowModesModelChange}
-              handleRowEditStop={handleRowEditStop}
-              processRowUpdate={processRowUpdate}
-              renderActions={renderActions}
-              handleShowExportButton={handleShowExportButton}
-              handleHideButtons={handleHideButtons}
-              showDeleteButton={showDeleteButton}
-              setShowDeleteButton={setShowDeleteButton}
-              handleShowDeleteButton={handleShowDeleteButton}
+                rowData={rowData}
+                rows={rows}
+                checkboxSelection={checkboxSelection}
+                setCheckboxSelection={setCheckboxSelection}
+                showExportButton={showExportButton}
+                setShowExportButton={setShowExportButton}
+                handleShowExportButton={handleShowExportButton}
+                handleHideButtons={handleHideButtons}
               />
             }
           />

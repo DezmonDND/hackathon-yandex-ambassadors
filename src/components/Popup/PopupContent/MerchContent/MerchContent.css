@@ -1,0 +1,96 @@
+.merchContent__container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.merchContent__info-block {
+  margin: 4px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.merchContent__subtitle {
+  font-family: "YS Text";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1A1B22;
+}
+
+.merchContent__text {
+  margin: 2px 0;
+  font-family: "YS Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #1A1B22;
+}
+
+.merchContent__table-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.merchContent__table-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.merchContent__data {
+  padding: 0 12px;
+  max-width: calc(100% - 115px);
+  width: 100%;
+}
+
+.merchContent__data_size {
+  padding: 0 12px;
+  max-width: calc(100% - 224px);
+  width: 100%;
+}
+
+.merchContent__table-list_merch {
+  padding: 8px 8px 4px;
+}
+
+.merchContent__data_merch {
+  padding: 0 12px;
+  max-width: calc(100% - 304px);
+  width: 100%;
+}
+
+.merchContent__text_merch {
+  margin: 0;
+  padding: 4px 0;
+  font-family: "YS Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  color: #1A1B22;
+}
+
+.merchContent__input_comment {
+  width: 100%;
+  padding: 6px 4px 4px;
+  border: none;
+  font-family: "YS Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  color: #1A1B22;
+  background-color: transparent;
+  resize: none;
+  height: calc(100vh - 700px);
+}
+
+.merchContent__input_comment::placeholder {
+  color: #1A1B22;
+}

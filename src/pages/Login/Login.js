@@ -112,9 +112,6 @@ function Login() {
         >
           Войти
         </button>
-        <div className="login__image_circle"></div>
-        <div className="login__image_rectangle"></div>
-        <div className="login__image_triangle"></div>
       </form>
     </div>
   );
