@@ -8,7 +8,7 @@ import {
   CloseIconButton,
   DeleteButton,
 } from "../components/Buttons/Buttons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
@@ -17,8 +17,8 @@ import { apiTables } from "../components/utils/apiTables";
 
 export default function Promocodes({
   // rowData,
-  rows,
-  setRows,
+  // rows,
+  // setRows,
   rowModesModel,
   setRowModesModel,
   checkboxSelection,
@@ -34,6 +34,8 @@ export default function Promocodes({
   showDeleteButton,
   handleShowDeleteButton,
 }) {
+  const [rows, setRows] = useState([]);
+
   const BUDGET_PRICE_COLUMN = [
     {
       headerName: "ID",
@@ -60,7 +62,7 @@ export default function Promocodes({
       headerAlign: "center",
       align: "center",
       field: "name",
-      width: 792,
+      width: 692,
       sortable: false,
       editable: true,
     },
@@ -73,20 +75,31 @@ export default function Promocodes({
       editable: true,
       sortable: false,
     },
+    {
+      headerName: "Категория",
+      headerAlign: "center",
+      align: "center",
+      field: "category",
+      width: 100,
+      sortable: false,
+      editable: true,
+      valueGetter: (params) => params.row.category.id,
+    },
   ];
 
   const handleAddNewRow = () => {
     const id = randomId();
+
     setRows((oldRows) => [
       ...oldRows,
       {
         id,
         name: "",
         cost: "",
+        category: "",
         isNew: true,
       },
     ]);
-
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
@@ -94,15 +107,32 @@ export default function Promocodes({
   };
 
   const processRowUpdate = (newRow) => {
+    apiTables
+      .addNewRowBudgetPrice(newRow)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
 
     const updatedRow = { ...newRow, isNew: false };
-    // apiTables.createBudgetPrice(updatedRow)
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
 
   function deleteRows() {
-    setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+    const ids = rows
+      .filter((r) => selectionModel.includes(r.id))
+      .map(({ id }) => id);
+
+    ids.forEach((id) => {
+      apiTables
+        .deleteRowBudgetPrice(id)
+        .then((res) => {
+          console.log(res);
+          setRows((rows) => rows.filter((r) => !selectionModel.includes(r.id)));
+        })
+        .catch((e) => console.log(`Error! ${e}`));
+    });
   }
 
   function MenuButtons() {
@@ -151,16 +181,20 @@ export default function Promocodes({
   }
 
   useEffect(() => {
-    apiTables.getBudgetPrice().then((price) => {
-      setRows(price);
-    });
-  }, [setRows]);
+    apiTables
+      .getBudgetPrice()
+      .then((price) => {
+        setRows(price);
+      })
+      .catch((e) => console.log(`Error! ${e}`));
+  }, []);
 
   return (
     <Layout>
       <BudgetTabs></BudgetTabs>
       <Box sx={{ height: "calc(100% - 56px)", width: "100%" }}>
         <DataGrid
+          getRowId={(row) => row.id}
           style={{ borderStyle: "hidden" }}
           hideFooter={true}
           slots={{
