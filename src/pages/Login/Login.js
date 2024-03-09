@@ -26,9 +26,8 @@ function Login() {
       email: data.email,
       password: data.password,
     }).then((res) => {
-      // закомментировала, пока нет baseUrl
       // if (res.ok) {
-        navigate("/");
+      navigate("/promocodes");
       // }
     });
   };

@@ -6,6 +6,7 @@ import {
   CheckboxSelectionButton,
   CloseIconButton,
   SettingsButton,
+  FilterExportButton,
 } from "../components/Buttons/Buttons";
 import { BUDGET_COLUMN } from "../mocks/users-data";
 import { useState } from "react";
@@ -21,13 +22,31 @@ export default function Promocodes({
   rowData,
   // rows,
   // setRows,
-  checkboxSelection,
+  rowModesModel,
   selectionModel,
   setSelectionModel,
-  showExportButton,
-  handleShowExportButton,
-  handleHideButtons,
+  handleRowModesModelChange,
+  handleRowEditStop,
+  processRowUpdate,
 }) {
+  const [rows, setRows] = useState(rowData);
+  const [checkboxSelection, setCheckboxSelection] = useState(false);
+  const [showExportButton, setShowExportButton] = useState(false);
+
+  function showCheckboxes() {
+    setCheckboxSelection(!checkboxSelection);
+  }
+
+  const handleShowExportButton = () => {
+    setShowExportButton(true);
+    showCheckboxes(true);
+  };
+
+  const handleHideButtons = () => {
+    setShowExportButton(false);
+    showCheckboxes(false);
+  };
+
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
@@ -55,6 +74,19 @@ export default function Promocodes({
           <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
         {!checkboxSelection && <DateButton></DateButton>}
+        {checkboxSelection && (
+          <FilterExportButton
+            onClick={(event) => {
+              setOpenColumnsMenu(!openColumnsMenu);
+              setColumnsMenuAnchorEl(event.currentTarget);
+            }}
+          ></FilterExportButton>
+        )}
+        <CustomPopupCheckboxes
+          moreMenuAnchorEl={columnsMenuAnchorEl}
+          openColumnsMenu={openColumnsMenu}
+          setOpenColumnsMenu={(value) => setOpenColumnsMenu(value)}
+        />
       </>
     );
   }
@@ -84,10 +116,10 @@ export default function Promocodes({
   }
 
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
+  // const rows = rowData.map((row) => ({
+  //   ...row,
+  //   id: row.userId,
+  // }));
 
   return (
     <Layout>
@@ -135,8 +167,12 @@ export default function Promocodes({
               borderRadius: " 4px",
             },
           }}
+          rowModesModel={rowModesModel}
           checkboxSelection={checkboxSelection}
           rowSelectionModel={selectionModel}
+          processRowUpdate={processRowUpdate}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
           onRowSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}

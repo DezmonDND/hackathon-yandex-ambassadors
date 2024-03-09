@@ -143,7 +143,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/" element={<Navigate to="/promocodes" replace />} />
+          <Route path="/" element={<Navigate to="/" replace />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
@@ -253,14 +253,26 @@ function App() {
             path="/budget"
             element={
               <Budget
-                rowData={rowData}
-                rows={rows}
-                checkboxSelection={checkboxSelection}
-                setCheckboxSelection={setCheckboxSelection}
-                showExportButton={showExportButton}
-                setShowExportButton={setShowExportButton}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
+              rowData={rowData}
+              rows={rows}
+              setRows={setRows}
+              rowModesModel={rowModesModel}
+              setRowModesModel={setRowModesModel}
+              checkboxSelection={checkboxSelection}
+              setCheckboxSelection={setCheckboxSelection}
+              selectionModel={selectionModel}
+              setSelectionModel={setSelectionModel}
+              showExportButton={showExportButton}
+              setShowExportButton={setShowExportButton}
+              handleRowModesModelChange={handleRowModesModelChange}
+              handleRowEditStop={handleRowEditStop}
+              processRowUpdate={processRowUpdate}
+              renderActions={renderActions}
+              handleShowExportButton={handleShowExportButton}
+              handleHideButtons={handleHideButtons}
+              showDeleteButton={showDeleteButton}
+              setShowDeleteButton={setShowDeleteButton}
+              handleShowDeleteButton={handleShowDeleteButton}
               />
             }
           />

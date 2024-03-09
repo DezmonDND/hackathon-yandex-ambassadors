@@ -77,7 +77,7 @@ export default function Content({
       headerName: "Статус",
       headerAlign: "center",
       align: "center",
-      field: "userStatus",
+      field: "status",
       width: 140,
       editable: true,
       disableColumnMenu: true,

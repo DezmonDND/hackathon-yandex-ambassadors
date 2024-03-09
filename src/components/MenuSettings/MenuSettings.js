@@ -1,16 +1,24 @@
 import "./MenuSettings.css";
 import { NavLink } from "react-router-dom";
-import Badge from '@mui/material/Badge';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import Badge from "@mui/material/Badge";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
 function MenuSettings() {
   return (
     <ul className="menu__settings">
       <NavLink
         className="menu__link"
+        to="/login"
+        style={({ isActive }) => ({
+          color: isActive ? "#FFFFFF" : "",
+        })}
+      >
+        Войти
+      </NavLink>
+      <NavLink
+        className="menu__link"
         to="/notices"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
@@ -26,17 +34,20 @@ function MenuSettings() {
         className="menu__link"
         to="/history"
         style={({ isActive }) => ({
-          backgroundColor: isActive ? "#2337B7" : "",
           color: isActive ? "#FFFFFF" : "",
         })}
       >
         История изменений
       </NavLink>
-      <button
-        className="logout"
+      <NavLink
+        className="menu__link"
+        to="/login"
+        style={({ isActive }) => ({
+          color: isActive ? "#FFFFFF" : "",
+        })}
       >
         Выйти
-      </button>
+      </NavLink>
     </ul>
   );
 }

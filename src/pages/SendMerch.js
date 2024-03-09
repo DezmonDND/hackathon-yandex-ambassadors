@@ -218,17 +218,18 @@ export default function SendMerch({
         />
         {!checkboxSelection ? (
           <CheckboxSelectionButton
-            onClick={handleShowDeleteButton}
+            onClick={handleShowExportButton}
           ></CheckboxSelectionButton>
         ) : (
           <CloseIconButton onClick={handleHideButtons}></CloseIconButton>
         )}
         {!checkboxSelection && (
-          <MinusButton onClick={handleShowExportButton}></MinusButton>
+          <MinusButton onClick={handleShowDeleteButton}></MinusButton>
         )}
         {!checkboxSelection && (
           <PlusButton onClick={handleAddNewRow}></PlusButton>
         )}
+
         {showDeleteButton && <DeleteButton onClick={deleteRows}></DeleteButton>}
       </>
     );

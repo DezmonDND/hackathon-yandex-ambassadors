@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   max-width: 158px;
-  gap: 12px;
+  gap: 2px;
   margin-top: auto;
 }
 .menu__link {
@@ -10,6 +10,7 @@
   color: #B5B5B7;
   padding: 12px 0 12px 4px;
   border-radius: 8px;
+  text-wrap: nowrap;
 }
 .menu__badge {
   display: flex;

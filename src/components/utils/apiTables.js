@@ -12,43 +12,34 @@ export class ApiTables {
 
   // Получить Промокоды
   getPromocodes() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/promocodes`, {
       headers: {
         // method: "GET",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }
 
   // Получить Промокоды
   getAmbassadors() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/ambassadors`, {
       headers: {
         // method: "GET",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }
 
   editPromocodes(inputValues) {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/promocodes`, {
       method: "PATCH",
       headers: {
-        // authorization: `Bearer ${token}`,
-        authorization: token,
+        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -59,71 +50,56 @@ export class ApiTables {
   }
 
   editAmbassadors(id) {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/ambassadors/${id}`, {
       method: "PATCH",
       headers: {
-        // authorization: `Bearer ${token}`,
-        authorization: token,
+        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     }).then(this._checkError);
   }
 
   getSendMerch() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/send_merch`, {
       headers: {
         // method: "GET",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }
 
   getBudgetPrice() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/merch_price`, {
       headers: {
         // method: "GET",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }
 
   createBudgetPrice() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/merch_price`, {
       headers: {
         method: "POST",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }
 
   getLoyalti() {
-    const token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA5OTU5MjI4LCJpYXQiOjE3MDk4NzI4MjgsImp0aSI6IjI3N2VjNTg0Y2M3ZjRmMDY5MTg3ZTA2MjI1ODg5ZWExIiwidXNlcl9pZCI6NX0.gtYhcqd_WlBgpviNGXxrfdzYIdlo2AR6htcM8o5zY3M";
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/merch_price`, {
       headers: {
         // method: "GET",
-        authorization: token,
         "Content-Type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkError);
   }

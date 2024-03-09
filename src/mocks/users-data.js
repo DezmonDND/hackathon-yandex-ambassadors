@@ -13,7 +13,7 @@ export function buttonClick() {
 export const USERS = [
   {
     id: randomId(),
-    userStatus: "активный",
+    status: "активный",
     userId: "1",
     userDate: "01.03.2024",
     userName: "Иванов Иван 1",
@@ -55,7 +55,7 @@ export const USERS = [
   },
   {
     id: randomId(),
-    userStatus: "уточняется",
+    status: "уточняется",
     userId: "2",
     userDate: "02.03.2024",
     userName: "Иванов Иван Иванович",
@@ -97,7 +97,7 @@ export const USERS = [
   },
   {
     id: randomId(),
-    userStatus: "на паузе",
+    status: "на паузе",
     userId: "3",
     userDate: "03.03.2024",
     userName: "Иванов Иван Иванович",
@@ -139,7 +139,7 @@ export const USERS = [
   },
   {
     id: randomId(),
-    userStatus: "не амбассадор",
+    status: "не амбассадор",
     userId: "4",
     userDate: "04.03.2024",
     userName: "Иванов Иван Иванович",
