@@ -152,6 +152,7 @@ export default function Promocodes({
       apiTables
         .editRowBudgetPrice(id, newRow)
         .then((res) => {
+          setCategory(JSON.stringify(res.category));
           console.log(res);
         })
         .catch((err) => console.log(err));

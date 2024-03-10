@@ -68,7 +68,7 @@ export default function Content({
       headerName: "Отправка мерча",
       headerAlign: "center",
       align: "center",
-      field: "content",
+      field: "conten_merch",
       width: 162,
       editable: false,
       disableColumnMenu: true,
@@ -128,7 +128,11 @@ export default function Content({
       renderCell: (cellValues) => {
         return (
           <Link
-            style={{ textDecoration: "none", color: "#1D6BF3" }}
+            style={{
+              textDecoration: "none",
+              color: "#1D6BF3",
+              overflow: "hidden",
+            }}
             to={cellValues.row.review}
             target="blank"
           >
@@ -141,21 +145,34 @@ export default function Content({
       headerName: "Хабр",
       headerAlign: "center",
       align: "center",
-      field: "userHabr",
+      field: "content",
       width: 214,
       editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
         return (
           <Link
-            style={{ textDecoration: "none", color: "#1D6BF3" }}
-            to={cellValues.row.userHabr}
+            style={{
+              textDecoration: "none",
+              color: "#1D6BF3",
+              overflow: "hidden",
+            }}
+            to={cellValues.row.content}
             target="blank"
           >
-            {cellValues.row.userHabr}
+            {cellValues.row.content}
           </Link>
         );
       },
+    },
+    {
+      headerName: "Комментарий",
+      headerAlign: "center",
+      align: "center",
+      field: "comment",
+      width: 300,
+      editable: false,
+      disableColumnMenu: true,
     },
   ];
 

@@ -38,7 +38,15 @@ git clone https://github.com/DezmonDND/hackathon-yandex-ambassadors-frontend.git
 cd hackathon-yandex-ambassadors-frontend
 ```
 
-Выполнить в папке hackathon-yandex-ambassadors-frontend команду npm i и установить зависимости. 
+Выполнить в папке hackathon-yandex-ambassadors-frontend команду 
+```
+npm i 
+```
+и установить зависимости. 
 
-После выполнить команду npm start. Проект откроется в дефолтном браузере.
+После выполнить команду 
+```
+npm start
+```
+Проект откроется в дефолтном браузере.
 
