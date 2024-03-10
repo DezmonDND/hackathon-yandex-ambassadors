@@ -28,6 +28,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
+import Popup from "../components/Popup/Popup";
 
 export default function Promocodes({
   rowModesModel,
@@ -38,6 +39,9 @@ export default function Promocodes({
   setRowModesModel,
   handleShowExportButton,
   handleHideButtons,
+  isOpen,
+  onClose,
+  onClick,
 }) {
   const [rows, setRows] = useState([]);
 
@@ -46,7 +50,7 @@ export default function Promocodes({
       field: "status",
       headerName: "Статус",
       width: 150,
-      editable: true,
+      editable: false,
       sortable: false,
       headerAlign: "center",
       align: "center",
@@ -88,19 +92,20 @@ export default function Promocodes({
       field: "name",
       headerName: "ФИО",
       width: 220,
-      editable: true,
+      editable: false,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params?.row?.ambassador?.name,
       renderCell: (params) => {
         return (
           <Button
+            key={params.row.id}
             style={{
               color: "#1D6BF3",
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={buttonClick}
+            onClick={onClick}
           >
             {params?.row?.ambassador?.name}
           </Button>
@@ -113,7 +118,7 @@ export default function Promocodes({
       headerAlign: "center",
       align: "center",
       sortable: false,
-      editable: true,
+      editable: false,
       width: 200,
       valueGetter: (params) => params?.row?.ambassador?.telegram,
     },
@@ -282,72 +287,75 @@ export default function Promocodes({
   }, []);
 
   return (
-    <Layout>
-      <Box sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          style={{ borderStyle: "hidden" }}
-          hideFooter={true}
-          slots={{
-            columnMenu: CustomColumnMenu,
-            toolbar: CustomToolbar,
-            columnUnsortedIcon: ({ sortingOrder, ...other }) => (
-              <UnfoldMoreIcon {...other} />
-            ),
-            columnSortedAscendingIcon: ExpandMoreIcon,
-            columnSortedDescendingIcon: ExpandLessIcon,
-            baseCheckbox: newBaseCheckbox,
-          }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          localeText={{
-            toolbarExport: "Экспортировать",
-          }}
-          rows={rows}
-          columns={PROMOCODES_COLUMNS}
-          sx={{
-            ".MuiDataGrid-columnHeaders": {
-              backgroundColor: "#F9FAFB",
-              minWidth: "100%",
-            },
-            ".MuiDataGrid-iconButtonContainer": {
-              visibility: "visible",
-            },
-            ".MuiDataGrid-sortIcon": {
-              opacity: "inherit !important",
-            },
-            ".MuiDataGrid-editInputCell": {
-              padding: "7px 0",
-              margin: "0 3px",
-              backgroundColor: "#E8F2FF",
-              border: "1px solid #E0E0E0",
-              borderRadius: " 4px",
-            },
-            [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
-              {
-                outline: "none",
+    <>
+      <Layout>
+        <Box sx={{ height: "100%", width: "100%" }}>
+          <DataGrid
+            style={{ borderStyle: "hidden" }}
+            hideFooter={true}
+            slots={{
+              columnMenu: CustomColumnMenu,
+              toolbar: CustomToolbar,
+              columnUnsortedIcon: ({ sortingOrder, ...other }) => (
+                <UnfoldMoreIcon {...other} />
+              ),
+              columnSortedAscendingIcon: ExpandMoreIcon,
+              columnSortedDescendingIcon: ExpandLessIcon,
+              baseCheckbox: newBaseCheckbox,
+            }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
               },
-            [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
-              {
-                outline: "none",
+            }}
+            localeText={{
+              toolbarExport: "Экспортировать",
+            }}
+            rows={rows}
+            columns={PROMOCODES_COLUMNS}
+            sx={{
+              ".MuiDataGrid-columnHeaders": {
+                backgroundColor: "#F9FAFB",
+                minWidth: "100%",
               },
-          }}
-          rowModesModel={rowModesModel}
-          processRowUpdate={processRowUpdate}
-          onRowModesModelChange={handleRowModesModelChange}
-          onRowEditStop={handleRowEditStop}
-          checkboxSelection={checkboxSelection}
-          rowSelectionModel={selectionModel}
-          onRowSelectionModelChange={(newSelectionModel) => {
-            setSelectionModel(newSelectionModel);
-          }}
-          disableRowSelectionOnClick
-          disableColumnMenu
-          editMode="row"
-        />
-      </Box>
-    </Layout>
+              ".MuiDataGrid-iconButtonContainer": {
+                visibility: "visible",
+              },
+              ".MuiDataGrid-sortIcon": {
+                opacity: "inherit !important",
+              },
+              ".MuiDataGrid-editInputCell": {
+                padding: "7px 0",
+                margin: "0 3px",
+                backgroundColor: "#E8F2FF",
+                border: "1px solid #E0E0E0",
+                borderRadius: " 4px",
+              },
+              [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]:
+                {
+                  outline: "none",
+                },
+              [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
+                {
+                  outline: "none",
+                },
+            }}
+            rowModesModel={rowModesModel}
+            processRowUpdate={processRowUpdate}
+            onRowModesModelChange={handleRowModesModelChange}
+            onRowEditStop={handleRowEditStop}
+            checkboxSelection={checkboxSelection}
+            rowSelectionModel={selectionModel}
+            onRowSelectionModelChange={(newSelectionModel) => {
+              setSelectionModel(newSelectionModel);
+            }}
+            disableRowSelectionOnClick
+            disableColumnMenu
+            editMode="row"
+          />
+        </Box>
+      </Layout>
+      <Popup isOpen={isOpen} onClose={onClose} />
+    </>
   );
 }
