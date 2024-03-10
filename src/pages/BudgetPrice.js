@@ -142,9 +142,9 @@ export default function Promocodes({
       apiTables
         .addNewRowBudgetPrice(newRow)
         .then((res) => {
-          const updatedRow = { ...newRow, id: res.id, isNew: false };
-          setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-          setCategory(JSON.stringify(res.category));
+            const updatedRow = { ...newRow, id: res.id, isNew: false };
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        setCategory(JSON.stringify(res.category));
         })
         .catch((err) => console.log(err));
     } else if (newRow.isNew !== true) {

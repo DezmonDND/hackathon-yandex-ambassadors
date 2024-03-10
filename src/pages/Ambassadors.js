@@ -54,7 +54,7 @@ export default function Ambassadors({
       headerAlign: "center",
       align: "center",
       width: 150,
-      editable: true,
+      editable: false,
       sortable: false,
       disableColumnMenu: true,
       type: "singleSelect",
@@ -88,7 +88,7 @@ export default function Ambassadors({
       headerAlign: "center",
       align: "center",
       width: 120,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
     },
@@ -134,7 +134,7 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "program",
+      field: "user_program",
       headerName: "Программа",
       headerAlign: "center",
       align: "center",
@@ -142,6 +142,7 @@ export default function Ambassadors({
       width: 400,
       type: "singleSelect",
       sortable: false,
+      valueGetter: (params) => params?.row?.program?.name,
       renderEditCell: renderSelectEditInputCellProfession,
     },
     {
@@ -163,6 +164,44 @@ export default function Ambassadors({
       width: 120,
       sortable: false,
       valueGetter: (params) => params?.row?.address?.city,
+    },
+    {
+      field: "postal_code",
+      headerName: "Почтовый код",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 120,
+      sortable: false,
+      valueGetter: (params) => params?.row?.address?.postal_code,
+    },
+    {
+      field: "street",
+      headerName: "Улица",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 200,
+      sortable: false,
+      valueGetter: (params) => params?.row?.address?.street,
+    },
+    {
+      field: "clothing_size",
+      headerName: "Размер одежды",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 200,
+      sortable: false,
+    },
+    {
+      field: "shoe_size",
+      headerName: "Размер обуви",
+      headerAlign: "center",
+      align: "center",
+      editable: true,
+      width: 200,
+      sortable: false,
     },
     {
       field: "email",
@@ -210,20 +249,21 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "purpose",
+      field: "purpose_name",
       headerName: "Цель в Практикуме",
       headerAlign: "center",
       align: "center",
       editable: true,
       width: 462,
       sortable: false,
+      valueGetter: (params) => params?.row?.purpose?.name,
     },
     {
-      field: "tutor",
+      field: "activity",
       headerName: "Цель амбассадорства",
       headerAlign: "center",
       align: "center",
-      editable: true,
+      editable: false,
       width: 347,
       sortable: false,
     },
@@ -285,15 +325,17 @@ export default function Ambassadors({
         gender: "",
         onboarding_status: "",
         program: "",
-        // country: "",
-        // city: "",
+        country: "",
+        city: "",
+        postal_code: "",
+        street: "",
         email: "",
         phone_number: "",
         telegram_id: "",
         education: "",
         job: "",
         purpose: "",
-        tutor: "",
+        activity: "",
         isNew: true,
       },
     ]);
@@ -335,12 +377,23 @@ export default function Ambassadors({
   };
 
   function processRowUpdate(newRow) {
-    apiTables
-      .addNewRowAmbassadors(newRow)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    if (newRow.isNew === true) {
+      apiTables
+        .addNewRowAmbassadors(newRow)
+        .then((res) => {
+          const updatedRow = { ...newRow, id: res.id, isNew: false };
+          setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        })
+        .catch((err) => console.log(err));
+    } else if (newRow.isNew !== true) {
+      const id = newRow.id;
+      apiTables
+        .editRowAmbassadors(id, newRow)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
 
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));

@@ -60,14 +60,53 @@ export class ApiTables {
         name: data.name,
         gender: data.gender,
         onboarding_status: data.onboarding_status,
-        program: data.program,
+        program: { name: data.user_program },
+        address: {
+          country: data.country,
+          city: data.city,
+          postal_code: data.postal_code,
+          street: data.street,
+        },
+        clothing_size: data.clothing_size,
+        shoe_size: data.shoe_size,
         email: data.email,
         phone_number: data.phone_number,
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
-        purpose: data.purpose,
-        tutor: data.tutor,
+        purpose: { name: data.purpose_name },
+        activity: [],
+      }),
+    }).then(this._checkError);
+  }
+
+  editRowAmbassadors(id, data) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/ambassadors/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: data.name,
+        gender: data.gender,
+        onboarding_status: data.onboarding_status,
+        program: { name: data.user_program },
+        address: {
+          country: data.country,
+          city: data.city,
+          postal_code: data.postal_code,
+          street: data.street,
+        },
+        clothing_size: data.clothing_size,
+        shoe_size: data.shoe_size,
+        email: data.email,
+        phone_number: data.phone_number,
+        telegram_id: data.telegram_id,
+        education: data.education,
+        job: data.job,
+        purpose: { name: data.purpose_name },
       }),
     }).then(this._checkError);
   }
@@ -95,7 +134,7 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
-   // Таблица Бюджет на мерч=>Бюджет
+  // Таблица Бюджет на мерч=>Бюджет
 
   // Таблица Бюджет=>Стоимость товара
   getBudgetPrice() {
