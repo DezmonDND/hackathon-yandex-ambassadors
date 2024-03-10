@@ -222,6 +222,9 @@ function App() {
                 showExportButton={showExportButton}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                onClick={handleClick}
               />
             }
           />
@@ -241,6 +244,9 @@ function App() {
                 handleHideButtons={handleHideButtons}
                 showDeleteButton={showDeleteButton}
                 handleShowDeleteButton={handleShowDeleteButton}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                onClick={handleClick}
               />
             }
           />
