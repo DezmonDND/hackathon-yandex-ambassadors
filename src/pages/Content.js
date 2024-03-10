@@ -26,7 +26,8 @@ import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
-import { random } from "@mui/x-data-grid-generator";
+import { apiTables } from "../components/utils/apiTables";
+import { useEffect } from "react";
 
 export default function Content({
   rowData,
@@ -39,14 +40,14 @@ export default function Content({
   handleShowExportButton,
   handleHideButtons,
 }) {
-  const [rows, setRows] = useState(rowData);
+  const [rows, setRows] = useState([]);
 
   const CONTENT_COLUMNS = [
     {
       headerName: "ID",
       headerAlign: "center",
       align: "center",
-      field: "userId",
+      field: "id",
       sortable: false,
       disableColumnMenu: true,
       width: 90,
@@ -67,9 +68,9 @@ export default function Content({
       headerName: "Отправка мерча",
       headerAlign: "center",
       align: "center",
-      field: "userSendMerch",
+      field: "content",
       width: 162,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       type: "singleSelect",
       renderEditCell: renderSelectEditInputCellMerch,
@@ -80,7 +81,7 @@ export default function Content({
       align: "center",
       field: "status",
       width: 140,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       renderEditCell: renderSelectEditInputCell,
     },
@@ -88,9 +89,9 @@ export default function Content({
       headerName: "ФИО",
       headerAlign: "center",
       align: "center",
-      field: "userName",
+      field: "name",
       width: 220,
-      editable: false,
+      editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
         return (
@@ -102,7 +103,7 @@ export default function Content({
             }}
             onClick={buttonClick}
           >
-            {cellValues.row.userName}
+            {cellValues.row.name}
           </Button>
         );
       },
@@ -111,7 +112,7 @@ export default function Content({
       headerName: "Telegram",
       headerAlign: "center",
       align: "center",
-      field: "userTelegram",
+      field: "telegram_id",
       width: 164,
       editable: true,
       disableColumnMenu: true,
@@ -120,18 +121,18 @@ export default function Content({
       headerName: "Отзыв",
       headerAlign: "center",
       align: "center",
-      field: "userFeedback",
+      field: "review",
       width: 214,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
         return (
           <Link
             style={{ textDecoration: "none", color: "#1D6BF3" }}
-            to={cellValues.row.userFeedback}
+            to={cellValues.row.review}
             target="blank"
           >
-            {cellValues.row.userFeedback}
+            {cellValues.row.review}
           </Link>
         );
       },
@@ -236,6 +237,16 @@ export default function Content({
   };
 
   function processRowUpdate(newRow) {
+    const id = newRow.id;
+    apiTables
+      .editRowContent(id, newRow)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
@@ -299,6 +310,15 @@ export default function Content({
       </>
     );
   }
+
+  useEffect(() => {
+    apiTables
+      .getContent()
+      .then((promocodes) => {
+        setRows(promocodes);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <Layout>

@@ -126,6 +126,20 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
+  editCheckboxAmbassadors(id, data) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/ambassadors/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        onboarding_status: data.onboarding_status,
+      }),
+    }).then(this._checkError);
+  }
+
   // Таблица Отправка мерча
   getSendMerch() {
     const token = localStorage.getItem("JWT");
@@ -204,6 +218,33 @@ export class ApiTables {
         name: data.name,
         cost: data.cost,
         category: data.category,
+      }),
+    }).then(this._checkError);
+  }
+
+  // Таблица Контент
+  getContent() {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/content_page`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
+
+  editRowContent(id, data) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/content_page/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: data.name,
+        telegram_id: data.telegram_id,
       }),
     }).then(this._checkError);
   }

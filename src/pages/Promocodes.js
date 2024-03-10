@@ -167,7 +167,6 @@ export default function Promocodes({
 
   function processRowUpdate(newRow) {
     const id = newRow.id;
-    console.log(id);
 
     apiTables
       .editRowPromocodes(id, newRow)
@@ -285,9 +284,12 @@ export default function Promocodes({
   }
 
   useEffect(() => {
-    apiTables.getPromocodes().then((promocodes) => {
-      setRows(promocodes);
-    });
+    apiTables
+      .getPromocodes()
+      .then((promocodes) => {
+        setRows(promocodes);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

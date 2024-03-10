@@ -36,6 +36,7 @@ import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
 } from "../components/Buttons/Buttons";
+import { array, arrayOf } from "prop-types";
 
 export default function Ambassadors({
   rows,
@@ -138,7 +139,7 @@ export default function Ambassadors({
       headerName: "Онбординг",
       headerAlign: "center",
       align: "center",
-      editable: true,
+      editable: false,
       width: 120,
       sortable: false,
       renderCell: (value) => {
@@ -282,8 +283,25 @@ export default function Ambassadors({
       headerAlign: "center",
       align: "center",
       editable: false,
-      width: 347,
+      minWidth: 462,
       sortable: false,
+      renderCell: (params) => (
+        <ul
+          style={{
+            display: "flex",
+            overflow: "scroll",
+            scrollbarWidth: 'none',
+            
+          }}
+        >
+          {params.value.map((activity, index) => (
+            <li style={{ marginRight: "5px" }} key={index}>
+              {activity.name}
+            </li>
+          ))}
+        </ul>
+      ),
+      type: "string",
     },
   ];
 
