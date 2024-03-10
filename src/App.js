@@ -181,6 +181,9 @@ function App() {
                 setRowModesModel={setRowModesModel}
                 handleShowExportButton={handleShowExportButton}
                 handleHideButtons={handleHideButtons}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                onClick={handleClick}
               />
             }
           />
