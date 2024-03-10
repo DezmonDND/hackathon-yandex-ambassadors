@@ -139,7 +139,7 @@ export default function Ambassadors({
       headerName: "Онбординг",
       headerAlign: "center",
       align: "center",
-      editable: false,
+      editable: true,
       width: 120,
       sortable: false,
       renderCell: (value) => {
@@ -285,23 +285,22 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-      renderCell: (params) => (
-        <ul
-          style={{
-            display: "flex",
-            overflow: "scroll",
-            scrollbarWidth: 'none',
-            
-          }}
-        >
-          {params.value.map((activity, index) => (
-            <li style={{ marginRight: "5px" }} key={index}>
-              {activity.name}
-            </li>
-          ))}
-        </ul>
-      ),
-      type: "string",
+    //   renderCell: (params) => (
+    //     <ul
+    //       style={{
+    //         display: "flex",
+    //         overflow: "scroll",
+    //         scrollbarWidth: "none",
+    //       }}
+    //     >
+    //       {params.value.map((activity, index) => (
+    //         <li style={{ marginRight: "5px" }} key={index}>
+    //           {activity.name}
+    //         </li>
+    //       ))}
+    //     </ul>
+    //   ),
+    //   type: "string",
     },
   ];
 

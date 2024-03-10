@@ -13,7 +13,7 @@ import {
   CloseIconButton,
   FilterExportButton,
 } from "../components/Buttons/Buttons";
-import { buttonClick, renderSelectEditInputCell } from "../mocks/users-data";
+import { renderSelectEditInputCell } from "../mocks/users-data";
 import { useState } from "react";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
@@ -167,7 +167,6 @@ export default function Promocodes({
 
   function processRowUpdate(newRow) {
     const id = newRow.id;
-
     apiTables
       .editRowPromocodes(id, newRow)
       .then((res) => {
