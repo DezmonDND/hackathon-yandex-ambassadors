@@ -33,6 +33,7 @@ export default function Promocodes({
   handleShowDeleteButton,
 }) {
   const [rows, setRows] = useState([]);
+  const [category, setCategory] = useState(null);
 
   const BUDGET_PRICE_COLUMN = [
     {
@@ -81,7 +82,7 @@ export default function Promocodes({
       width: 100,
       sortable: false,
       editable: true,
-      valueGetter: (params) => params?.row?.category?.id,
+      valueGetter: (params) => params?.row?.category?.id || category,
     },
   ];
 
@@ -139,13 +140,11 @@ export default function Promocodes({
     apiTables
       .addNewRowBudgetPrice(newRow)
       .then((res) => {
-        console.log(res);
+        const updatedRow = { ...newRow, id: res.id, isNew: false };
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        setCategory(JSON.stringify(res.category));
       })
       .catch((err) => console.log(err));
-
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
   }
 
   function deleteRows() {
