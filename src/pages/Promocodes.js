@@ -160,6 +160,18 @@ export default function Promocodes({
   };
 
   function processRowUpdate(newRow) {
+    const id = newRow.id;
+    console.log(id);
+
+    apiTables
+    .editRowPromocodes(id, newRow)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
