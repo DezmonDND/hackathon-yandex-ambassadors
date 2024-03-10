@@ -27,7 +27,7 @@
 - [DezmonDND](https://github.com/DezmonDND) - тимлид, руководство командой
 frontend-разработки, разработка таблиц, сайдбара, fetch-запросы.
 - [Olesia Erastova](https://github.com/olesia1205) - разработка аторизации, регистрации, попапов, fetch-запросы, корректировка таблиц.
-- [Anastasiia-Nist](https://github.com/Anastasiia-Nist) - разработка разделов FAQ, история, хуки, рефакторинг кода, корректировка таблиц.
+- [Anastasiia-Nist](https://github.com/Anastasiia-Nist) - разработка разделов FAQ, история, уведомления, хуки, рефакторинг кода, корректировка таблиц.
 
 # Запуск проекта на локальном компьютере
 
