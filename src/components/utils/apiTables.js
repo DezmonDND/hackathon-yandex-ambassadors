@@ -22,6 +22,21 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
+  editRowPromocodes(id, data) {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/promocodes/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        code: data.code,
+        ambassador: data.ambassador.id,
+      }),
+    }).then(this._checkError);
+  }
+
   // Таблица Амбассадоры
   getAmbassadors() {
     const token = localStorage.getItem("JWT");
