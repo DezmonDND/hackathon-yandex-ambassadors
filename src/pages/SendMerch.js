@@ -76,6 +76,7 @@ export default function SendMerch({
       headerAlign: "center",
       align: "center",
       editable: true,
+      valueGetter: (params) => params?.row?.merch?.name,
     },
     {
       headerName: "Размер толстовки",

@@ -29,6 +29,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import Popup from "../components/Popup/Popup";
+import { random, randomId } from "@mui/x-data-grid-generator";
 
 export default function Promocodes({
   rowModesModel,
@@ -169,13 +170,13 @@ export default function Promocodes({
     console.log(id);
 
     apiTables
-    .editRowPromocodes(id, newRow)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .editRowPromocodes(id, newRow)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -189,6 +190,7 @@ export default function Promocodes({
     if (isInEditMode) {
       return [
         <GridActionsCellItem
+          key={1}
           icon={<SaveIcon />}
           label="Save"
           sx={{
@@ -197,6 +199,7 @@ export default function Promocodes({
           onClick={handleSaveClick(id)}
         />,
         <GridActionsCellItem
+          key={2}
           sx={{
             color: "#1d6bf3",
           }}
@@ -211,6 +214,7 @@ export default function Promocodes({
 
     return [
       <GridActionsCellItem
+        key={3}
         sx={{
           border: "1px solid #1d6bf3",
           color: "#1d6bf3",

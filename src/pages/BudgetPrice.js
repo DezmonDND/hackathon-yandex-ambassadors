@@ -142,9 +142,9 @@ export default function Promocodes({
       apiTables
         .addNewRowBudgetPrice(newRow)
         .then((res) => {
-            const updatedRow = { ...newRow, id: res.id, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        setCategory(JSON.stringify(res.category));
+          const updatedRow = { ...newRow, id: res.id, isNew: false };
+          setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+          setCategory(JSON.stringify(res.category));
         })
         .catch((err) => console.log(err));
     } else if (newRow.isNew !== true) {
@@ -178,6 +178,16 @@ export default function Promocodes({
     });
   }
 
+  const handleDeleteClick = (id) => () => {
+    apiTables
+      .deleteRowBudgetPrice(id)
+      .then((res) => {
+        console.log(res);
+        setRows(rows.filter((row) => row.id !== id));
+      })
+      .catch((e) => console.log(`Error! ${e}`));
+  };
+
   // Меню действий на странице
   function renderActions({ id }) {
     const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -185,6 +195,7 @@ export default function Promocodes({
     if (isInEditMode) {
       return [
         <GridActionsCellItem
+          key={1}
           icon={<SaveIcon />}
           label="Save"
           sx={{
@@ -193,6 +204,7 @@ export default function Promocodes({
           onClick={handleSaveClick(id)}
         />,
         <GridActionsCellItem
+          key={2}
           sx={{
             color: "#1d6bf3",
             borderRadius: "4px",
@@ -200,10 +212,11 @@ export default function Promocodes({
           icon={<DeleteIcon />}
           label="Edit"
           className="textPrimary"
-          onClick={deleteRows(id)}
+          onClick={handleDeleteClick(id)}
           color="inherit"
         />,
         <GridActionsCellItem
+          key={3}
           sx={{
             color: "#1d6bf3",
           }}
@@ -218,6 +231,7 @@ export default function Promocodes({
 
     return [
       <GridActionsCellItem
+        key={4}
         sx={{
           color: "#1d6bf3",
           borderRadius: "4px",

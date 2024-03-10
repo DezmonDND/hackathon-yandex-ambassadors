@@ -165,6 +165,7 @@ export default function Content({
     if (isInEditMode) {
       return [
         <GridActionsCellItem
+          key={1}
           icon={<SaveIcon />}
           label="Save"
           sx={{
@@ -173,6 +174,7 @@ export default function Content({
           onClick={handleSaveClick(id)}
         />,
         <GridActionsCellItem
+          key={2}
           sx={{
             color: "#1d6bf3",
           }}
@@ -187,6 +189,7 @@ export default function Content({
 
     return [
       <GridActionsCellItem
+        key={2}
         sx={{
           border: "1px solid #1d6bf3",
           color: "#1d6bf3",

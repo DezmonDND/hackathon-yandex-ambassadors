@@ -29,6 +29,13 @@ import { GridActionsCellItem } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { CheckBox } from "@mui/icons-material";
+import Checkbox from "@mui/material/Checkbox";
+import {
+  CheckBoxIcon,
+  CheckBoxOutlineBlankIcon,
+} from "../components/Buttons/Buttons";
 
 export default function Ambassadors({
   rows,
@@ -47,6 +54,8 @@ export default function Ambassadors({
   onClose,
   onClick,
 }) {
+  const [isChecked, setIsChecked] = useState(false);
+
   const AMBASSADORS_COLUMNS = [
     {
       field: "status",
@@ -132,6 +141,15 @@ export default function Ambassadors({
       editable: true,
       width: 120,
       sortable: false,
+      renderCell: (value) => {
+        return (
+          <Checkbox
+            icon={<CheckBoxOutlineBlankIcon />}
+            checkedIcon={<CheckBoxIcon />}
+            checked={value.formattedValue === true ? true : false}
+          />
+        );
+      },
     },
     {
       field: "user_program",
@@ -276,6 +294,7 @@ export default function Ambassadors({
     if (isInEditMode) {
       return [
         <GridActionsCellItem
+          key={1}
           icon={<SaveIcon />}
           label="Save"
           sx={{
@@ -284,6 +303,19 @@ export default function Ambassadors({
           onClick={handleSaveClick(id)}
         />,
         <GridActionsCellItem
+          key={2}
+          sx={{
+            color: "#1d6bf3",
+            borderRadius: "4px",
+          }}
+          icon={<DeleteIcon />}
+          label="Edit"
+          className="textPrimary"
+          onClick={handleDeleteClick(id)}
+          color="inherit"
+        />,
+        <GridActionsCellItem
+          key={3}
           sx={{
             color: "#1d6bf3",
           }}
@@ -298,6 +330,7 @@ export default function Ambassadors({
 
     return [
       <GridActionsCellItem
+        key={4}
         sx={{
           border: "1px solid #1d6bf3",
           color: "#1d6bf3",
@@ -416,6 +449,16 @@ export default function Ambassadors({
         .catch((e) => console.log(`Error! ${e}`));
     });
   }
+
+  const handleDeleteClick = (id) => () => {
+    apiTables
+      .deleteRowAmbassadors(id)
+      .then((res) => {
+        console.log(res);
+        setRows(rows.filter((row) => row.id !== id));
+      })
+      .catch((e) => console.log(`Error! ${e}`));
+  };
 
   const MenuButtons = () => {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
