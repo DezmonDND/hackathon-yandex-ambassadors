@@ -19,6 +19,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Promocodes({
   rowModesModel,
@@ -136,12 +137,22 @@ export default function Promocodes({
   };
 
   function processRowUpdate(newRow) {
-    apiTables
-      .addNewRowBudgetPrice(newRow)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    if (newRow.isNew === true) {
+      apiTables
+        .addNewRowBudgetPrice(newRow)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    } else if (newRow.isNew !== true) {
+      const id = newRow.id
+      apiTables
+        .editRowBudgetPrice(newRow, id)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
 
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
@@ -181,6 +192,17 @@ export default function Promocodes({
         <GridActionsCellItem
           sx={{
             color: "#1d6bf3",
+            borderRadius: "4px",
+          }}
+          icon={<DeleteIcon />}
+          label="Edit"
+          className="textPrimary"
+          onClick={deleteRows(id)}
+          color="inherit"
+        />,
+        <GridActionsCellItem
+          sx={{
+            color: "#1d6bf3",
           }}
           icon={<CancelIcon />}
           label="Cancel"
@@ -194,7 +216,6 @@ export default function Promocodes({
     return [
       <GridActionsCellItem
         sx={{
-          border: "1px solid #1d6bf3",
           color: "#1d6bf3",
           borderRadius: "4px",
         }}

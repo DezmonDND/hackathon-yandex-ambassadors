@@ -95,7 +95,7 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
-  // Таблица Бюджет на мерч=>Бюджет
+   // Таблица Бюджет на мерч=>Бюджет
 
   // Таблица Бюджет=>Стоимость товара
   getBudgetPrice() {
@@ -138,7 +138,7 @@ export class ApiTables {
     }).then(this._checkError);
   }
 
-  editRowBudgetPrice({ id, data }) {
+  editRowBudgetPrice(id, data) {
     const token = localStorage.getItem("JWT");
     return fetch(`${this._baseUrl}/merch_price/${id}/`, {
       method: "PATCH",
@@ -147,7 +147,6 @@ export class ApiTables {
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        id: data.id,
         name: data.name,
         cost: data.cost,
         category: data.category,
