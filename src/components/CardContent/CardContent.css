@@ -1,0 +1,79 @@
+.contentContent__card {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px;
+  gap: 10px;
+  max-width: 300px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.contentContent__card:hover {
+  padding: 3px 7px;
+  border: 1px solid #1D6BF3;
+}
+
+.contentContent__card-info {
+  display: flex;
+  justify-content: space-between;
+  height: 16px;
+  align-items: center;
+}
+
+.contentContent__text {
+  font-family: "YS Text";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  color: #1A1B22;
+}
+
+.contentContent__buttons {
+  display: flex;
+  width: 36px;
+  gap: 4px;
+}
+
+.contentContent__button {
+  width: 16px;
+  height: 16px;
+  border: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.contentContent__button_delete {
+  background-image: url(../../assets/images/btn_icon_card-delete.svg);
+}
+
+.contentContent__button_delete:hover {
+  background-image: url(../../assets/images/btn_icon_card-delete_hovered.svg);
+}
+
+.contentContent__button_save {
+  background-image: url(../../assets/images/btn_icon_card-save.svg);
+}
+
+.contentContent__button_save:hover {
+  background-image: url(../../assets/images/btn_icon_card-save_hovered.svg);
+}
+
+.contentContent__button_edit {
+  background-image: url(../../assets/images/btn_icon_card-edit.svg);
+}
+
+.contentContent__button_edit:hover {
+  background-image: url(../../assets/images/btn_icon_card-edit_hovered.svg);
+}
+
+.contentContent__card-input {
+  border: none;
+  height: 24px;
+}
+
+.contentContent__card-url {
+  color: #1D6BF3;
+  text-decoration: none;
+}

@@ -1,0 +1,126 @@
+@import url(./assets/fonts/normalize.css);
+@import url(./assets/fonts/index.css);
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "YS Text", sans-serif;
+  touch-action: manipulation;
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+  vertical-align: bottom;
+  height: auto;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  resize: none;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.main {
+  display: flex;
+  max-width: 1440px;
+  width: 100%;
+  margin: auto;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.content {
+  max-width: 1246px;
+  width: 100%;
+  border-right: 1px solid #cccccc;
+}
+.center {
+  text-align: center;
+}
+
+[data-field="status"]:not([role="columnheader"]) > div {
+  padding: 3px 0px;
+  width: 128px;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+}
+[data-field="status"]:not([role="columnheader"]) > div[title="активный"] {
+  background-color: #87cc9e;
+}
+[data-field="status"]:not([role="columnheader"]) > div[title="уточняется"] {
+  background-color: #ffce92;
+}
+[data-field="status"]:not([role="columnheader"]) > div[title="на паузе"] {
+  background-color: #7f67d2;
+}
+[data-field="status"]:not([role="columnheader"])
+  > div[title="не амбассадор"] {
+  background-color: #ea7e7e;
+}
+
+[data-field="sending_merch"]:not([role="columnheader"]) > div {
+  padding: 9px 0px;
+  width: 149px;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+}
+[data-field="sending_merch"]:not([role="columnheader"])
+  > div[title="Доступно: 0/2"] {
+  color: #1a1b22;
+}
+[data-field="sending_merch"]:not([role="columnheader"])
+  > div[title="Доступно: 1/2"] {
+  color: #fff;
+  background-color: #5A9BFF;
+}
+[data-field="sending_merch"]:not([role="columnheader"])
+  > div[title="Доступно: 2/2"] {
+  color: #fff;
+  background-color: #5A9BFF;
+}
+[data-field="sending_merch"]:not([role="columnheader"])
+  > div[title="Доступно"] {
+  color: #fff;
+  background-color: #5A9BFF;
+}
+
+.MuiList-root {
+  min-width: 170px;
+  margin-right: 5px;
+}
+
+.MuiMenu-list {
+  margin-right: 5px;
+}
+
+.MuiDataGrid-root {
+  border-style: hidden;
+}
+

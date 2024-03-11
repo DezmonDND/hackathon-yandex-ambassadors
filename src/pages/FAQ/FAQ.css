@@ -1,0 +1,32 @@
+.faq-list {
+  padding: 10px;
+}
+.faq-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #1D6BF31A;
+  border-radius: 12px;
+  border: 1px solid #DDDDDD;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.faq-item__title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+}
+.faq-list > .MuiPaper-root::before {
+  height: 0 !important;
+}
+.faq-item > button {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #EBEBEB;
+  cursor: pointer;
+}

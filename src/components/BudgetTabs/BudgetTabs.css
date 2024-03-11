@@ -1,0 +1,29 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.page__buget {
+  display: flex;
+  border-bottom: 1px solid #c2c2c2;
+  max-width: 328px;
+  width: 100%;
+  margin: 24px 0 0 8px;
+}
+
+.page__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #1a1b22;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  height: 28px;
+  max-width: 164px;
+  width: 100%;
+  text-align: center;
+}

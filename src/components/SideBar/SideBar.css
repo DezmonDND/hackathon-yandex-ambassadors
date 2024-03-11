@@ -1,0 +1,20 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  background-color: #1a1b22;
+  height: 100vh;
+  gap: 8px;
+  color: #B5B5B7;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.41px;
+  padding: 24px 12px 22px;
+}
+
+.sidebar__container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
