@@ -17,8 +17,8 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
-import { apiTables } from "../components/utils/apiTables";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
+import { apiTables } from "../utils/apiTables";
 import Popup from "../components/Popup/Popup";
 import { Button } from "@mui/material";
 

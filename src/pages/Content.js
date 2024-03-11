@@ -9,7 +9,6 @@ import {
 } from "../components/Buttons/Buttons";
 import {
   renderSelectEditInputCell,
-  renderSelectEditInputCellMerch,
 } from "../mocks/users-data";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
@@ -18,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import Popup from "../components/Popup/Popup";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -26,9 +25,9 @@ import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import { useEffect } from "react";
-import { REGEX_URL } from "../components/utils/constants";
+import { REGEX_URL } from "../utils/constants";
 
 export default function Content({
   rowData,

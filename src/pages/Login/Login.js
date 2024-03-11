@@ -2,8 +2,8 @@ import "./Login.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { REGEXP_EMAIL } from "../../components/utils/constants";
-import fetchUserLogin from "../../components/utils/fetchUserLogin";
+import { REGEXP_EMAIL } from "../../utils/constants";
+import fetchUserLogin from "../../utils/fetchUserLogin";
 
 function Login() {
   const navigate = useNavigate();

@@ -17,11 +17,6 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import NotFound from "./pages/NotFound/NotFound";
 import History from "./pages/History/History";
 import Notices from "./pages/Notices/Notices";
-import { GridRowModes } from "@mui/x-data-grid";
-import { GridActionsCellItem } from "@mui/x-data-grid";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 
 const theme = createTheme({
@@ -83,26 +78,6 @@ function App() {
   };
 
   // Работа со строками
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
@@ -117,49 +92,6 @@ function App() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
-  };
-
-  // Меню действий на странице
-  const renderActions = ({ id }) => {
-    const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-    if (isInEditMode) {
-      return [
-        <GridActionsCellItem
-          icon={<SaveIcon />}
-          label="Save"
-          sx={{
-            color: "#1d6bf3",
-          }}
-          onClick={handleSaveClick(id)}
-        />,
-        <GridActionsCellItem
-          sx={{
-            color: "#1d6bf3",
-          }}
-          icon={<CancelIcon />}
-          label="Cancel"
-          className="textPrimary"
-          onClick={handleCancelClick(id)}
-          color="inherit"
-        />,
-      ];
-    }
-
-    return [
-      <GridActionsCellItem
-        sx={{
-          border: "1px solid #1d6bf3",
-          color: "#1d6bf3",
-          borderRadius: "4px",
-        }}
-        icon={<EditOutlinedIcon />}
-        label="Edit"
-        className="textPrimary"
-        onClick={handleEditClick(id)}
-        color="inherit"
-      />,
-    ];
   };
 
   return (

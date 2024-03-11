@@ -16,7 +16,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import {
   renderSelectEditInputCell,
   renderSelectEditInputCellProfession,
@@ -24,19 +24,17 @@ import {
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Popup from "../components/Popup/Popup";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CheckBox } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
 import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
 } from "../components/Buttons/Buttons";
-import { array, arrayOf } from "prop-types";
 
 export default function Ambassadors({
   rows,

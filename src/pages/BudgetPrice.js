@@ -13,7 +13,7 @@ import { randomId } from "@mui/x-data-grid-generator";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveIcon from "@mui/icons-material/Save";

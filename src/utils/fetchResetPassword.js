@@ -1,11 +1,11 @@
-import { baseUrl } from './constants';
+import { baseUrl } from "./constants";
 
 export default async function fetchResetPassword({ email }) {
   try {
     const res = await fetch(`${baseUrl}auth/token/reset-password/`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email }),
     });
@@ -16,8 +16,7 @@ export default async function fetchResetPassword({ email }) {
 
     const data = await res.json();
     return data;
-
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
 }
