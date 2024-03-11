@@ -54,6 +54,8 @@ export default function Ambassadors({
   onClose,
   onClick,
 }) {
+  const [program, setProgram] = useState();
+
   const AMBASSADORS_COLUMNS = [
     {
       field: "status",
@@ -65,6 +67,7 @@ export default function Ambassadors({
       sortable: false,
       disableColumnMenu: true,
       type: "singleSelect",
+      valueGetter: (params) => params?.row?.status?.name,
       renderEditCell: renderSelectEditInputCell,
     },
     {
@@ -158,7 +161,7 @@ export default function Ambassadors({
       width: 400,
       type: "singleSelect",
       sortable: false,
-      valueGetter: (params) => params?.row?.program?.name,
+      valueGetter: (params) => params?.row?.program?.name || program,
       renderEditCell: renderSelectEditInputCellProfession,
     },
     {
@@ -265,7 +268,7 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "personal_purpose",
+      field: "purpose",
       headerName: "Цель в Практикуме",
       headerAlign: "center",
       align: "center",
@@ -282,22 +285,22 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-      //   renderCell: (params) => (
-      //     <ul
-      //       style={{
-      //         display: "flex",
-      //         overflow: "scroll",
-      //         scrollbarWidth: "none",
-      //       }}
-      //     >
-      //       {params.value.map((activity, index) => (
-      //         <li style={{ marginRight: "5px" }} key={index}>
-      //           {activity.name}
-      //         </li>
-      //       ))}
-      //     </ul>
-      //   ),
-      //   type: "string",
+      // renderCell: (params) => (
+      //   <ul
+      //     style={{
+      //       display: "flex",
+      //       overflow: "scroll",
+      //       scrollbarWidth: "none",
+      //     }}
+      //   >
+      //     {params.value.map((activity, index) => (
+      //       <li style={{ marginRight: "5px" }} key={index}>
+      //         {activity.name}
+      //       </li>
+      //     ))}
+      //   </ul>
+      // ),
+      type: "string",
     },
   ];
 
@@ -439,6 +442,7 @@ export default function Ambassadors({
         .editRowAmbassadors(id, newRow)
         .then((res) => {
           console.log(res);
+          setProgram(res.program.name);
         })
         .catch((err) => console.log(err));
     }

@@ -89,6 +89,7 @@ export class ApiTables {
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
+        purpose: { name: data.purpose },
         personal_purpose: data.personal_purpose,
         activity: [],
       }),
