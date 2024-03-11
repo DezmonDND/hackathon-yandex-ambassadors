@@ -69,6 +69,7 @@ export default function Ambassadors({
       sortable: false,
       disableColumnMenu: true,
       type: "singleSelect",
+      valueGetter: (params) => params?.row?.status?.name,
       renderEditCell: renderSelectEditInputCell,
     },
     {

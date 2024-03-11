@@ -42,6 +42,7 @@ export default function Content({
   isOpen,
   onClose,
   onClick,
+  id,
 }) {
   const [rows, setRows] = useState([]);
 
@@ -97,6 +98,10 @@ export default function Content({
       editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
+        const handleClick = () => {
+          const id  = cellValues.row.id;
+          onClick(id);
+        };
         return (
           <Button
             style={{
@@ -104,7 +109,7 @@ export default function Content({
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={onClick}
+            onClick={handleClick}
           >
             {cellValues.row.name}
           </Button>
@@ -383,7 +388,7 @@ export default function Content({
           />
         </Box>
       </Layout>
-      <Popup isOpen={isOpen} onClose={onClose} />
+      <Popup isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 }

@@ -195,6 +195,7 @@ function App() {
                 isOpen={isPopupOpen}
                 onClose={closePopup}
                 onClick={handleClick}
+                id={selectedAmbassadorId}
               />
             }
           />
@@ -204,8 +205,8 @@ function App() {
               <Ambassadors
                 isOpen={isPopupOpen}
                 onClose={closePopup}
-                id={selectedAmbassadorId}
                 onClick={handleClick}
+                id={selectedAmbassadorId}
                 rows={rows}
                 setRows={setRows}
                 rowModesModel={rowModesModel}
@@ -237,6 +238,7 @@ function App() {
                 isOpen={isPopupOpen}
                 onClose={closePopup}
                 onClick={handleClick}
+                id={selectedAmbassadorId}
               />
             }
           />
@@ -259,6 +261,7 @@ function App() {
                 isOpen={isPopupOpen}
                 onClose={closePopup}
                 onClick={handleClick}
+                id={selectedAmbassadorId}
               />
             }
           />
