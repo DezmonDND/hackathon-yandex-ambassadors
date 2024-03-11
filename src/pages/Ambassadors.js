@@ -65,6 +65,7 @@ export default function Ambassadors({
       sortable: false,
       disableColumnMenu: true,
       type: "singleSelect",
+      valueGetter: (params) => params?.row?.status?.name,
       renderEditCell: renderSelectEditInputCell,
     },
     {
@@ -424,7 +425,6 @@ export default function Ambassadors({
   };
 
   function processRowUpdate(newRow) {
-    console.log(newRow)
     if (newRow.isNew === true) {
       apiTables
         .addNewRowAmbassadors(newRow)
@@ -433,19 +433,17 @@ export default function Ambassadors({
           setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         })
         .catch((err) => console.log(err));
-    } else if (newRow.isNew !== true) {
+    } else {
       const id = newRow.id;
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
           console.log(res);
+          setRows(rows.map((row) => (row.id === res.id ? res : row)));
         })
         .catch((err) => console.log(err));
     }
-
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    return newRow;
   }
 
   function deleteRows() {
