@@ -35,6 +35,7 @@ import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
 } from "../components/Buttons/Buttons";
+import { number } from "prop-types";
 
 export default function Ambassadors({
   rows,
@@ -149,7 +150,7 @@ export default function Ambassadors({
       },
     },
     {
-      field: "user_program",
+      field: "program",
       headerName: "Программа",
       headerAlign: "center",
       align: "center",
@@ -264,7 +265,7 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "purpose_name",
+      field: "personal_purpose",
       headerName: "Цель в Практикуме",
       headerAlign: "center",
       align: "center",

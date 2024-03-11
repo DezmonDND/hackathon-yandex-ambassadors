@@ -75,7 +75,7 @@ export class ApiTables {
         name: data.name,
         gender: data.gender,
         onboarding_status: data.onboarding_status,
-        program: { name: data.user_program },
+        program: { name: data.program },
         address: {
           country: data.country,
           city: data.city,
@@ -89,7 +89,7 @@ export class ApiTables {
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
-        purpose: { name: data.purpose_name },
+        personal_purpose: data.personal_purpose,
         activity: [],
       }),
     }).then(this._checkError);
@@ -107,7 +107,7 @@ export class ApiTables {
         name: data.name,
         gender: data.gender,
         onboarding_status: data.onboarding_status,
-        program: { name: data.user_program },
+        program: { name: data.program },
         address: {
           country: data.country,
           city: data.city,
@@ -121,7 +121,7 @@ export class ApiTables {
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
-        purpose: { name: data.purpose_name },
+        personal_purpose: data.personal_purpose,
       }),
     }).then(this._checkError);
   }
