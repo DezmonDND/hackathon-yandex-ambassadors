@@ -35,6 +35,7 @@ import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
 } from "../components/Buttons/Buttons";
+import { number } from "prop-types";
 
 export default function Ambassadors({
   rows,
@@ -64,6 +65,7 @@ export default function Ambassadors({
       sortable: false,
       disableColumnMenu: true,
       type: "singleSelect",
+      valueGetter: (params) => params?.row?.status?.name,
       renderEditCell: renderSelectEditInputCell,
     },
     {
@@ -149,7 +151,7 @@ export default function Ambassadors({
       },
     },
     {
-      field: "user_program",
+      field: "program",
       headerName: "Программа",
       headerAlign: "center",
       align: "center",
@@ -264,7 +266,7 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "purpose_name",
+      field: "purpose",
       headerName: "Цель в Практикуме",
       headerAlign: "center",
       align: "center",
@@ -281,22 +283,26 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-      //   renderCell: (params) => (
-      //     <ul
-      //       style={{
-      //         display: "flex",
-      //         overflow: "scroll",
-      //         scrollbarWidth: "none",
-      //       }}
-      //     >
-      //       {params.value.map((activity, index) => (
-      //         <li style={{ marginRight: "5px" }} key={index}>
-      //           {activity.name}
-      //         </li>
-      //       ))}
-      //     </ul>
-      //   ),
-      //   type: "string",
+      renderCell: (params) => {
+        if (params.row.activity.length !== 0) {
+          return (
+            <ul
+              style={{
+                display: "flex",
+                overflow: "scroll",
+                scrollbarWidth: "none",
+              }}
+            >
+              {params.value.map((activity, index) => (
+                <li style={{ marginRight: "5px" }} key={index}>
+                  {activity.name}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+      },
+      type: "string",
     },
   ];
 
@@ -431,20 +437,16 @@ export default function Ambassadors({
           setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         })
         .catch((err) => console.log(err));
-    } else if (newRow.isNew !== true) {
+    } else {
       const id = newRow.id;
-
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
-          console.log(res);
+          setRows(rows.map((row) => (row.id === res.id ? res : row)));
         })
         .catch((err) => console.log(err));
     }
-
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    return newRow;
   }
 
   function deleteRows() {

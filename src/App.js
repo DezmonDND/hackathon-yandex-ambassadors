@@ -236,7 +236,7 @@ function App() {
           <Route path="/faq/add-faq" element={<AddFAQ />} />
           <Route path="/faq/edit-faq" element={<EditFAQ />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/history" element={<History rowData={HISTORY} />} />
+          <Route path="/history" element={<History />} />
           <Route path="/notices" element={<Notices rowData={HISTORY} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
