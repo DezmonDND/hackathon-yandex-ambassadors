@@ -54,6 +54,7 @@ export default function Ambassadors({
   isOpen,
   onClose,
   onClick,
+  id,
 }) {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -111,6 +112,10 @@ export default function Ambassadors({
       editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
+        const handleClick = () => {
+          const id  = cellValues.row.id;
+          onClick(id);
+        };
         return (
           <Button
             style={{
@@ -118,7 +123,7 @@ export default function Ambassadors({
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={onClick}
+            onClick={handleClick}
           >
             {cellValues?.row?.name}
           </Button>
@@ -291,7 +296,7 @@ export default function Ambassadors({
             display: "flex",
             overflow: "scroll",
             scrollbarWidth: 'none',
-            
+
           }}
         >
           {params.value.map((activity, index) => (
@@ -614,7 +619,7 @@ export default function Ambassadors({
           />
         </Box>
       </Layout>
-      <Popup isOpen={isOpen} onClose={onClose} />
+      <Popup isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 }

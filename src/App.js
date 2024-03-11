@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { USERS, HISTORY } from "./mocks/users-data";
 import Login from "./pages/Login/Login";
@@ -23,6 +24,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
+import { fetchAmbassadorData } from "./store/ambassadorDataSlice";
 
 const theme = createTheme({
   typography: {
@@ -30,6 +32,13 @@ const theme = createTheme({
   },
 });
 function App() {
+  const dispatch = useDispatch();
+  const ambassadorData = useSelector((state) => state.ambassadorData.data);
+
+  useEffect(() => {
+    dispatch(fetchAmbassadorData());
+  }, [dispatch]);
+
   const [rowData, setRowData] = useState(USERS);
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -38,14 +47,16 @@ function App() {
   const [showExportButton, setShowExportButton] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedAmbassadorId, setSelectedAmbassadorId] = useState(null);
 
   // Попап при клике на ФИО
   const closePopup = () => {
     setIsPopupOpen(false);
   };
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     setIsPopupOpen(true);
+    setSelectedAmbassadorId(id);
   };
 
   function handleEscapeClick(evt) {
@@ -193,6 +204,7 @@ function App() {
               <Ambassadors
                 isOpen={isPopupOpen}
                 onClose={closePopup}
+                id={selectedAmbassadorId}
                 onClick={handleClick}
                 rows={rows}
                 setRows={setRows}
