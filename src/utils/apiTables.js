@@ -250,8 +250,20 @@ export class ApiTables {
       }),
     }).then(this._checkError);
   }
+  // Таблица История
+  getHistory() {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/edit_history`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then(this._checkError);
+  }
 }
 
 export const apiTables = new ApiTables({
   baseUrl: "https://hackathon-yacrm04.sytes.net/api/v1",
 });
+

@@ -435,21 +435,16 @@ export default function Ambassadors({
           setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         })
         .catch((err) => console.log(err));
-    } else if (newRow.isNew !== true) {
+    } else {
       const id = newRow.id;
-
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
           console.log(res);
-          setProgram(res.program.name);
         })
         .catch((err) => console.log(err));
     }
-
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    return newRow;
   }
 
   function deleteRows() {

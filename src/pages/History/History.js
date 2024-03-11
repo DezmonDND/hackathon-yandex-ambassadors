@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Layout from "../../layouts/default";
 import { DataGrid, GridColumnMenu } from "@mui/x-data-grid";
@@ -14,11 +15,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
+import { apiTables } from "../../utils/apiTables";
 
-export default function History({ rowData }) {
+export default function History() {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
-
+  const [rowData, setRowData] = useState([]);
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }
@@ -26,7 +28,14 @@ export default function History({ rowData }) {
   function resetRows() {
     setSelectionModel([]);
   }
-
+  useEffect(() => {
+    apiTables
+      .getHistory()
+      .then((data) => {
+        setRowData(data)
+      })
+      .catch((err) => console.log(err));
+  }, []);
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);
     const [columnsMenuAnchorEl, setColumnsMenuAnchorEl] = useState(null);
@@ -77,12 +86,6 @@ export default function History({ rowData }) {
     );
   }
 
-  // Преобразуем ключ userId в id для каждого объекта в массиве rowData
-  const rows = rowData.map((row) => ({
-    ...row,
-    id: row.userId,
-  }));
-
   return (
     <Layout>
       <Box sx={{ height: "100%", width: "100%" }}>
@@ -107,7 +110,7 @@ export default function History({ rowData }) {
           localeText={{
             toolbarExport: "Экспортировать",
           }}
-          rows={rows}
+          rows={rowData}
           columns={HISTORY_COLUMN}
           sx={{
             ".MuiDataGrid-columnHeaders": {
