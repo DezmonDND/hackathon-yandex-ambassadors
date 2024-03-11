@@ -423,6 +423,7 @@ export default function Ambassadors({
   };
 
   function processRowUpdate(newRow) {
+    console.log(newRow)
     if (newRow.isNew === true) {
       apiTables
         .addNewRowAmbassadors(newRow)
@@ -433,7 +434,6 @@ export default function Ambassadors({
         .catch((err) => console.log(err));
     } else if (newRow.isNew !== true) {
       const id = newRow.id;
-
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
