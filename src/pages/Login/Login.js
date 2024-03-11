@@ -1,11 +1,13 @@
 import "./Login.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { REGEXP_EMAIL } from "../../utils/constants";
 import fetchUserLogin from "../../utils/fetchUserLogin";
+import AppContext from "../../context/AppContext";
 
 function Login() {
+  const app = useContext(AppContext);
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
 
@@ -26,10 +28,13 @@ function Login() {
       email: data.email,
       password: data.password,
     }).then((res) => {
-      // if (res.ok) {
-      navigate("/promocodes");
-      // }
-    });
+      if (res.token) {
+        app.setIsLoggedIn(localStorage.setItem('isLoggedIn', true));
+        navigate("/promocodes", { replace: false })
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
   };
 
   function onHandleClick() {
@@ -56,9 +61,8 @@ function Login() {
                 message: "Почта не соответствует требуемому формату",
               },
             })}
-            className={`login__input ${
-              errors.email ? "login__inputInvalid" : ""
-            }`}
+            className={`login__input ${errors.email ? "login__inputInvalid" : ""
+              }`}
             type="email"
             name="email"
             id="email"
@@ -81,9 +85,8 @@ function Login() {
                 message: "Текст должен быть не длинее 16 символов",
               },
             })}
-            className={`login__input ${
-              errors.password ? "login__inputInvalid" : ""
-            }`}
+            className={`login__input ${errors.password ? "login__inputInvalid" : ""
+              }`}
             type={isActive ? "text" : "password"}
             name="password"
             id="password"
@@ -91,9 +94,8 @@ function Login() {
           />
           <button
             type="button"
-            className={`login__eyeButton ${
-              isActive ? "login__eyeButtonActive" : ""
-            }`}
+            className={`login__eyeButton ${isActive ? "login__eyeButtonActive" : ""
+              }`}
             onClick={onHandleClick}
           />
           <span className="login__error">
@@ -105,9 +107,8 @@ function Login() {
         </Link>
         <button
           type="submit"
-          className={`login__submitButton ${
-            !isValid ? "login__submitButtonDisable" : ""
-          }`}
+          className={`login__submitButton ${!isValid ? "login__submitButtonDisable" : ""
+            }`}
           disabled={!isValid}
         >
           Войти

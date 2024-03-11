@@ -18,6 +18,8 @@ import NotFound from "./pages/NotFound/NotFound";
 import History from "./pages/History/History";
 import Notices from "./pages/Notices/Notices";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
+import ProtectedRouteElement from "./components/ProtectedRoute/ProtectedRoute";
+import AppContext from './context/AppContext'
 
 const theme = createTheme({
   typography: {
@@ -33,6 +35,7 @@ function App() {
   const [showExportButton, setShowExportButton] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
   // Попап при клике на ФИО
   const closePopup = () => {
@@ -48,6 +51,11 @@ function App() {
       closePopup();
     }
   }
+  useEffect(() => {
+    // Проверяем localStorage при загрузке компонента App
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(storedIsLoggedIn);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleEscapeClick);
@@ -96,151 +104,183 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/" element={<Navigate to="/promocodes" replace />} />
-          <Route path="/signin" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/promocodes"
-            element={
-              <Promocodes
-                rowModesModel={rowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                setRowModesModel={setRowModesModel}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-                onClick={handleClick}
-              />
-            }
-          />
-          <Route
-            path="/ambassadors"
-            element={
-              <Ambassadors
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-                onClick={handleClick}
-                rows={rows}
-                setRows={setRows}
-                rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-                showDeleteButton={showDeleteButton}
-                handleShowDeleteButton={handleShowDeleteButton}
-              />
-            }
-          />
-          <Route
-            path="/content"
-            element={
-              <Content
-                rowData={rowData}
-                rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-                onClick={handleClick}
-              />
-            }
-          />
-          <Route
-            path="/send-merch"
-            element={
-              <SendMerch
-                rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                processRowUpdate={processRowUpdate}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-                showDeleteButton={showDeleteButton}
-                handleShowDeleteButton={handleShowDeleteButton}
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-                onClick={handleClick}
-              />
-            }
-          />
-          <Route
-            path="/budget"
-            element={
-              <Budget
-                rowData={rowData}
-                rowModesModel={rowModesModel}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-              />
-            }
-          />
-          <Route
-            path="/budget-price"
-            element={
-              <BudgetPrice
-                rowModesModel={rowModesModel}
-                setRowModesModel={setRowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-                showDeleteButton={showDeleteButton}
-                handleShowDeleteButton={handleShowDeleteButton}
-              />
-            }
-          />
-          <Route path="/budget-info" element={<Budget rowData={rowData} />} />
-          <Route
-            path="/loyalty-programm"
-            element={
-              <Loyalti
-                rowData={rowData}
-                rowModesModel={rowModesModel}
-                checkboxSelection={checkboxSelection}
-                selectionModel={selectionModel}
-                setSelectionModel={setSelectionModel}
-                showExportButton={showExportButton}
-                handleRowModesModelChange={handleRowModesModelChange}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                handleShowExportButton={handleShowExportButton}
-                handleHideButtons={handleHideButtons}
-              />
-            }
-          />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/faq/add-faq" element={<AddFAQ />} />
-          <Route path="/faq/edit-faq" element={<EditFAQ />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/notices" element={<Notices rowData={HISTORY} />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </ThemeProvider>
+      <AppContext.Provider value={{ setIsLoggedIn }}>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<Navigate to="/promocodes" replace />} />
+            <Route path="/signin" element={
+              isLoggedIn ? (
+                <Navigate to='/' replace />
+              ) : (
+                <Login />)} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/promocodes"
+              element={
+                <ProtectedRouteElement
+                  element={Promocodes}
+                  loggedIn={isLoggedIn}
+                  rowModesModel={rowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  setRowModesModel={setRowModesModel}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons}
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  onClick={handleClick}
+                />
+              }
+            />
+            <Route
+              path="/ambassadors"
+              element={
+                <ProtectedRouteElement
+                  element={Ambassadors}
+                  loggedIn={isLoggedIn}
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  onClick={handleClick}
+                  rows={rows}
+                  setRows={setRows}
+                  rowModesModel={rowModesModel}
+                  setRowModesModel={setRowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons}
+                  showDeleteButton={showDeleteButton}
+                  handleShowDeleteButton={handleShowDeleteButton}
+                />
+              }
+            />
+            <Route
+              path="/content"
+              element={
+                <ProtectedRouteElement
+                  element={Content}
+                  loggedIn={isLoggedIn}
+                  rowData={rowData}
+                  rowModesModel={rowModesModel}
+                  setRowModesModel={setRowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons}
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  onClick={handleClick}
+                />}
+            />
+            <Route
+              path="/send-merch"
+              element={
+                <ProtectedRouteElement
+                  element={SendMerch}
+                  loggedIn={isLoggedIn}
+                  rowModesModel={rowModesModel}
+                  setRowModesModel={setRowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  handleRowModesModelChange={handleRowModesModelChange}
+                  processRowUpdate={processRowUpdate}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons}
+                  showDeleteButton={showDeleteButton}
+                  handleShowDeleteButton={handleShowDeleteButton}
+                  isOpen={isPopupOpen}
+                  onClose={closePopup}
+                  onClick={handleClick}
+                />}
+            />
+            <Route
+              path="/budget"
+              element={
+                <ProtectedRouteElement
+                  element={Budget}
+                  loggedIn={isLoggedIn}
+                  rowData={rowData}
+                  rowModesModel={rowModesModel}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  handleRowModesModelChange={handleRowModesModelChange}
+                  handleRowEditStop={handleRowEditStop}
+                  processRowUpdate={processRowUpdate}
+                />
+              }
+            />
+            <Route
+              path="/budget-price"
+              element={
+                <ProtectedRouteElement
+                  element={BudgetPrice}
+                  loggedIn={isLoggedIn}
+                  rowModesModel={rowModesModel}
+                  setRowModesModel={setRowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons}
+                  showDeleteButton={showDeleteButton}
+                  handleShowDeleteButton={handleShowDeleteButton} />
+              }
+            />
+            <Route path="/budget-info"
+              element={
+                <ProtectedRouteElement element={Budget} loggedIn={isLoggedIn} rowData={rowData} />} />
+            <Route
+              path="/loyalty-programm"
+              element={
+                <ProtectedRouteElement
+                  element={Loyalti}
+                  loggedIn={isLoggedIn}
+                  rowData={rowData}
+                  rowModesModel={rowModesModel}
+                  checkboxSelection={checkboxSelection}
+                  selectionModel={selectionModel}
+                  setSelectionModel={setSelectionModel}
+                  showExportButton={showExportButton}
+                  handleRowModesModelChange={handleRowModesModelChange}
+                  handleRowEditStop={handleRowEditStop}
+                  processRowUpdate={processRowUpdate}
+                  handleShowExportButton={handleShowExportButton}
+                  handleHideButtons={handleHideButtons} />}
+            />
+            <Route path="/faq"
+              element={
+                <ProtectedRouteElement
+                  element={FAQ} loggedIn={isLoggedIn} />} />
+            <Route path="/faq/add-faq"
+              element={
+                <ProtectedRouteElement
+                  element={AddFAQ} loggedIn={isLoggedIn} />} />
+            <Route path="/faq/edit-faq"
+              element={
+                <ProtectedRouteElement
+                  element={EditFAQ} loggedIn={isLoggedIn} />} />
+            <Route path="/history"
+              element={
+                <ProtectedRouteElement
+                  element={History} loggedIn={isLoggedIn} />} />
+            <Route path="/notices"
+              element={
+                <ProtectedRouteElement
+                  element={Notices} loggedIn={isLoggedIn} rowData={HISTORY} />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ThemeProvider>
+      </AppContext.Provider>
+
     </>
   );
 }

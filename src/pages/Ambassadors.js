@@ -52,9 +52,9 @@ export default function Ambassadors({
   handleShowDeleteButton,
   isOpen,
   onClose,
-  onClick,
+onClick,
 }) {
-  const AMBASSADORS_COLUMNS = [
+const AMBASSADORS_COLUMNS = [
     {
       field: "status",
       headerName: "Статус",
