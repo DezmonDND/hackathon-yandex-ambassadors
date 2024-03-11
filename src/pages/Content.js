@@ -28,6 +28,7 @@ import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import { apiTables } from "../components/utils/apiTables";
 import { useEffect } from "react";
+import { REGEX_URL } from "../components/utils/constants";
 
 export default function Content({
   rowData,
@@ -80,7 +81,6 @@ export default function Content({
         return `Доступно: ${cellValues.value}/2`;
       },
       renderCell: (cellValues) => {
-        console.log(cellValues);
         if (cellValues.value !== "Доступно: 0/2") {
           return (
             <Link
@@ -150,19 +150,21 @@ export default function Content({
       editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
-        return (
-          <Link
-            style={{
-              textDecoration: "none",
-              color: "#1D6BF3",
-              overflow: "hidden",
-            }}
-            to={cellValues.row.review}
-            target="blank"
-          >
-            {cellValues.row.review}
-          </Link>
-        );
+        if (REGEX_URL.test(cellValues.value)) {
+          return (
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#1D6BF3",
+                overflow: "hidden",
+              }}
+              to={cellValues.row.review}
+              target="blank"
+            >
+              {cellValues.row.review}
+            </Link>
+          );
+        }
       },
     },
     {
@@ -174,19 +176,21 @@ export default function Content({
       editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
-        return (
-          <Link
-            style={{
-              textDecoration: "none",
-              color: "#1D6BF3",
-              overflow: "hidden",
-            }}
-            to={cellValues.row.content}
-            target="blank"
-          >
-            {cellValues.row.content}
-          </Link>
-        );
+        if (REGEX_URL.test(cellValues.value)) {
+          return (
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#1D6BF3",
+                overflow: "hidden",
+              }}
+              to={cellValues.row.content}
+              target="blank"
+            >
+              {cellValues.row.content}
+            </Link>
+          );
+        }
       },
     },
     {
