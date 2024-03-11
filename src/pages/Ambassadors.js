@@ -54,8 +54,6 @@ export default function Ambassadors({
   onClose,
   onClick,
 }) {
-  const [program, setProgram] = useState();
-
   const AMBASSADORS_COLUMNS = [
     {
       field: "status",
@@ -161,7 +159,7 @@ export default function Ambassadors({
       width: 400,
       type: "singleSelect",
       sortable: false,
-      valueGetter: (params) => params?.row?.program?.name || program,
+      valueGetter: (params) => params?.row?.program?.name,
       renderEditCell: renderSelectEditInputCellProfession,
     },
     {
@@ -285,21 +283,25 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-      // renderCell: (params) => (
-      //   <ul
-      //     style={{
-      //       display: "flex",
-      //       overflow: "scroll",
-      //       scrollbarWidth: "none",
-      //     }}
-      //   >
-      //     {params.value.map((activity, index) => (
-      //       <li style={{ marginRight: "5px" }} key={index}>
-      //         {activity.name}
-      //       </li>
-      //     ))}
-      //   </ul>
-      // ),
+      renderCell: (params) => {
+        if (params.row.activity.length !== 0) {
+          return (
+            <ul
+              style={{
+                display: "flex",
+                overflow: "scroll",
+                scrollbarWidth: "none",
+              }}
+            >
+              {params.value.map((activity, index) => (
+                <li style={{ marginRight: "5px" }} key={index}>
+                  {activity.name}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+      },
       type: "string",
     },
   ];
@@ -440,7 +442,7 @@ export default function Ambassadors({
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
-          console.log(res);
+          setRows(rows.map((row) => (row.id === res.id ? res : row)));
         })
         .catch((err) => console.log(err));
     }
