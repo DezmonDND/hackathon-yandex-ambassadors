@@ -245,6 +245,7 @@ export class ApiTables {
       body: JSON.stringify({
         name: data.name,
         telegram_id: data.telegram_id,
+        comment: data.comment,
       }),
     }).then(this._checkError);
   }

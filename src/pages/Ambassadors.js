@@ -55,8 +55,6 @@ export default function Ambassadors({
   onClose,
   onClick,
 }) {
-  const [isChecked, setIsChecked] = useState(false);
-
   const AMBASSADORS_COLUMNS = [
     {
       field: "status",
@@ -285,22 +283,22 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-    //   renderCell: (params) => (
-    //     <ul
-    //       style={{
-    //         display: "flex",
-    //         overflow: "scroll",
-    //         scrollbarWidth: "none",
-    //       }}
-    //     >
-    //       {params.value.map((activity, index) => (
-    //         <li style={{ marginRight: "5px" }} key={index}>
-    //           {activity.name}
-    //         </li>
-    //       ))}
-    //     </ul>
-    //   ),
-    //   type: "string",
+      //   renderCell: (params) => (
+      //     <ul
+      //       style={{
+      //         display: "flex",
+      //         overflow: "scroll",
+      //         scrollbarWidth: "none",
+      //       }}
+      //     >
+      //       {params.value.map((activity, index) => (
+      //         <li style={{ marginRight: "5px" }} key={index}>
+      //           {activity.name}
+      //         </li>
+      //       ))}
+      //     </ul>
+      //   ),
+      //   type: "string",
     },
   ];
 
@@ -437,6 +435,7 @@ export default function Ambassadors({
         .catch((err) => console.log(err));
     } else if (newRow.isNew !== true) {
       const id = newRow.id;
+
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {

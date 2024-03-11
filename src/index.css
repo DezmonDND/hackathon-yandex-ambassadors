@@ -84,33 +84,28 @@ select {
   background-color: #ea7e7e;
 }
 
-[data-field="userSendMerch"]:not([role="columnheader"]) > div {
+[data-field="sending_merch"]:not([role="columnheader"]) > div {
   padding: 9px 0px;
   width: 149px;
   border-radius: 4px;
   color: #fff;
   text-align: center;
 }
-[data-field="userSendMerch"]:not([role="columnheader"])
-  > div[title="Недоступно"] {
+[data-field="sending_merch"]:not([role="columnheader"])
+  > div[title="Доступно: 0/2"] {
   color: #1a1b22;
 }
-[data-field="userSendMerch"]:not([role="columnheader"])
-  > div[title="Доступно: 0/2"] {
-  color: #fff;
-  background-color: #5A9BFF;
-}
-[data-field="userSendMerch"]:not([role="columnheader"])
+[data-field="sending_merch"]:not([role="columnheader"])
   > div[title="Доступно: 1/2"] {
   color: #fff;
   background-color: #5A9BFF;
 }
-[data-field="userSendMerch"]:not([role="columnheader"])
+[data-field="sending_merch"]:not([role="columnheader"])
   > div[title="Доступно: 2/2"] {
   color: #fff;
   background-color: #5A9BFF;
 }
-[data-field="userSendMerch"]:not([role="columnheader"])
+[data-field="sending_merch"]:not([role="columnheader"])
   > div[title="Доступно"] {
   color: #fff;
   background-color: #5A9BFF;

@@ -71,12 +71,33 @@ export default function Content({
       headerName: "Отправка мерча",
       headerAlign: "center",
       align: "center",
-      field: "conten_merch",
+      field: "sending_merch",
       width: 162,
       editable: false,
       disableColumnMenu: true,
       type: "singleSelect",
-      renderEditCell: renderSelectEditInputCellMerch,
+      valueGetter: (cellValues) => {
+        return `Доступно: ${cellValues.value}/2`;
+      },
+      renderCell: (cellValues) => {
+        console.log(cellValues);
+        if (cellValues.value !== "Доступно: 0/2") {
+          return (
+            <Link
+              style={{
+                backgroundColor: "#5A9BFF",
+                color: "#FFFFFF",
+                textDecoration: "none",
+                padding: "10px 23px 10px 23px",
+                borderRadius: "4px",
+              }}
+              to={"/send-merch"}
+            >
+              {cellValues.value}
+            </Link>
+          );
+        }
+      },
     },
     {
       headerName: "Статус",
@@ -150,7 +171,7 @@ export default function Content({
       align: "center",
       field: "content",
       width: 214,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
         return (
@@ -174,7 +195,7 @@ export default function Content({
       align: "center",
       field: "comment",
       width: 300,
-      editable: false,
+      editable: true,
       disableColumnMenu: true,
     },
   ];
