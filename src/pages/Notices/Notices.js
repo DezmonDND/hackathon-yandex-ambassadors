@@ -80,7 +80,7 @@ export default function History({ rowData }) {
   // Преобразуем ключ userId в id для каждого объекта в массиве rowData
   const rows = rowData.map((row) => ({
     ...row,
-    id: row.userId,
+    id: row.id,
   }));
 
   return (

@@ -1,7 +1,7 @@
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import AppShortcutOutlinedIcon from '@mui/icons-material/AppShortcutOutlined';
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 
 export const HISTORY_COLUMN = [
   {
@@ -12,22 +12,15 @@ export const HISTORY_COLUMN = [
     width: 60,
     sortable: false,
     renderCell: (cellValues) => {
-      const status = cellValues.row.userIconStatus
-      return (
-        status === '1' ? (
-          <PermIdentityOutlinedIcon color="success" />
-        )
-        : (
-          status === '2' ? (
-            <WorkspacePremiumOutlinedIcon color="error" />
-          ) : (
-            status === '3' ? (
-              <BookmarkBorderOutlinedIcon color="primary" />
-            ) : (
-              <AppShortcutOutlinedIcon color="info" />
-            )
-          )
-        )
+      const status = cellValues.row.userIconStatus;
+      return status === "1" ? (
+        <PermIdentityOutlinedIcon color="success" />
+      ) : status === "2" ? (
+        <WorkspacePremiumOutlinedIcon color="error" />
+      ) : status === "3" ? (
+        <BookmarkBorderOutlinedIcon color="primary" />
+      ) : (
+        <AppShortcutOutlinedIcon color="info" />
       );
     },
   },
@@ -49,7 +42,7 @@ export const HISTORY_COLUMN = [
     headerName: "ID",
     headerAlign: "center",
     align: "center",
-    field: "userId",
+    field: "id",
     width: 60,
     sortable: false,
   },

@@ -20,6 +20,13 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { BUDGET_PRICE_ROWS } from "../mocks/rows";
+import { BUDGET_PRICE_COLUMN } from "../mocks/columns";
+import {
+  handleCancelClick,
+  handleEditClick,
+  handleSaveClick,
+} from "../utils/rowEditFunctions";
 
 export default function Promocodes({
   rowModesModel,
@@ -33,59 +40,9 @@ export default function Promocodes({
   showDeleteButton,
   handleShowDeleteButton,
 }) {
-  const [rows, setRows] = useState([]);
+  // const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(BUDGET_PRICE_ROWS);
   const [category, setCategory] = useState(null);
-
-  const BUDGET_PRICE_COLUMN = [
-    {
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
-      field: "id",
-      width: 40,
-      sortable: false,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      cellClassName: "actions",
-      headerName: "Действия",
-      headerAlign: "center",
-      editable: false,
-      align: "center",
-      width: 100,
-      disableColumnMenu: true,
-      renderCell: renderActions,
-    },
-    {
-      headerName: "Мерч",
-      headerAlign: "center",
-      align: "center",
-      field: "name",
-      width: 692,
-      sortable: false,
-      editable: true,
-    },
-    {
-      headerName: "Стоимость",
-      headerAlign: "center",
-      align: "center",
-      field: "cost",
-      width: 300,
-      editable: true,
-      sortable: false,
-    },
-    {
-      headerName: "Категория",
-      headerAlign: "center",
-      align: "center",
-      field: "category",
-      width: 100,
-      sortable: false,
-      editable: true,
-      valueGetter: (params) => params?.row?.category?.id || category,
-    },
-  ];
 
   function handleAddNewRow() {
     const id = randomId();
@@ -107,26 +64,6 @@ export default function Promocodes({
   }
 
   // Работа со строками
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
@@ -202,7 +139,7 @@ export default function Promocodes({
           sx={{
             color: "#1d6bf3",
           }}
-          onClick={handleSaveClick(id)}
+          onClick={handleSaveClick(id, rowModesModel, setRowModesModel)}
         />,
         <GridActionsCellItem
           key={2}
@@ -224,7 +161,13 @@ export default function Promocodes({
           icon={<CancelIcon />}
           label="Cancel"
           className="textPrimary"
-          onClick={handleCancelClick(id)}
+          onClick={handleCancelClick(
+            id,
+            rows,
+            setRows,
+            rowModesModel,
+            setRowModesModel
+          )}
           color="inherit"
         />,
       ];
@@ -240,7 +183,7 @@ export default function Promocodes({
         icon={<EditOutlinedIcon />}
         label="Edit"
         className="textPrimary"
-        onClick={handleEditClick(id)}
+        onClick={handleEditClick(id, rowModesModel, setRowModesModel)}
         color="inherit"
       />,
     ];
@@ -321,7 +264,7 @@ export default function Promocodes({
             toolbarExport: "Экспортировать",
           }}
           rows={rows}
-          columns={BUDGET_PRICE_COLUMN}
+          columns={BUDGET_PRICE_COLUMN(renderActions, category)}
           sx={{
             ".MuiDataGrid-columnHeaders": {
               backgroundColor: "#F9FAFB",

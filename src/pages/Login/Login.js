@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { REGEXP_EMAIL } from "../../utils/constants";
 import fetchUserLogin from "../../utils/fetchUserLogin";
 import AppContext from "../../context/AppContext";
+import { LocalGasStation } from "@mui/icons-material";
 
 function Login() {
   const app = useContext(AppContext);
@@ -23,18 +24,24 @@ function Login() {
     mode: "onChange",
   });
 
+  // const onSubmit = (data) => {
+  //   fetchUserLogin({
+  //     email: data.email,
+  //     password: data.password,
+  //   }).then((res) => {
+  //     if (res.token) {
+  //       app.setIsLoggedIn(localStorage.setItem('isLoggedIn', true));
+  //       navigate("/promocodes", { replace: false })
+  //     }
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  // };
+
   const onSubmit = (data) => {
-    fetchUserLogin({
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
-      if (res.token) {
-        app.setIsLoggedIn(localStorage.setItem('isLoggedIn', true));
-        navigate("/promocodes", { replace: false })
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
+    localStorage.setItem("loginData", data);
+    app.setIsLoggedIn(localStorage.setItem("isLoggedIn", true));
+    navigate("/promocodes", { replace: false });
   };
 
   function onHandleClick() {
@@ -61,8 +68,9 @@ function Login() {
                 message: "Почта не соответствует требуемому формату",
               },
             })}
-            className={`login__input ${errors.email ? "login__inputInvalid" : ""
-              }`}
+            className={`login__input ${
+              errors.email ? "login__inputInvalid" : ""
+            }`}
             type="email"
             name="email"
             id="email"
@@ -85,8 +93,9 @@ function Login() {
                 message: "Текст должен быть не длинее 16 символов",
               },
             })}
-            className={`login__input ${errors.password ? "login__inputInvalid" : ""
-              }`}
+            className={`login__input ${
+              errors.password ? "login__inputInvalid" : ""
+            }`}
             type={isActive ? "text" : "password"}
             name="password"
             id="password"
@@ -94,8 +103,9 @@ function Login() {
           />
           <button
             type="button"
-            className={`login__eyeButton ${isActive ? "login__eyeButtonActive" : ""
-              }`}
+            className={`login__eyeButton ${
+              isActive ? "login__eyeButtonActive" : ""
+            }`}
             onClick={onHandleClick}
           />
           <span className="login__error">
@@ -107,8 +117,9 @@ function Login() {
         </Link>
         <button
           type="submit"
-          className={`login__submitButton ${!isValid ? "login__submitButtonDisable" : ""
-            }`}
+          className={`login__submitButton ${
+            !isValid ? "login__submitButtonDisable" : ""
+          }`}
           disabled={!isValid}
         >
           Войти

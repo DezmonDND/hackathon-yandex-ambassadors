@@ -13,11 +13,9 @@ import {
   CloseIconButton,
   FilterExportButton,
 } from "../components/Buttons/Buttons";
-import { renderSelectEditInputCell } from "../mocks/users-data";
 import { useState } from "react";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
-import { Button } from "@mui/material";
 import { apiTables } from "../utils/apiTables";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -29,6 +27,13 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import Popup from "../components/Popup/Popup";
+import { PROMOCODES } from "../mocks/rows";
+import { PROMOCODES_COLUMNS } from "../mocks/columns";
+import {
+  handleCancelClick,
+  handleEditClick,
+  handleSaveClick,
+} from "../utils/rowEditFunctions";
 
 export default function Promocodes({
   rowModesModel,
@@ -44,119 +49,8 @@ export default function Promocodes({
   onClick,
   id,
 }) {
-  const [rows, setRows] = useState([]);
-
-  const PROMOCODES_COLUMNS = [
-    {
-      field: "status",
-      headerName: "Статус",
-      width: 150,
-      editable: false,
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
-      type: "singleSelect",
-      valueGetter: (params) => params?.row?.ambassador?.status?.name,
-      renderEditCell: renderSelectEditInputCell,
-    },
-    {
-      field: "id",
-      headerName: "ID",
-      width: 90,
-      type: "number",
-      sortable: false,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "actions",
-      type: "actions",
-      cellClassName: "actions",
-      headerName: "Действия",
-      headerAlign: "center",
-      editable: false,
-      align: "center",
-      width: 100,
-      disableColumnMenu: true,
-      renderCell: renderActions,
-    },
-    {
-      field: "created",
-      headerName: "Дата",
-      width: 120,
-      editable: false,
-      headerAlign: "center",
-      align: "center",
-      valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
-    },
-    {
-      field: "name",
-      headerName: "ФИО",
-      width: 220,
-      editable: false,
-      headerAlign: "center",
-      align: "center",
-      valueGetter: (params) => params?.row?.ambassador?.name,
-      renderCell: (params) => {
-        const handleClick = () => {
-          const id  = params.row.ambassador.id;
-          onClick(id);
-        };
-        return (
-          <Button
-            style={{
-              color: "#1D6BF3",
-              textTransform: "none",
-              fontWeight: "400",
-            }}
-            onClick={handleClick}
-          >
-            {params?.row?.ambassador?.name}
-          </Button>
-        );
-      },
-    },
-    {
-      field: "telegram",
-      headerName: "Telegram",
-      headerAlign: "center",
-      align: "center",
-      sortable: false,
-      editable: false,
-      width: 200,
-      valueGetter: (params) => params?.row?.ambassador?.telegram,
-    },
-    {
-      field: "code",
-      headerName: "Промокод",
-      headerAlign: "center",
-      align: "center",
-      sortable: false,
-      editable: true,
-      width: 220,
-    },
-  ];
-
-  // Работа со строками
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
+  // const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(PROMOCODES);
 
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
@@ -197,7 +91,7 @@ export default function Promocodes({
           sx={{
             color: "#1d6bf3",
           }}
-          onClick={handleSaveClick(id)}
+          onClick={handleSaveClick(id, rowModesModel, setRowModesModel)}
         />,
         <GridActionsCellItem
           key={2}
@@ -207,7 +101,13 @@ export default function Promocodes({
           icon={<CancelIcon />}
           label="Cancel"
           className="textPrimary"
-          onClick={handleCancelClick(id)}
+          onClick={handleCancelClick(
+            id,
+            rows,
+            setRows,
+            rowModesModel,
+            setRowModesModel
+          )}
           color="inherit"
         />,
       ];
@@ -224,7 +124,7 @@ export default function Promocodes({
         icon={<EditOutlinedIcon />}
         label="Edit"
         className="textPrimary"
-        onClick={handleEditClick(id)}
+        onClick={handleEditClick(id, rowModesModel, setRowModesModel)}
         color="inherit"
       />,
     ];
@@ -277,7 +177,6 @@ export default function Promocodes({
         <Toolbar
           showExportButton={showExportButton}
           checkboxSelection={checkboxSelection}
-          columns={PROMOCODES_COLUMNS}
         >
           <MenuButtons></MenuButtons>
         </Toolbar>
@@ -320,7 +219,7 @@ export default function Promocodes({
               toolbarExport: "Экспортировать",
             }}
             rows={rows}
-            columns={PROMOCODES_COLUMNS}
+            columns={PROMOCODES_COLUMNS(onClick, renderActions)}
             sx={{
               ".MuiDataGrid-columnHeaders": {
                 backgroundColor: "#F9FAFB",

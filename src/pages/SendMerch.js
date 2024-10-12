@@ -9,7 +9,6 @@ import {
   CloseIconButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import { buttonClick } from "../mocks/users-data";
 import { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
@@ -20,7 +19,8 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import { apiTables } from "../utils/apiTables";
 import Popup from "../components/Popup/Popup";
-import { Button } from "@mui/material";
+import { SEND_MERCH_ROWS } from "../mocks/rows";
+import { SEND_MERCH_COLUMNS } from "../mocks/columns";
 
 export default function SendMerch({
   rowModesModel,
@@ -40,148 +40,8 @@ export default function SendMerch({
   onClick,
   id,
 }) {
-  const [rows, setRows] = useState([]);
-
-  const SEND_MERCH_COLUMNS = [
-    {
-      headerName: "ID",
-      field: "id",
-      width: 60,
-      headerAlign: "center",
-      align: "center",
-      type: "number",
-      sortable: false,
-    },
-    {
-      headerName: "Куратор",
-      field: "tutor",
-      width: 184,
-      headerAlign: "center",
-      align: "center",
-      editable: false,
-      renderCell: (cellValues) => {
-        return (
-          <Button
-            style={{
-              color: "#1D6BF3",
-              textTransform: "none",
-              fontWeight: "400",
-            }}
-            onClick={buttonClick}
-          >
-            {cellValues?.row?.tutor?.full_name}
-          </Button>
-        );
-      },
-    },
-    {
-      headerName: "Мерч",
-      field: "merch",
-      width: 208,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.merch?.name,
-    },
-    {
-      headerName: "Размер толстовки",
-      field: "name_and_size",
-      width: 195,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.clothing_size,
-    },
-    {
-      headerName: "Размер носков",
-      field: "clothing_size",
-      width: 195,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.shoe_size,
-    },
-    {
-      headerName: "ФИО",
-      field: "name",
-      width: 184,
-      headerAlign: "center",
-      align: "center",
-      editable: false,
-      renderCell: (cellValues) => {
-        const handleClick = () => {
-          const id  = cellValues.row.ambassador.id;
-          onClick(id);
-        };
-        return (
-          <Button
-            style={{
-              color: "#1D6BF3",
-              textTransform: "none",
-              fontWeight: "400",
-            }}
-            onClick={handleClick}
-          >
-            {cellValues?.row?.ambassador?.name}
-          </Button>
-        );
-      },
-    },
-    {
-      headerName: "Индекс",
-      field: "postal_code",
-      width: 103,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.address?.postal_code,
-    },
-    {
-      headerName: "Страна",
-      field: "country",
-      width: 103,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.address?.country,
-    },
-    {
-      headerName: "Город",
-      field: "city",
-      width: 103,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.address?.city,
-    },
-    {
-      headerName: "Улица, дом, квартира",
-      field: "street",
-      width: 194,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-      valueGetter: (params) => params?.row?.ambassador?.address?.street,
-    },
-    {
-      headerName: "Телефон",
-      field: "application_number",
-      width: 108,
-      headerAlign: "center",
-      align: "center",
-      editable: true,
-    },
-    {
-      headerName: "Месяц отправки",
-      field: "created",
-      width: 173,
-      headerAlign: "center",
-      align: "center",
-      editable: false,
-      valueFormatter: (params) =>
-        new Date(params?.value).toLocaleString("default", { month: "long" }),
-    },
-  ];
+  // const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(SEND_MERCH_ROWS);
 
   const handleAddNewRow = () => {
     const id = randomId();
@@ -325,7 +185,7 @@ export default function SendMerch({
               toolbarExport: "Экспортировать",
             }}
             rows={rows}
-            columns={SEND_MERCH_COLUMNS}
+            columns={SEND_MERCH_COLUMNS(onClick)}
             sx={{
               ".MuiDataGrid-columnHeaders": {
                 backgroundColor: "#F9FAFB",

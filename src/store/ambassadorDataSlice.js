@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { baseUrl } from '../components/utils/constants';
+import { baseUrl } from '../utils/constants';
 
 export const fetchAmbassadorData = createAsyncThunk(
   'ambassador/fetchAmbassadorData',

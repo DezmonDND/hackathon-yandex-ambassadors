@@ -7,9 +7,7 @@ import {
   CloseIconButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import {
-  renderSelectEditInputCell,
-} from "../mocks/users-data";
+import { CONTENT_COLUMNS } from "../mocks/columns";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -18,8 +16,6 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import Popup from "../components/Popup/Popup";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
-import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
@@ -28,9 +24,14 @@ import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import { apiTables } from "../utils/apiTables";
 import { useEffect } from "react";
 import { REGEX_URL } from "../utils/constants";
+import { CONTENT } from "../mocks/rows";
+import {
+  handleCancelClick,
+  handleEditClick,
+  handleSaveClick,
+} from "../utils/rowEditFunctions";
 
 export default function Content({
-  rowData,
   rowModesModel,
   setRowModesModel,
   checkboxSelection,
@@ -44,169 +45,8 @@ export default function Content({
   onClick,
   id,
 }) {
-  const [rows, setRows] = useState([]);
-
-  const CONTENT_COLUMNS = [
-    {
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
-      field: "id",
-      sortable: false,
-      disableColumnMenu: true,
-      width: 90,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      cellClassName: "actions",
-      headerName: "Действия",
-      headerAlign: "center",
-      editable: false,
-      align: "center",
-      width: 100,
-      disableColumnMenu: true,
-      renderCell: renderActions,
-    },
-    {
-      headerName: "Отправка мерча",
-      headerAlign: "center",
-      align: "center",
-      field: "sending_merch",
-      width: 162,
-      editable: false,
-      disableColumnMenu: true,
-      type: "singleSelect",
-      valueGetter: (cellValues) => {
-        return `Доступно: ${cellValues.value}/2`;
-      },
-      renderCell: (cellValues) => {
-        if (cellValues.value !== "Доступно: 0/2") {
-          return (
-            <Link
-              style={{
-                backgroundColor: "#5A9BFF",
-                color: "#FFFFFF",
-                textDecoration: "none",
-                padding: "10px 23px 10px 23px",
-                borderRadius: "4px",
-              }}
-              to={"/send-merch"}
-            >
-              {cellValues.value}
-            </Link>
-          );
-        }
-      },
-    },
-    {
-      headerName: "Статус",
-      headerAlign: "center",
-      align: "center",
-      field: "status",
-      width: 140,
-      editable: false,
-      disableColumnMenu: true,
-      renderEditCell: renderSelectEditInputCell,
-    },
-    {
-      headerName: "ФИО",
-      headerAlign: "center",
-      align: "center",
-      field: "name",
-      width: 220,
-      editable: true,
-      disableColumnMenu: true,
-      renderCell: (cellValues) => {
-        const handleClick = () => {
-          const id  = cellValues.row.id;
-          onClick(id);
-        };
-        return (
-          <Button
-            style={{
-              color: "#1D6BF3",
-              textTransform: "none",
-              fontWeight: "400",
-            }}
-            onClick={handleClick}
-          >
-            {cellValues.row.name}
-          </Button>
-        );
-      },
-    },
-    {
-      headerName: "Telegram",
-      headerAlign: "center",
-      align: "center",
-      field: "telegram_id",
-      width: 164,
-      editable: true,
-      disableColumnMenu: true,
-    },
-    {
-      headerName: "Отзыв",
-      headerAlign: "center",
-      align: "center",
-      field: "review",
-      width: 214,
-      editable: false,
-      disableColumnMenu: true,
-      renderCell: (cellValues) => {
-        if (REGEX_URL.test(cellValues.value)) {
-          return (
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#1D6BF3",
-                overflow: "hidden",
-              }}
-              to={cellValues.row.review}
-              target="blank"
-            >
-              {cellValues.row.review}
-            </Link>
-          );
-        }
-      },
-    },
-    {
-      headerName: "Хабр",
-      headerAlign: "center",
-      align: "center",
-      field: "content",
-      width: 214,
-      editable: false,
-      disableColumnMenu: true,
-      renderCell: (cellValues) => {
-        if (REGEX_URL.test(cellValues.value)) {
-          return (
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#1D6BF3",
-                overflow: "hidden",
-              }}
-              to={cellValues.row.content}
-              target="blank"
-            >
-              {cellValues.row.content}
-            </Link>
-          );
-        }
-      },
-    },
-    {
-      headerName: "Комментарий",
-      headerAlign: "center",
-      align: "center",
-      field: "comment",
-      width: 300,
-      editable: true,
-      disableColumnMenu: true,
-    },
-  ];
+  // const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(CONTENT);
 
   // Меню действий на странице
   function renderActions({ id }) {
@@ -221,7 +61,7 @@ export default function Content({
           sx={{
             color: "#1d6bf3",
           }}
-          onClick={handleSaveClick(id)}
+          onClick={handleSaveClick(id, rowModesModel, setRowModesModel)}
         />,
         <GridActionsCellItem
           key={2}
@@ -231,7 +71,13 @@ export default function Content({
           icon={<CancelIcon />}
           label="Cancel"
           className="textPrimary"
-          onClick={handleCancelClick(id)}
+          onClick={handleCancelClick(
+            id,
+            rows,
+            setRows,
+            rowModesModel,
+            setRowModesModel
+          )}
           color="inherit"
         />,
       ];
@@ -248,33 +94,13 @@ export default function Content({
         icon={<EditOutlinedIcon />}
         label="Edit"
         className="textPrimary"
-        onClick={handleEditClick(id)}
+        onClick={handleEditClick(id, rowModesModel, setRowModesModel)}
         color="inherit"
       />,
     ];
   }
 
   // Работа со строками
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
@@ -395,7 +221,7 @@ export default function Content({
               toolbarExport: "Экспортировать",
             }}
             rows={rows}
-            columns={CONTENT_COLUMNS}
+            columns={CONTENT_COLUMNS(onClick, renderActions, REGEX_URL)}
             sx={{
               ".MuiDataGrid-columnHeaders": {
                 backgroundColor: "#F9FAFB",

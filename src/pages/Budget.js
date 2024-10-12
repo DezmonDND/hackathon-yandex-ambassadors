@@ -8,7 +8,7 @@ import {
   SettingsButton,
   FilterExportButton,
 } from "../components/Buttons/Buttons";
-import { BUDGET_COLUMN } from "../mocks/users-data";
+import { BUDGET_COLUMN } from "../mocks/columns";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -17,9 +17,9 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import BudgetTabs from "../components/BudgetTabs/BudgetTabs";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
+import { BUDGET_ROWS } from "../mocks/rows";
 
 export default function Budget({
-  rowData,
   rowModesModel,
   selectionModel,
   setSelectionModel,
@@ -27,7 +27,7 @@ export default function Budget({
   handleRowEditStop,
   processRowUpdate,
 }) {
-  const [rows, setRows] = useState(rowData);
+  const [rows, setRows] = useState(BUDGET_ROWS);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [showExportButton, setShowExportButton] = useState(false);
 

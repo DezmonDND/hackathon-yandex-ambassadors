@@ -16,11 +16,12 @@ import Toolbar from "../../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import { apiTables } from "../../utils/apiTables";
+import { HISTORY_ROWS } from "../../mocks/rows";
 
 export default function History() {
   const [checkboxSelection, setCheckboxSelection] = useState(false);
   const [selectionModel, setSelectionModel] = useState([]);
-  const [rowData, setRowData] = useState([]);
+  const [rowData, setRowData] = useState(HISTORY_ROWS);
   function showCheckboxes() {
     setCheckboxSelection(!checkboxSelection);
   }

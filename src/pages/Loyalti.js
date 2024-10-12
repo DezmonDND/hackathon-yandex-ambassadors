@@ -8,7 +8,7 @@ import {
   FilterExportButton,
   SettingsButton,
 } from "../components/Buttons/Buttons";
-import { LOYALTI_PROGRAMM_COLUMN } from "../mocks/users-data";
+import { LOYALTI_PROGRAMM_COLUMN } from "../mocks/columns";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -16,9 +16,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
 import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
+import { LOYALTI_PROGRAMM_ROWS } from "../mocks/rows";
 
 export default function Loyalti({
-  rowData,
   rowModesModel,
   checkboxSelection,
   selectionModel,
@@ -30,7 +30,7 @@ export default function Loyalti({
   handleShowExportButton,
   handleHideButtons,
 }) {
-  const [rows, setRows] = useState(rowData);
+  const [rows, setRows] = useState(LOYALTI_PROGRAMM_ROWS);
 
   function MenuButtons() {
     const [openColumnsMenu, setOpenColumnsMenu] = useState(false);

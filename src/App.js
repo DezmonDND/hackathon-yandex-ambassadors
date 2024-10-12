@@ -1,8 +1,8 @@
+/*eslint-disable*/ 
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { USERS, HISTORY } from "./mocks/users-data";
 import Login from "./pages/Login/Login";
 import Promocodes from "./pages/Promocodes";
 import Ambassadors from "./pages/Ambassadors";
@@ -19,16 +19,17 @@ import NotFound from "./pages/NotFound/NotFound";
 import History from "./pages/History/History";
 import Notices from "./pages/Notices/Notices";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
-
 import { fetchAmbassadorData } from "./store/ambassadorDataSlice";
 import ProtectedRouteElement from "./components/ProtectedRoute/ProtectedRoute";
-import AppContext from './context/AppContext'
+import AppContext from "./context/AppContext";
+import { HISTORY_ROWS, USERS } from "./mocks/rows";
 
 const theme = createTheme({
   typography: {
     fontFamily: ["YS Text", "Arial", "sans-serif"].join(","),
   },
 });
+
 function App() {
   const dispatch = useDispatch();
   const ambassadorData = useSelector((state) => state.ambassadorData.data);
@@ -37,8 +38,7 @@ function App() {
     dispatch(fetchAmbassadorData());
   }, [dispatch]);
 
-  const [rowData, setRowData] = useState(USERS);
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(USERS);
   const [rowModesModel, setRowModesModel] = useState({});
   const [selectionModel, setSelectionModel] = useState([]);
   const [checkboxSelection, setCheckboxSelection] = useState(false);
@@ -47,8 +47,9 @@ function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const [selectedAmbassadorId, setSelectedAmbassadorId] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
-
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
 
   // Попап при клике на ФИО
   const closePopup = () => {
@@ -67,7 +68,7 @@ function App() {
   }
   useEffect(() => {
     // Проверяем localStorage при загрузке компонента App
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(storedIsLoggedIn);
   }, [isLoggedIn]);
 
@@ -100,21 +101,21 @@ function App() {
   };
 
   // Работа со строками
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
+  // const handleRowModesModelChange = (newRowModesModel) => {
+  //   setRowModesModel(newRowModesModel);
+  // };
 
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
+  // const handleRowEditStop = (params, event) => {
+  //   if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+  //     event.defaultMuiPrevented = true;
+  //   }
+  // };
 
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
+  // const processRowUpdate = (newRow) => {
+  //   const updatedRow = { ...newRow, isNew: false };
+  //   setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+  //   return updatedRow;
+  // };
 
   return (
     <>
@@ -122,11 +123,10 @@ function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path="/" element={<Navigate to="/promocodes" replace />} />
-            <Route path="/signin" element={
-              isLoggedIn ? (
-                <Navigate to='/' replace />
-              ) : (
-                <Login />)} />
+            <Route
+              path="/signin"
+              element={isLoggedIn ? <Navigate to="/" replace /> : <Login />}
+            />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route
               path="/promocodes"
@@ -157,8 +157,6 @@ function App() {
                   isOpen={isPopupOpen}
                   onClose={closePopup}
                   onClick={handleClick}
-                  rows={rows}
-                  setRows={setRows}
                   rowModesModel={rowModesModel}
                   setRowModesModel={setRowModesModel}
                   checkboxSelection={checkboxSelection}
@@ -178,7 +176,6 @@ function App() {
                 <ProtectedRouteElement
                   element={Content}
                   loggedIn={isLoggedIn}
-                  rowData={rowData}
                   rowModesModel={rowModesModel}
                   setRowModesModel={setRowModesModel}
                   checkboxSelection={checkboxSelection}
@@ -190,7 +187,8 @@ function App() {
                   isOpen={isPopupOpen}
                   onClose={closePopup}
                   onClick={handleClick}
-                />}
+                />
+              }
             />
             <Route
               path="/send-merch"
@@ -204,8 +202,8 @@ function App() {
                   selectionModel={selectionModel}
                   setSelectionModel={setSelectionModel}
                   showExportButton={showExportButton}
-                  handleRowModesModelChange={handleRowModesModelChange}
-                  processRowUpdate={processRowUpdate}
+                  // handleRowModesModelChange={handleRowModesModelChange}
+                  // processRowUpdate={processRowUpdate}
                   handleShowExportButton={handleShowExportButton}
                   handleHideButtons={handleHideButtons}
                   showDeleteButton={showDeleteButton}
@@ -213,7 +211,8 @@ function App() {
                   isOpen={isPopupOpen}
                   onClose={closePopup}
                   onClick={handleClick}
-                />}
+                />
+              }
             />
             <Route
               path="/budget"
@@ -221,13 +220,12 @@ function App() {
                 <ProtectedRouteElement
                   element={Budget}
                   loggedIn={isLoggedIn}
-                  rowData={rowData}
                   rowModesModel={rowModesModel}
                   selectionModel={selectionModel}
                   setSelectionModel={setSelectionModel}
-                  handleRowModesModelChange={handleRowModesModelChange}
-                  handleRowEditStop={handleRowEditStop}
-                  processRowUpdate={processRowUpdate}
+                  // handleRowModesModelChange={handleRowModesModelChange}
+                  // handleRowEditStop={handleRowEditStop}
+                  // processRowUpdate={processRowUpdate}
                 />
               }
             />
@@ -246,50 +244,75 @@ function App() {
                   handleShowExportButton={handleShowExportButton}
                   handleHideButtons={handleHideButtons}
                   showDeleteButton={showDeleteButton}
-                  handleShowDeleteButton={handleShowDeleteButton} />
+                  handleShowDeleteButton={handleShowDeleteButton}
+                />
               }
             />
-            <Route path="/budget-info"
+            <Route
+              path="/budget-info"
               element={
-                <ProtectedRouteElement element={Budget} loggedIn={isLoggedIn} rowData={rowData} />} />
+                <ProtectedRouteElement element={Budget} loggedIn={isLoggedIn} />
+              }
+            />
             <Route
               path="/loyalty-programm"
               element={
                 <ProtectedRouteElement
                   element={Loyalti}
                   loggedIn={isLoggedIn}
-                  rowData={rowData}
                   rowModesModel={rowModesModel}
                   checkboxSelection={checkboxSelection}
                   selectionModel={selectionModel}
                   setSelectionModel={setSelectionModel}
                   showExportButton={showExportButton}
-                  handleRowModesModelChange={handleRowModesModelChange}
-                  handleRowEditStop={handleRowEditStop}
-                  processRowUpdate={processRowUpdate}
+                  // handleRowModesModelChange={handleRowModesModelChange}
+                  // handleRowEditStop={handleRowEditStop}
+                  // processRowUpdate={processRowUpdate}
                   handleShowExportButton={handleShowExportButton}
-                  handleHideButtons={handleHideButtons} />}
+                  handleHideButtons={handleHideButtons}
+                />
+              }
             />
-            <Route path="/faq"
+            <Route
+              path="/faq"
+              element={
+                <ProtectedRouteElement element={FAQ} loggedIn={isLoggedIn} />
+              }
+            />
+            <Route
+              path="/faq/add-faq"
+              element={
+                <ProtectedRouteElement element={AddFAQ} loggedIn={isLoggedIn} />
+              }
+            />
+            <Route
+              path="/faq/edit-faq"
               element={
                 <ProtectedRouteElement
-                  element={FAQ} loggedIn={isLoggedIn} />} />
-            <Route path="/faq/add-faq"
+                  element={EditFAQ}
+                  loggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/history"
               element={
                 <ProtectedRouteElement
-                  element={AddFAQ} loggedIn={isLoggedIn} />} />
-            <Route path="/faq/edit-faq"
+                  element={History}
+                  loggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/notices"
               element={
                 <ProtectedRouteElement
-                  element={EditFAQ} loggedIn={isLoggedIn} />} />
-            <Route path="/history"
-              element={
-                <ProtectedRouteElement
-                  element={History} loggedIn={isLoggedIn} />} />
-            <Route path="/notices"
-              element={
-                <ProtectedRouteElement
-                  element={Notices} loggedIn={isLoggedIn} rowData={HISTORY} />} />
+                  element={Notices}
+                  loggedIn={isLoggedIn}
+                  rowData={HISTORY_ROWS}
+                />
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
