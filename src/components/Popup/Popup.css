@@ -43,6 +43,18 @@
   color: #FFF;
 }
 
+.popup__info-status_specify {
+  background-color: #FFCE92;
+}
+
+.popup__info-status_notAmbassador {
+  background-color: #EA7E7E;
+}
+
+.popup__info-status_pause {
+  background-color: #7F67D2;
+}
+
 .popup__info-text {
   font-family: "YS Text";
   font-size: 11px;

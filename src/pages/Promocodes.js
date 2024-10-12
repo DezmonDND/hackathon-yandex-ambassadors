@@ -42,6 +42,7 @@ export default function Promocodes({
   isOpen,
   onClose,
   onClick,
+  id,
 }) {
   const [rows, setRows] = useState([]);
 
@@ -97,15 +98,18 @@ export default function Promocodes({
       align: "center",
       valueGetter: (params) => params?.row?.ambassador?.name,
       renderCell: (params) => {
+        const handleClick = () => {
+          const id  = params.row.ambassador.id;
+          onClick(id);
+        };
         return (
           <Button
-            key={params.row.id}
             style={{
               color: "#1D6BF3",
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={onClick}
+            onClick={handleClick}
           >
             {params?.row?.ambassador?.name}
           </Button>
@@ -359,7 +363,7 @@ export default function Promocodes({
           />
         </Box>
       </Layout>
-      <Popup isOpen={isOpen} onClose={onClose} />
+      <Popup isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 }

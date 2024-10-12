@@ -52,7 +52,9 @@ export default function Ambassadors({
   handleShowDeleteButton,
   isOpen,
   onClose,
-onClick,
+  onClick,
+  id,
+
 }) {
 const AMBASSADORS_COLUMNS = [
     {
@@ -109,6 +111,10 @@ const AMBASSADORS_COLUMNS = [
       editable: true,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
+        const handleClick = () => {
+          const id  = cellValues.row.id;
+          onClick(id);
+        };
         return (
           <Button
             style={{
@@ -116,7 +122,7 @@ const AMBASSADORS_COLUMNS = [
               textTransform: "none",
               fontWeight: "400",
             }}
-            onClick={onClick}
+            onClick={handleClick}
           >
             {cellValues?.row?.name}
           </Button>
@@ -302,6 +308,7 @@ const AMBASSADORS_COLUMNS = [
           );
         }
       },
+
       type: "string",
     },
   ];
@@ -612,7 +619,7 @@ const AMBASSADORS_COLUMNS = [
           />
         </Box>
       </Layout>
-      <Popup isOpen={isOpen} onClose={onClose} />
+      <Popup isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 }
