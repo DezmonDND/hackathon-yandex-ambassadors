@@ -75,7 +75,7 @@ export class ApiTables {
         name: data.name,
         gender: data.gender,
         onboarding_status: data.onboarding_status,
-        program: { name: data.user_program },
+        program: { name: data.program },
         address: {
           country: data.country,
           city: data.city,
@@ -89,7 +89,8 @@ export class ApiTables {
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
-        purpose: { name: data.purpose_name },
+        purpose: { name: data.purpose },
+        personal_purpose: data.personal_purpose,
         activity: [],
       }),
     }).then(this._checkError);
@@ -107,7 +108,7 @@ export class ApiTables {
         name: data.name,
         gender: data.gender,
         onboarding_status: data.onboarding_status,
-        program: { name: data.user_program },
+        program: { name: data.program },
         address: {
           country: data.country,
           city: data.city,
@@ -121,7 +122,7 @@ export class ApiTables {
         telegram_id: data.telegram_id,
         education: data.education,
         job: data.job,
-        purpose: { name: data.purpose_name },
+        personal_purpose: data.personal_purpose,
       }),
     }).then(this._checkError);
   }
@@ -245,7 +246,19 @@ export class ApiTables {
       body: JSON.stringify({
         name: data.name,
         telegram_id: data.telegram_id,
+        comment: data.comment,
       }),
+    }).then(this._checkError);
+  }
+  // Таблица История
+  getHistory() {
+    const token = localStorage.getItem("JWT");
+    return fetch(`${this._baseUrl}/edit_history`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
     }).then(this._checkError);
   }
 }
@@ -253,3 +266,4 @@ export class ApiTables {
 export const apiTables = new ApiTables({
   baseUrl: "https://hackathon-yacrm04.sytes.net/api/v1",
 });
+

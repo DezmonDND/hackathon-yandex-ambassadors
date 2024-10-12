@@ -1,20 +1,21 @@
 import "./MenuSettings.css";
-import { NavLink } from "react-router-dom";
-import Badge from "@mui/material/Badge";
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import AppContext from "../../context/AppContext";
 
 function MenuSettings() {
+  const navigate = useNavigate();
+  const app = useContext(AppContext);
+
+  function handleLogout() {
+    app.setIsLoggedIn(localStorage.setItem('isLoggedIn', false));
+    localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('JWT')
+    navigate("/signin")
+  }
   return (
     <ul className="menu__settings">
-      <NavLink
-        className="menu__link"
-        to="/login"
-        style={({ isActive }) => ({
-          color: isActive ? "#FFFFFF" : "",
-        })}
-      >
-        Войти
-      </NavLink>
       <NavLink
         className="menu__link"
         to="/notices"
@@ -26,7 +27,7 @@ function MenuSettings() {
           Уведомления
           <div>
             <ChatBubbleIcon color="#fff" />
-            <span>12</span>
+            <span>4</span>
           </div>
         </div>
       </NavLink>
@@ -39,15 +40,12 @@ function MenuSettings() {
       >
         История изменений
       </NavLink>
-      <NavLink
-        className="menu__link"
-        to="/login"
-        style={({ isActive }) => ({
-          color: isActive ? "#FFFFFF" : "",
-        })}
+      <button
+        className="logout"
+        onClick={handleLogout}
       >
         Выйти
-      </NavLink>
+      </button>
     </ul>
   );
 }

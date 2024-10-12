@@ -27,7 +27,7 @@
 - [DezmonDND](https://github.com/DezmonDND) - тимлид, руководство командой
 frontend-разработки, разработка таблиц, сайдбара, fetch-запросы.
 - [Olesia Erastova](https://github.com/olesia1205) - разработка аторизации, регистрации, попапов, fetch-запросы, корректировка таблиц.
-- [Anastasiia-Nist](https://github.com/Anastasiia-Nist) - разработка разделов FAQ, история, хуки, рефакторинг кода, корректировка таблиц.
+- [Anastasiia-Nist](https://github.com/Anastasiia-Nist) - разработка разделов FAQ, история, уведомления, хуки, рефакторинг кода, корректировка таблиц.
 
 # Запуск проекта на локальном компьютере
 
@@ -38,7 +38,15 @@ git clone https://github.com/DezmonDND/hackathon-yandex-ambassadors-frontend.git
 cd hackathon-yandex-ambassadors-frontend
 ```
 
-Выполнить в папке hackathon-yandex-ambassadors-frontend команду npm i и установить зависимости. 
+Выполнить в папке hackathon-yandex-ambassadors-frontend команду 
+```
+npm i 
+```
+и установить зависимости. 
 
-После выполнить команду npm start. Проект откроется в дефолтном браузере.
+После выполнить команду 
+```
+npm start
+```
+Проект откроется в дефолтном браузере.
 

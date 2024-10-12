@@ -16,7 +16,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import {
   renderSelectEditInputCell,
   renderSelectEditInputCellProfession,
@@ -24,19 +24,18 @@ import {
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Popup from "../components/Popup/Popup";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CheckBox } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
 import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
 } from "../components/Buttons/Buttons";
-import { array, arrayOf } from "prop-types";
+import { number } from "prop-types";
 
 export default function Ambassadors({
   rows,
@@ -55,10 +54,9 @@ export default function Ambassadors({
   onClose,
   onClick,
   id,
-}) {
-  const [isChecked, setIsChecked] = useState(false);
 
-  const AMBASSADORS_COLUMNS = [
+}) {
+const AMBASSADORS_COLUMNS = [
     {
       field: "status",
       headerName: "Статус",
@@ -145,7 +143,7 @@ export default function Ambassadors({
       headerName: "Онбординг",
       headerAlign: "center",
       align: "center",
-      editable: false,
+      editable: true,
       width: 120,
       sortable: false,
       renderCell: (value) => {
@@ -159,7 +157,7 @@ export default function Ambassadors({
       },
     },
     {
-      field: "user_program",
+      field: "program",
       headerName: "Программа",
       headerAlign: "center",
       align: "center",
@@ -274,7 +272,7 @@ export default function Ambassadors({
       sortable: false,
     },
     {
-      field: "purpose_name",
+      field: "purpose",
       headerName: "Цель в Практикуме",
       headerAlign: "center",
       align: "center",
@@ -291,22 +289,26 @@ export default function Ambassadors({
       editable: false,
       minWidth: 462,
       sortable: false,
-      renderCell: (params) => (
-        <ul
-          style={{
-            display: "flex",
-            overflow: "scroll",
-            scrollbarWidth: 'none',
+      renderCell: (params) => {
+        if (params.row.activity.length !== 0) {
+          return (
+            <ul
+              style={{
+                display: "flex",
+                overflow: "scroll",
+                scrollbarWidth: "none",
+              }}
+            >
+              {params.value.map((activity, index) => (
+                <li style={{ marginRight: "5px" }} key={index}>
+                  {activity.name}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+      },
 
-          }}
-        >
-          {params.value.map((activity, index) => (
-            <li style={{ marginRight: "5px" }} key={index}>
-              {activity.name}
-            </li>
-          ))}
-        </ul>
-      ),
       type: "string",
     },
   ];
@@ -442,19 +444,16 @@ export default function Ambassadors({
           setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         })
         .catch((err) => console.log(err));
-    } else if (newRow.isNew !== true) {
+    } else {
       const id = newRow.id;
       apiTables
         .editRowAmbassadors(id, newRow)
         .then((res) => {
-          console.log(res);
+          setRows(rows.map((row) => (row.id === res.id ? res : row)));
         })
         .catch((err) => console.log(err));
     }
-
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
+    return newRow;
   }
 
   function deleteRows() {

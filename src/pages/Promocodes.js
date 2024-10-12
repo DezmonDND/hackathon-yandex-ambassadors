@@ -13,12 +13,12 @@ import {
   CloseIconButton,
   FilterExportButton,
 } from "../components/Buttons/Buttons";
-import { buttonClick, renderSelectEditInputCell } from "../mocks/users-data";
+import { renderSelectEditInputCell } from "../mocks/users-data";
 import { useState } from "react";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import { Button } from "@mui/material";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -29,7 +29,6 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
 import Popup from "../components/Popup/Popup";
-import { random, randomId } from "@mui/x-data-grid-generator";
 
 export default function Promocodes({
   rowModesModel,
@@ -171,7 +170,6 @@ export default function Promocodes({
 
   function processRowUpdate(newRow) {
     const id = newRow.id;
-
     apiTables
       .editRowPromocodes(id, newRow)
       .then((res) => {

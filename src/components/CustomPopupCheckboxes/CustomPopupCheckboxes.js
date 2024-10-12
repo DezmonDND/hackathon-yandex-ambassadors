@@ -1,8 +1,5 @@
 import { useGridApiContext } from "@mui/x-data-grid";
-import {
-  CheckBoxIcon,
-  CheckBoxOutlineBlankIcon,
-} from "../components/Buttons/Buttons";
+import { CheckBoxIcon, CheckBoxOutlineBlankIcon } from "../Buttons/Buttons";
 import React, { useEffect, useState } from "react";
 import { randomId } from "@mui/x-data-grid-generator";
 import Checkbox from "@mui/material/Checkbox";

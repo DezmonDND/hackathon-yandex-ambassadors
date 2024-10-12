@@ -281,31 +281,35 @@ function SelectEditInputCellMerch(props) {
     });
     apiRef.current.stopCellEditMode({ id, field });
   };
-
+if (value !==0) {
   return (
-    <div>
-      <FormControl sx={{ width: 150, margin: 0 }}>
-        <Select
-          sx={{
-            ".MuiOutlinedInput-input": {
-              padding: "6px 6px 6px 6px",
-            },
-            backgroundColor: "#E8F2FF",
-          }}
-          value={value}
-          autoFocus
-          onChange={handleChange}
-          autoWidth
-        >
-          <MenuItem value={"Доступно"}>Доступно</MenuItem>
-          <MenuItem value={"Доступно: 0/2"}>Доступно: 0/2</MenuItem>
-          <MenuItem value={"Доступно: 1/2"}>Доступно: 1/2</MenuItem>
-          <MenuItem value={"Доступно: 2/2"}>Доступно: 2/2</MenuItem>
-          <MenuItem value={"Недоступно"}>Недоступно</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
-  );
+    <Link to={'/'}></Link>
+  )
+}
+  // return (
+    // <div>
+    //   <FormControl sx={{ width: 150, margin: 0 }}>
+    //     <Select
+    //       sx={{
+    //         ".MuiOutlinedInput-input": {
+    //           padding: "6px 6px 6px 6px",
+    //         },
+    //         backgroundColor: "#E8F2FF",
+    //       }}
+    //       value={value}
+    //       autoFocus
+    //       onChange={handleChange}
+    //       autoWidth
+    //     >
+    //       <MenuItem value={"Доступно"}>Доступно</MenuItem>
+    //       <MenuItem value={"Доступно: 0/2"}>Доступно: 0/2</MenuItem>
+    //       <MenuItem value={"Доступно: 1/2"}>Доступно: 1/2</MenuItem>
+    //       <MenuItem value={"Доступно: 2/2"}>Доступно: 2/2</MenuItem>
+    //       <MenuItem value={"Недоступно"}>Недоступно</MenuItem>
+    //     </Select>
+    //   </FormControl>
+    // </div>
+  // );
 }
 
 export const renderSelectEditInputCellMerch = (params) => {

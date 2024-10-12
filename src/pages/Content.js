@@ -9,7 +9,6 @@ import {
 } from "../components/Buttons/Buttons";
 import {
   renderSelectEditInputCell,
-  renderSelectEditInputCellMerch,
 } from "../mocks/users-data";
 import { useState } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
@@ -18,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Toolbar from "../components/Toolbar/Toolbar";
 import Popup from "../components/Popup/Popup";
 import { newBaseCheckbox } from "../components/NewBaseCheckbox/NewBaseCheckbox";
-import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes";
+import { CustomPopupCheckboxes } from "../components/CustomPopupCheckboxes/CustomPopupCheckboxes";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -26,8 +25,9 @@ import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { GridRowEditStopReasons } from "@mui/x-data-grid";
-import { apiTables } from "../components/utils/apiTables";
+import { apiTables } from "../utils/apiTables";
 import { useEffect } from "react";
+import { REGEX_URL } from "../utils/constants";
 
 export default function Content({
   rowData,
@@ -72,12 +72,32 @@ export default function Content({
       headerName: "Отправка мерча",
       headerAlign: "center",
       align: "center",
-      field: "content",
+      field: "sending_merch",
       width: 162,
       editable: false,
       disableColumnMenu: true,
       type: "singleSelect",
-      renderEditCell: renderSelectEditInputCellMerch,
+      valueGetter: (cellValues) => {
+        return `Доступно: ${cellValues.value}/2`;
+      },
+      renderCell: (cellValues) => {
+        if (cellValues.value !== "Доступно: 0/2") {
+          return (
+            <Link
+              style={{
+                backgroundColor: "#5A9BFF",
+                color: "#FFFFFF",
+                textDecoration: "none",
+                padding: "10px 23px 10px 23px",
+                borderRadius: "4px",
+              }}
+              to={"/send-merch"}
+            >
+              {cellValues.value}
+            </Link>
+          );
+        }
+      },
     },
     {
       headerName: "Статус",
@@ -134,36 +154,57 @@ export default function Content({
       editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
-        return (
-          <Link
-            style={{ textDecoration: "none", color: "#1D6BF3" }}
-            to={cellValues.row.review}
-            target="blank"
-          >
-            {cellValues.row.review}
-          </Link>
-        );
+        if (REGEX_URL.test(cellValues.value)) {
+          return (
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#1D6BF3",
+                overflow: "hidden",
+              }}
+              to={cellValues.row.review}
+              target="blank"
+            >
+              {cellValues.row.review}
+            </Link>
+          );
+        }
       },
     },
     {
       headerName: "Хабр",
       headerAlign: "center",
       align: "center",
-      field: "userHabr",
+      field: "content",
       width: 214,
-      editable: true,
+      editable: false,
       disableColumnMenu: true,
       renderCell: (cellValues) => {
-        return (
-          <Link
-            style={{ textDecoration: "none", color: "#1D6BF3" }}
-            to={cellValues.row.userHabr}
-            target="blank"
-          >
-            {cellValues.row.userHabr}
-          </Link>
-        );
+        if (REGEX_URL.test(cellValues.value)) {
+          return (
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#1D6BF3",
+                overflow: "hidden",
+              }}
+              to={cellValues.row.content}
+              target="blank"
+            >
+              {cellValues.row.content}
+            </Link>
+          );
+        }
       },
+    },
+    {
+      headerName: "Комментарий",
+      headerAlign: "center",
+      align: "center",
+      field: "comment",
+      width: 300,
+      editable: true,
+      disableColumnMenu: true,
     },
   ];
 

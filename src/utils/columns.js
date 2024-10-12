@@ -35,8 +35,8 @@ export const HISTORY_COLUMN = [
     headerName: "Дата/Время",
     headerAlign: "center",
     align: "center",
-    field: "userData",
-    width: 140,
+    field: "action_time",
+    width: 240,
   },
   {
     headerName: "Раздел",
@@ -54,17 +54,10 @@ export const HISTORY_COLUMN = [
     sortable: false,
   },
   {
-    headerName: "ФИО",
-    headerAlign: "center",
-    align: "center",
-    field: "userName",
-    width: 220
-  },
-  {
     headerName: "Действие",
     headerAlign: "center",
     align: "center",
-    field: "userAction",
-    width: 340,
+    field: "object_repr",
+    width: 440,
   },
 ];
