@@ -56,5 +56,5 @@ npm start
 Проект откроется в дефолтном браузере.
 
 <p align="center">
-  <img src="https://github.com/DezmonDND/hackathon-yandex-ambassadors-frontend/blob/main/preview.png?raw=true" alt="Превью's custom image"/>
+  <img src="https://github.com/DezmonDND/hackathon-yandex-ambassadors-frontend/blob/mocks/preview.png?raw=true" alt="Превью's custom image"/>
 </p>
